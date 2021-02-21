@@ -2,17 +2,6 @@
 
 ![imagc-icon](img/imagc.png)
 
-## Introduction - EN
-```txt
-Image Editor simpler that ever existed but,
-full of features..
-
-The ImaGC allow to user:
-- add logos to images;
-- resize image if necessary;
-- convert to ico;
-```
-
 ## Intodução - PT
 ```txt
 Editor de Imagens mais simples que já existiu
