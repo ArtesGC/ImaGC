@@ -17,7 +17,7 @@ class ImaGC_GUI:
     def __init__(self):
         self.gc = QApplication(argv)
         self.ferramentas = QWidget()
-        self.ferramentas.setFixedSize(1000, 500)
+        self.ferramentas.setFixedSize(900, 500)
         self.ferramentas.setWindowTitle("ImaGC")
         self.ferramentas.setWindowIcon(QIcon("img/imagc.png"))
         self.ferramentas.setPalette(QPalette(QColor("orange")))
