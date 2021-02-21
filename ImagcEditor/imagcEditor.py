@@ -10,13 +10,15 @@
 
 import os
 from PIL import Image
+from typing import Tuple
 
 
 class ImaGC:
-    def __init__(self, nome_logotipo: str = None, nome_imagem: str = None, dir_imagem: str = None):
+    def __init__(self, nome_logotipo: str = None, nome_imagem: str = None, dir_imagem: str = None, dimensao_ico: tuple = None):
         self.nome_logotipo = nome_logotipo
         self.nome_imagem = nome_imagem
         self.dir_imagem = dir_imagem
+        self.dimensao_ico = dimensao_ico
 
     def addLogo(self):
         if self.dir_imagem and self.nome_logotipo:
@@ -75,15 +77,15 @@ class ImaGC:
             return "\t***[Adicionando Logo]***\n" + "[x_x] - Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n"
 
     def convertendoIcone(self):
-        ICON_SIZES = [(256, 256), (128, 128), (64, 64), (32, 32), (16, 16)]
+        os.makedirs('../ImaGC-ico', exist_ok=True)
         if self.nome_imagem:
             try:
-                os.mkdir("ImaGC-icone", exist_ok=True)
                 img_to_icon = Image.open(self.nome_imagem)
-                for size in ICON_SIZES:
+                for size in self.dimensao_ico:
                     nome = f"../ImaGC-ico/imagc-{size}x{size}.ico"
-                    print(f"[i] - Criando o icone {nome}..")
-                    img_to_icon.save(nome, sizes=size)
+                print(f"[i] - Criando o icone {nome}..")
+                img_to_icon.resize(self.dimensao_ico)
+                img_to_icon.save(nome)
             except Exception as erro:
                 print(f"[x] - {erro}..")
         else:

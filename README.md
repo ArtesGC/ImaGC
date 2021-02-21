@@ -2,14 +2,14 @@
 
 ![imagc-icon](img/imagc.png)
 
-## Intodução - PT
+## Intodução
 ```txt
 Editor de Imagens mais simples que já existiu
 porém, igualmente cheio de funções..
 
 O ImaGC permite ao usuario:
 - adicionar logotipos as imagens;
-- redefinir o tamanho da imagem se necessário;
+- redefine automaticamente o tamanho da imagem se necessário;
 - converter para ico;
 ```
 

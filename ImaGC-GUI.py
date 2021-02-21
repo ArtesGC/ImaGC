@@ -26,6 +26,8 @@ class ImaGC_GUI:
         self.nomeImagem = None
         self.nomeLogo = None
         self.dirImagem = None
+        self.botaoIco = None
+        self.nomeImagemBotao = None
 
         # ******* menu *******
         menu = QToolBar(self.ferramentas)
@@ -138,14 +140,15 @@ class ImaGC_GUI:
         layoutImagem = QFormLayout()
         self.nomeImagem = QLineEdit()
         self.nomeImagem.setReadOnly(True)
-        nomeImagemBotao = QPushButton("Procurar Imagem")
-        nomeImagemBotao.setDefault(True)
-        nomeImagemBotao.clicked.connect(self.procurarImagem)
+        self.nomeImagemBotao = QPushButton("Procurar Imagem")
+        self.nomeImagemBotao.setDefault(True)
+        self.nomeImagemBotao.setCheckable(True)
+        self.nomeImagemBotao.clicked.connect(self.procurarImagem)
         botaoVerImagem = QPushButton("Visualizar Imagem")
         botaoVerImagem.setDefault(True)
         botaoVerImagem.clicked.connect(visualizarImagem)
         layoutImagem.addRow("<b>Adicionar logotipo a uma unica imagem: *</b>", self.nomeImagem)
-        layoutImagem.addWidget(nomeImagemBotao)
+        layoutImagem.addWidget(self.nomeImagemBotao)
         layoutImagem.addWidget(botaoVerImagem)
         layout.addLayout(layoutImagem)
 
@@ -162,48 +165,96 @@ class ImaGC_GUI:
         self.janela1.setLayout(layout)
 
     def converterIco(self):
+        def converter():
+            if botao16.isChecked():
+                size = (16, 16)
+            elif botao32.isChecked():
+                size = (32, 32)
+            elif botao64.isChecked():
+                size = (64, 64)
+            elif botao128.isChecked():
+                size = (128, 128)
+            elif botao256.isChecked():
+                size = (256, 256)
+
+            ImaGC(nome_imagem=self.nomeImagem.text(), dimensao_ico=size).convertendoIcone()
+            QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
+
+        def visualizarImagem():
+            janelaImagem = QDialog()
+            janelaImagem.setWindowIcon(QIcon("img/imagc.png"))
+            janelaImagem.setWindowTitle("Visualizar Imagem")
+            janelaImagem.setPalette(QPalette(QColor("orange")))
+
+            layoutJanelaImagem = QVBoxLayout()
+            labelImagem = QLabel()
+            labelImagem.setToolTip("Apresentação do logotipo!")
+            labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}"))
+            layoutJanelaImagem.addWidget(labelImagem)
+
+            _fechar = lambda: janelaImagem.destroy(True)
+            botaoFechar = QPushButton("Fechar")
+            botaoFechar.setDefault(True)
+            botaoFechar.clicked.connect(_fechar)
+            layoutJanelaImagem.addWidget(botaoFechar)
+
+            janelaImagem.setLayout(layoutJanelaImagem)
+            janelaImagem.show()
+
         layout = QVBoxLayout()
 
         labelIntro = QLabel("<b>Converter para Ico</b>")
         labelIntro.setAlignment(Qt.AlignCenter)
         layout.addWidget(labelIntro)
 
-        labelImagem = QLabel("...")
-        labelImagem.setToolTip("Apresentação da imagem!")
-        layout.addWidget(labelImagem)
-
         self.nomeImagem = QLineEdit()
         self.nomeImagem.setReadOnly(True)
         layout.addWidget(self.nomeImagem)
 
-        botaoImagem = QPushButton("Procurar Imagem")
-        botaoImagem.setDefault(True)
-        botaoImagem.clicked.connect("")
-        layout.addWidget(botaoImagem)
+        self.botaoIco = QPushButton("Procurar Imagem")
+        self.botaoIco.setDefault(True)
+        self.botaoIco.setCheckable(True)
+        self.botaoIco.clicked.connect(self.procurarImagem)
+        layout.addWidget(self.botaoIco)
+
+        botaoVerImagem = QPushButton("Visualizar Imagem")
+        botaoVerImagem.setDefault(True)
+        botaoVerImagem.clicked.connect(visualizarImagem)
+        layout.addWidget(botaoVerImagem)
 
         layoutConverter = QHBoxLayout()
         labelInfo = QLabel("<i>Selecione a dimensão do icone:</i>")
         labelInfo.setAlignment(Qt.AlignCenter)
         layoutConverter.addWidget(labelInfo)
+
         botao16 = QPushButton("16x16")
         botao16.setDefault(True)
         botao16.setCheckable(True)
+        botao16.clicked.connect(converter)
         layoutConverter.addWidget(botao16)
+
         botao32 = QPushButton("32x32")
         botao32.setDefault(True)
         botao32.setCheckable(True)
+        botao32.clicked.connect(converter)
         layoutConverter.addWidget(botao32)
+
         botao64 = QPushButton("64x64")
         botao64.setDefault(True)
         botao64.setCheckable(True)
+        botao64.clicked.connect(converter)
         layoutConverter.addWidget(botao64)
+
         botao128 = QPushButton("128x128")
         botao128.setDefault(True)
         botao128.setCheckable(True)
+        botao128.clicked.connect(converter)
         layoutConverter.addWidget(botao128)
+
         botao256 = QPushButton("256x256")
         botao256.setDefault(True)
         botao256.setCheckable(True)
+        botao256.clicked.connect(converter)
         layoutConverter.addWidget(botao256)
         layout.addLayout(layoutConverter)
 
@@ -220,11 +271,12 @@ class ImaGC_GUI:
     def procurarImagem(self):
         nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Selecione a Imagem", directory="", filter="Image Files (*.png *.jpg *.jpeg)", initialFilter="")
         self.nomeImagem.setText(nomeFicheiro)
-        if self.nomeLogo.text() != "":
-            ImaGC(nome_logotipo=self.nomeLogo.text(), nome_imagem=self.nomeImagem.text()).addLogo()
-        else:
-            QMessageBox.critical(self.ferramentas, "Erro", f"[x_x] - Selecione o logotipo antes de continuar..")
-            self.procurarLogo()
+        if self.nomeImagemBotao.isChecked():
+            if self.nomeLogo.text() != "":
+                ImaGC(nome_logotipo=self.nomeLogo.text(), nome_imagem=self.nomeImagem.text()).addLogo()
+            else:
+                QMessageBox.critical(self.ferramentas, "Erro", f"[x_x] - Selecione o logotipo antes de continuar..")
+                self.procurarLogo()
 
     def procurarDirectorio(self):
         nomeDirectorio = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione a Imagem", directory="")
