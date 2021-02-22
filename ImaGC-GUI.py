@@ -8,22 +8,24 @@
 #  Allah no Comando.                                                           *
 # ******************************************************************************
 
-from ImagcEditor.imagcEditor import Image, ImaGC
+from ImagcEditor import ImaGC
 from PyQt5.Qt import *
 from sys import argv
+import webbrowser
 
 
 class ImaGC_GUI:
     def __init__(self):
         self.gc = QApplication(argv)
         self.ferramentas = QWidget()
-        self.ferramentas.setFixedSize(800, 500)
+        self.ferramentas.setFixedSize(800, 350)
         self.ferramentas.setWindowTitle("ImaGC")
         self.ferramentas.setWindowIcon(QIcon("img/imagc.png"))
-        # self.ferramentas.setPalette(QPalette(QColor("orange")))
+        # self.ferramentas.setPalette(QPalette(QColor("orange")))  # background-color
 
+        # ******* background-image *******
         setBgImage = QImage("img/bg.jpg")
-        sizeBgImage = setBgImage.scaled(QSize(800, 500))  # resize Image to widgets size
+        sizeBgImage = setBgImage.scaled(QSize(800, 350))  # resize Image to widgets size
         palette = QPalette()
         palette.setBrush(QPalette.Window, QBrush(sizeBgImage))
         self.ferramentas.setPalette(palette)
@@ -148,7 +150,6 @@ class ImaGC_GUI:
         self.nomeImagem.setReadOnly(True)
         self.nomeImagemBotao = QPushButton("Procurar Imagem")
         self.nomeImagemBotao.setDefault(True)
-        self.nomeImagemBotao.setCheckable(True)
         self.nomeImagemBotao.clicked.connect(self.procurarImagem)
         botaoVerImagem = QPushButton("Visualizar Imagem")
         botaoVerImagem.setDefault(True)
@@ -168,19 +169,27 @@ class ImaGC_GUI:
         layoutDirImagem.addWidget(dirImagemBotao)
         layout.addLayout(layoutDirImagem)
 
+        browser = lambda p: webbrowser.open('https://artesgc.home.blog')
+        labeCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
+        labeCopyright.setAlignment(Qt.AlignRight)
+        labeCopyright.setToolTip('Acesso a pagina oficial da ArtesGC!')
+        labeCopyright.linkActivated.connect(browser)
+        layout.addWidget(labeCopyright)
+
         self.janela1.setLayout(layout)
 
     def converterIco(self):
         def converter():
-            if botao16.isChecked():
+            size = (0, 0)
+            if botao16.clicked(True):
                 size = (16, 16)
-            elif botao32.isChecked():
+            elif botao32.clicked(True):
                 size = (32, 32)
-            elif botao64.isChecked():
+            elif botao64.clicked(True):
                 size = (64, 64)
-            elif botao128.isChecked():
+            elif botao128.clicked(True):
                 size = (128, 128)
-            elif botao256.isChecked():
+            elif botao256.clicked(True):
                 size = (256, 256)
 
             ImaGC(nome_imagem=self.nomeImagem.text(), dimensao_ico=size).convertendoIcone()
@@ -211,7 +220,7 @@ class ImaGC_GUI:
 
         labelIntro = QLabel("<h2><i>Converter para Ico</i></h2>")
         labelIntro.setAlignment(Qt.AlignCenter)
-        layout.addWidget(labelIntro)
+        layout.addWidget(labelIntro, 5)
 
         self.nomeImagem = QLineEdit()
         self.nomeImagem.setReadOnly(True)
@@ -219,7 +228,6 @@ class ImaGC_GUI:
 
         self.botaoIco = QPushButton("Procurar Imagem")
         self.botaoIco.setDefault(True)
-        self.botaoIco.setCheckable(True)
         self.botaoIco.clicked.connect(self.procurarImagem)
         layout.addWidget(self.botaoIco)
 
@@ -229,41 +237,43 @@ class ImaGC_GUI:
         layout.addWidget(botaoVerImagem)
 
         layoutConverter = QHBoxLayout()
-        labelInfo = QLabel("<i>Selecione a dimensão do icone:</i>")
-        labelInfo.setFont(QFont("", 10))
-        labelInfo.setAlignment(Qt.AlignCenter)
-        layoutConverter.addWidget(labelInfo)
+        labeCopyright = QLabel("<b><i>Selecione a dimensão do icone:</i></b>")
+        labeCopyright.setFont(QFont("", 10))
+        labeCopyright.setAlignment(Qt.AlignCenter)
+        layoutConverter.addWidget(labeCopyright)
 
         botao16 = QPushButton("16x16")
         botao16.setDefault(True)
-        botao16.setCheckable(True)
         botao16.clicked.connect(converter)
         layoutConverter.addWidget(botao16)
 
         botao32 = QPushButton("32x32")
         botao32.setDefault(True)
-        botao32.setCheckable(True)
         botao32.clicked.connect(converter)
         layoutConverter.addWidget(botao32)
 
         botao64 = QPushButton("64x64")
         botao64.setDefault(True)
-        botao64.setCheckable(True)
         botao64.clicked.connect(converter)
         layoutConverter.addWidget(botao64)
 
         botao128 = QPushButton("128x128")
         botao128.setDefault(True)
-        botao128.setCheckable(True)
         botao128.clicked.connect(converter)
         layoutConverter.addWidget(botao128)
 
         botao256 = QPushButton("256x256")
         botao256.setDefault(True)
-        botao256.setCheckable(True)
         botao256.clicked.connect(converter)
         layoutConverter.addWidget(botao256)
         layout.addLayout(layoutConverter)
+
+        browser = lambda p: webbrowser.open('https://artesgc.home.blog')
+        labeCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
+        labeCopyright.setAlignment(Qt.AlignRight)
+        labeCopyright.setToolTip('Acesso a pagina oficial da ArtesGC!')
+        labeCopyright.linkActivated.connect(browser)
+        layout.addWidget(labeCopyright)
 
         self.janela2.setLayout(layout)
 
@@ -278,7 +288,7 @@ class ImaGC_GUI:
     def procurarImagem(self):
         nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Selecione a Imagem", directory="", filter="Image Files (*.png *.jpg *.jpeg)", initialFilter="")
         self.nomeImagem.setText(nomeFicheiro)
-        if self.nomeImagemBotao.isChecked():
+        if self.nomeImagemBotao.isDown():
             if self.nomeLogo.text() != "":
                 ImaGC(nome_logotipo=self.nomeLogo.text(), nome_imagem=self.nomeImagem.text()).addLogo()
             else:
