@@ -180,20 +180,12 @@ class ImaGC_GUI:
 
     def converterIco(self):
         def converter():
-            size = (0, 0)
-            if botao16.clicked(True):
-                size = (16, 16)
-            elif botao32.clicked(True):
-                size = (32, 32)
-            elif botao64.clicked(True):
-                size = (64, 64)
-            elif botao128.clicked(True):
-                size = (128, 128)
-            elif botao256.clicked(True):
-                size = (256, 256)
-
-            ImaGC(nome_imagem=self.nomeImagem.text(), dimensao_ico=size).convertendoIcone()
-            QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
+            dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
+            try:
+                ImaGC(dir_salvar=dirSalvar, nome_imagem=self.nomeImagem.text()).convertendoIcone()
+                QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
+            except Exception as erro:
+                QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
 
         def visualizarImagem():
             janelaImagem = QDialog()
@@ -242,27 +234,7 @@ class ImaGC_GUI:
         labeCopyright.setAlignment(Qt.AlignCenter)
         layoutConverter.addWidget(labeCopyright)
 
-        botao16 = QPushButton("16x16")
-        botao16.setDefault(True)
-        botao16.clicked.connect(converter)
-        layoutConverter.addWidget(botao16)
-
-        botao32 = QPushButton("32x32")
-        botao32.setDefault(True)
-        botao32.clicked.connect(converter)
-        layoutConverter.addWidget(botao32)
-
-        botao64 = QPushButton("64x64")
-        botao64.setDefault(True)
-        botao64.clicked.connect(converter)
-        layoutConverter.addWidget(botao64)
-
-        botao128 = QPushButton("128x128")
-        botao128.setDefault(True)
-        botao128.clicked.connect(converter)
-        layoutConverter.addWidget(botao128)
-
-        botao256 = QPushButton("256x256")
+        botao256 = QPushButton("Converter (16x32x64x128x256)")
         botao256.setDefault(True)
         botao256.clicked.connect(converter)
         layoutConverter.addWidget(botao256)
@@ -290,7 +262,8 @@ class ImaGC_GUI:
         self.nomeImagem.setText(nomeFicheiro)
         if self.nomeImagemBotao.isDown():
             if self.nomeLogo.text() != "":
-                ImaGC(nome_logotipo=self.nomeLogo.text(), nome_imagem=self.nomeImagem.text()).addLogo()
+                dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
+                ImaGC(dir_salvar=dirSalvar, nome_logotipo=self.nomeLogo.text(), nome_imagem=self.nomeImagem.text()).addLogo()
             else:
                 QMessageBox.critical(self.ferramentas, "Erro", f"[x_x] - Selecione o logotipo antes de continuar..")
                 self.procurarLogo()
@@ -299,7 +272,8 @@ class ImaGC_GUI:
         nomeDirectorio = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione a Imagem", directory="")
         self.dirImagem.setText(nomeDirectorio)
         if self.nomeLogo.text() != "":
-            ImaGC(nome_logotipo=self.nomeLogo.text(), dir_imagem=self.dirImagem.text()).addLogo()
+            dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
+            ImaGC(dir_salvar=dirSalvar, nome_logotipo=self.nomeLogo.text(), dir_imagem=self.dirImagem.text()).addLogo()
         else:
             QMessageBox.critical(self.ferramentas, "Erro", f"[x_x] - Selecione o logotipo antes de continuar..")
             self.procurarLogo()
