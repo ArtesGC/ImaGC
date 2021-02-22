@@ -209,12 +209,16 @@ Empresa: ArtesGC Inc.""")
 
     def converterIco(self):
         def converter():
-            dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-            try:
-                ImaGC(dir_salvar=dirSalvar, nome_imagem=self.nomeImagem.text()).convertendoIcone()
-                QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
-            except Exception as erro:
-                QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
+            if self.nomeImagem.text() == "":
+                QMessageBox.critical(self.ferramentas, "Erro", f"Selecione a imagem antes de continuar e tente novamente..")
+                self.procurarImagem()
+            else:
+                try:
+                    dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
+                    ImaGC(dir_salvar=dirSalvar, nome_imagem=self.nomeImagem.text()).convertendoIcone()
+                    QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
+                except Exception as erro:
+                    QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
 
         def visualizarImagem():
             if self.nomeImagem.text() == "":
