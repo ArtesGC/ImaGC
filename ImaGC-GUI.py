@@ -18,14 +18,14 @@ class ImaGC_GUI:
     def __init__(self):
         self.gc = QApplication(argv)
         self.ferramentas = QWidget()
-        self.ferramentas.setFixedSize(800, 350)
+        self.ferramentas.setFixedSize(800, 400)
         self.ferramentas.setWindowTitle("ImaGC")
         self.ferramentas.setWindowIcon(QIcon("img/imagc.png"))
         # self.ferramentas.setPalette(QPalette(QColor("orange")))  # background-color
 
         # ******* background-image *******
         setBgImage = QImage("img/bg.jpg")
-        sizeBgImage = setBgImage.scaled(QSize(800, 350))  # resize Image to widgets size
+        sizeBgImage = setBgImage.scaled(QSize(800, 400))  # resize Image to widgets size
         palette = QPalette()
         palette.setBrush(QPalette.Window, QBrush(sizeBgImage))
         self.ferramentas.setPalette(palette)
@@ -73,10 +73,27 @@ class ImaGC_GUI:
 
     # ******* menu-functions *******
     def _instr(self):
-        QMessageBox.information(self.ferramentas, "Instruções", """...""")
+        QMessageBox.information(self.ferramentas, "Instruções", """
+Olaa caro usuário!
+
+É com muito prazer e orgulho que apresento te o ImaGC..
+Um programa simples e cheio de funcionalidades!
+Das quais a sua principal função é de editar imagens,
+adicionando logotipos ou convertendo para (.ico)..
+
+- PARA O ADICIONAMENTO DO LOGOTIPO ELE DEVE TER O FUNDO OU MASCARA TRANSPARENTE!
+- PARA A CONVERSÃO DE (.ico) O PROGRAMA SUBESCREVE OS DADOS BINÁRIOS DA IMAGEM E REDEFINE AS DIMENSÕES DA MESMA!
+
+Muito Obrigado pelo apoio!
+© 2019-2021 Nurul Carvalho
+™ ArtesGC Inc""")
 
     def _sobre(self):
-        QMessageBox.information(self.ferramentas, "Sobre", """...""")
+        QMessageBox.information(self.ferramentas, "Sobre", """
+Nome: ImaGC
+Versão: 0.2-022021
+Programador & Designer: Nurul-GC
+Empresa: ArtesGC Inc.""")
 
     def _sair(self):
         self.gc.exit(0)
@@ -84,51 +101,58 @@ class ImaGC_GUI:
     # ******* windows-functions *******
     def adicionarLogo(self):
         def visualizarLogo():
-            janelaLogo = QDialog()
-            janelaLogo.setWindowIcon(QIcon("img/imagc.png"))
-            janelaLogo.setWindowTitle("Visualizar Logo")
-            janelaLogo.setPalette(QPalette(QColor("orange")))
+            if self.nomeLogo.text() == "":
+                QMessageBox.warning(self.ferramentas, "Falha ao apresentar a imagem", "Por favor selecione ou localize a imagem antes de prosseguir..")
+            else:
+                janelaLogo = QDialog()
+                janelaLogo.setWindowIcon(QIcon("img/imagc.png"))
+                janelaLogo.setWindowTitle("Visualizar Logo")
+                janelaLogo.setPalette(QPalette(QColor("orange")))
 
-            layoutJanelaLogo = QVBoxLayout()
-            labelLogo = QLabel()
-            labelLogo.setToolTip("Apresentação do logotipo!")
-            labelLogo.setPixmap(QPixmap(f"{self.nomeLogo.text()}"))
-            layoutJanelaLogo.addWidget(labelLogo)
+                layoutJanelaLogo = QVBoxLayout()
+                labelLogo = QLabel()
+                labelLogo.setToolTip("Apresentação do logotipo!")
+                labelLogo.setPixmap(QPixmap(f"{self.nomeLogo.text()}"))
+                layoutJanelaLogo.addWidget(labelLogo)
 
-            _fechar = lambda: janelaLogo.destroy(True)
-            botaoFechar = QPushButton("Fechar")
-            botaoFechar.setDefault(True)
-            botaoFechar.clicked.connect(_fechar)
-            layoutJanelaLogo.addWidget(botaoFechar)
+                _fechar = lambda: janelaLogo.destroy(True)
+                botaoFechar = QPushButton("Fechar")
+                botaoFechar.setDefault(True)
+                botaoFechar.clicked.connect(_fechar)
+                layoutJanelaLogo.addWidget(botaoFechar)
 
-            janelaLogo.setLayout(layoutJanelaLogo)
-            janelaLogo.show()
+                janelaLogo.setLayout(layoutJanelaLogo)
+                janelaLogo.show()
 
         def visualizarImagem():
-            janelaImagem = QDialog()
-            janelaImagem.setWindowIcon(QIcon("img/imagc.png"))
-            janelaImagem.setWindowTitle("Visualizar Imagem")
-            janelaImagem.setPalette(QPalette(QColor("orange")))
+            if self.nomeImagem.text() == "":
+                QMessageBox.warning(self.ferramentas, "Falha ao apresentar a imagem", "Por favor selecione ou localize a imagem antes de prosseguir..")
+            else:
+                janelaImagem = QDialog()
+                janelaImagem.setWindowIcon(QIcon("img/imagc.png"))
+                janelaImagem.setWindowTitle("Visualizar Imagem")
+                janelaImagem.setPalette(QPalette(QColor("orange")))
 
-            layoutJanelaImagem = QVBoxLayout()
-            labelImagem = QLabel()
-            labelImagem.setToolTip("Apresentação do logotipo!")
-            labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}"))
-            layoutJanelaImagem.addWidget(labelImagem)
+                layoutJanelaImagem = QVBoxLayout()
+                labelImagem = QLabel()
+                labelImagem.setToolTip("Apresentação do logotipo!")
+                labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}"))
+                layoutJanelaImagem.addWidget(labelImagem)
 
-            _fechar = lambda: janelaImagem.destroy(True)
-            botaoFechar = QPushButton("Fechar")
-            botaoFechar.setDefault(True)
-            botaoFechar.clicked.connect(_fechar)
-            layoutJanelaImagem.addWidget(botaoFechar)
+                _fechar = lambda: janelaImagem.destroy(True)
+                botaoFechar = QPushButton("Fechar")
+                botaoFechar.setDefault(True)
+                botaoFechar.clicked.connect(_fechar)
+                layoutJanelaImagem.addWidget(botaoFechar)
 
-            janelaImagem.setLayout(layoutJanelaImagem)
-            janelaImagem.show()
+                janelaImagem.setLayout(layoutJanelaImagem)
+                janelaImagem.show()
 
         layout = QVBoxLayout()
 
         labelIntro = QLabel("<h2><i>Adicionar Logotipo</i></h2>")
         labelIntro.setAlignment(Qt.AlignCenter)
+        labelIntro.setFont(QFont("", 20))
         layout.addWidget(labelIntro)
 
         layoutLogo = QFormLayout()
@@ -151,11 +175,15 @@ class ImaGC_GUI:
         self.nomeImagemBotao = QPushButton("Procurar Imagem")
         self.nomeImagemBotao.setDefault(True)
         self.nomeImagemBotao.clicked.connect(self.procurarImagem)
+        botaoAddLogoImagem = QPushButton("Adicionar Logo a Imagem")
+        botaoAddLogoImagem.setDefault(True)
+        botaoAddLogoImagem.clicked.connect(self.addLogoImagem)
         botaoVerImagem = QPushButton("Visualizar Imagem")
         botaoVerImagem.setDefault(True)
         botaoVerImagem.clicked.connect(visualizarImagem)
         layoutImagem.addRow("<b>Adicionar logotipo a uma unica imagem: *</b>", self.nomeImagem)
         layoutImagem.addWidget(self.nomeImagemBotao)
+        layoutImagem.addWidget(botaoAddLogoImagem)
         layoutImagem.addWidget(botaoVerImagem)
         layout.addLayout(layoutImagem)
 
@@ -164,6 +192,7 @@ class ImaGC_GUI:
         self.dirImagem.setReadOnly(True)
         dirImagemBotao = QPushButton("Localizar Directório")
         dirImagemBotao.setDefault(True)
+        dirImagemBotao.setToolTip("o logotipo sera adicionado as imagens automaticamente!")
         dirImagemBotao.clicked.connect(self.procurarDirectorio)
         layoutDirImagem.addRow("<b>Adicionar logotipo a várias imagens: *</b>", self.dirImagem)
         layoutDirImagem.addWidget(dirImagemBotao)
@@ -188,30 +217,34 @@ class ImaGC_GUI:
                 QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
 
         def visualizarImagem():
-            janelaImagem = QDialog()
-            janelaImagem.setWindowIcon(QIcon("img/imagc.png"))
-            janelaImagem.setWindowTitle("Visualizar Imagem")
-            janelaImagem.setPalette(QPalette(QColor("orange")))
+            if self.nomeImagem.text() == "":
+                QMessageBox.warning(self.ferramentas, "Falha ao apresentar a imagem", "Por favor selecione ou localize a imagem antes de prosseguir..")
+            else:
+                janelaImagem = QDialog()
+                janelaImagem.setWindowIcon(QIcon("img/imagc.png"))
+                janelaImagem.setWindowTitle("Visualizar Imagem")
+                janelaImagem.setPalette(QPalette(QColor("orange")))
 
-            layoutJanelaImagem = QVBoxLayout()
-            labelImagem = QLabel()
-            labelImagem.setToolTip("Apresentação do logotipo!")
-            labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}"))
-            layoutJanelaImagem.addWidget(labelImagem)
+                layoutJanelaImagem = QVBoxLayout()
+                labelImagem = QLabel()
+                labelImagem.setToolTip("Apresentação do logotipo!")
+                labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}"))
+                layoutJanelaImagem.addWidget(labelImagem)
 
-            _fechar = lambda: janelaImagem.destroy(True)
-            botaoFechar = QPushButton("Fechar")
-            botaoFechar.setDefault(True)
-            botaoFechar.clicked.connect(_fechar)
-            layoutJanelaImagem.addWidget(botaoFechar)
+                _fechar = lambda: janelaImagem.destroy(True)
+                botaoFechar = QPushButton("Fechar")
+                botaoFechar.setDefault(True)
+                botaoFechar.clicked.connect(_fechar)
+                layoutJanelaImagem.addWidget(botaoFechar)
 
-            janelaImagem.setLayout(layoutJanelaImagem)
-            janelaImagem.show()
+                janelaImagem.setLayout(layoutJanelaImagem)
+                janelaImagem.show()
 
         layout = QVBoxLayout()
 
         labelIntro = QLabel("<h2><i>Converter para Ico</i></h2>")
         labelIntro.setAlignment(Qt.AlignCenter)
+        labelIntro.setFont(QFont("", 20))
         layout.addWidget(labelIntro, 5)
 
         self.nomeImagem = QLineEdit()
@@ -229,7 +262,7 @@ class ImaGC_GUI:
         layout.addWidget(botaoVerImagem)
 
         layoutConverter = QHBoxLayout()
-        labeCopyright = QLabel("<b><i>Selecione a dimensão do icone:</i></b>")
+        labeCopyright = QLabel("<b><i>Converta para icone com dimensões diferentes:</i></b>")
         labeCopyright.setFont(QFont("", 10))
         labeCopyright.setAlignment(Qt.AlignCenter)
         layoutConverter.addWidget(labeCopyright)
@@ -260,13 +293,15 @@ class ImaGC_GUI:
     def procurarImagem(self):
         nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Selecione a Imagem", directory="", filter="Image Files (*.png *.jpg *.jpeg)", initialFilter="")
         self.nomeImagem.setText(nomeFicheiro)
-        if self.nomeImagemBotao.isDown():
-            if self.nomeLogo.text() != "":
-                dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-                ImaGC(dir_salvar=dirSalvar, nome_logotipo=self.nomeLogo.text(), nome_imagem=self.nomeImagem.text()).addLogo()
-            else:
-                QMessageBox.critical(self.ferramentas, "Erro", f"[x_x] - Selecione o logotipo antes de continuar..")
-                self.procurarLogo()
+
+    def addLogoImagem(self):
+        if self.nomeLogo.text() != "":
+            dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
+            ImaGC(dir_salvar=dirSalvar, nome_logotipo=self.nomeLogo.text(), nome_imagem=self.nomeImagem.text()).addLogo()
+            QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
+        else:
+            QMessageBox.critical(self.ferramentas, "Erro", f"[x_x] - Selecione o logotipo antes de continuar..")
+            self.procurarLogo()
 
     def procurarDirectorio(self):
         nomeDirectorio = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione a Imagem", directory="")
@@ -274,6 +309,7 @@ class ImaGC_GUI:
         if self.nomeLogo.text() != "":
             dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
             ImaGC(dir_salvar=dirSalvar, nome_logotipo=self.nomeLogo.text(), dir_imagem=self.dirImagem.text()).addLogo()
+            QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
         else:
             QMessageBox.critical(self.ferramentas, "Erro", f"[x_x] - Selecione o logotipo antes de continuar..")
             self.procurarLogo()
