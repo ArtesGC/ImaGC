@@ -8,9 +8,14 @@
 #  Allah no Comando.                                                           *
 # ******************************************************************************
 
+from datetime import datetime
 import os
 from PIL import Image
 from typing import Tuple
+import logging
+
+os.makedirs("Debug", exist_ok=True)
+logging.basicConfig(filename=f"{datetime.date(datetime.today())}-imagc.log", level=logging.DEBUG, format=' %(asctime)s - %(levelname)s - %(message)s')
 
 
 class ImaGC:
@@ -42,12 +47,12 @@ class ImaGC:
 
                 try:
                     # Add logo.
-                    print(f'Adicionando logo a imagem {filename}...')
+                    logging.debug(f'Adicionando logo a imagem {filename}...')
                     im.paste(logoIm, (width - logoWidth, height - logoHeight), logoIm)
                     # Save changes.
                     im.save(os.path.join('../ImaGC-logo', f"{filename}"))
                 except Exception as erro:
-                    print(f"[x] - {erro}..")
+                    logging.critical(f"[x] - {erro}..")
                     continue
         elif self.nome_imagem and self.nome_logotipo:
             SQUARE_FIT_SIZE = 100
@@ -67,31 +72,32 @@ class ImaGC:
 
             try:
                 # Add logo.
-                print(f'[i] - Adicionando logo a imagem {filename}...')
+                logging.debug(f'[i] - Adicionando logo a imagem {filename}...')
                 im.paste(logoIm, (width - logoWidth, height - logoHeight), logoIm)
                 # Save changes.
                 im.save(os.path.join('../ImaGC-logo', f"{filename}"))
             except Exception as erro:
-                print(f"[x] - {erro}..")
+                logging.critical(f"[x] - {erro}..")
         else:
-            return "\t***[Adicionando Logo]***\n" + "[x_x] - Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n"
+            logging.critical("\t***[Adicionando Logo]***\n" + "[x_x] - Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
 
     def convertendoIcone(self):
-        os.makedirs('../ImaGC-ico', exist_ok=True)
-        if self.nome_imagem:
+        if self.nome_imagem and self.dimensao_ico:
             try:
+                os.makedirs('../ImaGC-ico', exist_ok=True)
                 img_to_icon = Image.open(self.nome_imagem)
                 for size in self.dimensao_ico:
                     nome = f"../ImaGC-ico/imagc-{size}x{size}.ico"
-                print(f"[i] - Criando o icone {nome}..")
                 img_to_icon.resize(self.dimensao_ico)
                 img_to_icon.save(nome)
+                logging.debug(f"[i] - Criando o icone {nome}.. SUCESSO!")
             except Exception as erro:
-                print(f"[x] - {erro}..")
+                logging.critical(f"[x] - {erro}..")
         else:
-            return "\t***[Convertendo para Ico]***\n" + "[x_x] - Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n"
+            logging.critical("\t***[Convertendo para Ico]***\n" + "[x_x] - Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
 
 
+logging.info('*'*50)
 if __name__ == '__main__':
     print("""
     [***] ImaGC [***]

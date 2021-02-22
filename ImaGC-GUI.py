@@ -17,10 +17,16 @@ class ImaGC_GUI:
     def __init__(self):
         self.gc = QApplication(argv)
         self.ferramentas = QWidget()
-        self.ferramentas.setFixedSize(900, 500)
+        self.ferramentas.setFixedSize(800, 500)
         self.ferramentas.setWindowTitle("ImaGC")
         self.ferramentas.setWindowIcon(QIcon("img/imagc.png"))
-        self.ferramentas.setPalette(QPalette(QColor("orange")))
+        # self.ferramentas.setPalette(QPalette(QColor("orange")))
+
+        setBgImage = QImage("img/bg.jpg")
+        sizeBgImage = setBgImage.scaled(QSize(800, 500))  # resize Image to widgets size
+        palette = QPalette()
+        palette.setBrush(QPalette.Window, QBrush(sizeBgImage))
+        self.ferramentas.setPalette(palette)
 
         # ******* var *******
         self.nomeImagem = None
@@ -119,7 +125,7 @@ class ImaGC_GUI:
 
         layout = QVBoxLayout()
 
-        labelIntro = QLabel("<b>Add Logos</b>")
+        labelIntro = QLabel("<h2><i>Adicionar Logotipo</i></h2>")
         labelIntro.setAlignment(Qt.AlignCenter)
         layout.addWidget(labelIntro)
 
@@ -203,7 +209,7 @@ class ImaGC_GUI:
 
         layout = QVBoxLayout()
 
-        labelIntro = QLabel("<b>Converter para Ico</b>")
+        labelIntro = QLabel("<h2><i>Converter para Ico</i></h2>")
         labelIntro.setAlignment(Qt.AlignCenter)
         layout.addWidget(labelIntro)
 
@@ -224,6 +230,7 @@ class ImaGC_GUI:
 
         layoutConverter = QHBoxLayout()
         labelInfo = QLabel("<i>Selecione a dimensão do icone:</i>")
+        labelInfo.setFont(QFont("", 10))
         labelInfo.setAlignment(Qt.AlignCenter)
         layoutConverter.addWidget(labelInfo)
 
