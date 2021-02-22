@@ -300,18 +300,18 @@ Empresa: ArtesGC Inc.""")
             ImaGC(dir_salvar=dirSalvar, nome_logotipo=self.nomeLogo.text(), nome_imagem=self.nomeImagem.text()).addLogo()
             QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
         else:
-            QMessageBox.critical(self.ferramentas, "Erro", f"[x_x] - Selecione o logotipo antes de continuar..")
+            QMessageBox.critical(self.ferramentas, "Erro", f"Selecione o logotipo antes de continuar e tente novamente..")
             self.procurarLogo()
 
     def procurarDirectorio(self):
         nomeDirectorio = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione a Imagem", directory="")
-        self.dirImagem.setText(nomeDirectorio)
         if self.nomeLogo.text() != "":
+            self.dirImagem.setText(nomeDirectorio)
             dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
             ImaGC(dir_salvar=dirSalvar, nome_logotipo=self.nomeLogo.text(), dir_imagem=self.dirImagem.text()).addLogo()
             QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
         else:
-            QMessageBox.critical(self.ferramentas, "Erro", f"[x_x] - Selecione o logotipo antes de continuar..")
+            QMessageBox.critical(self.ferramentas, "Erro", f"Selecione o logotipo antes de continuar e tente novamente..")
             self.procurarLogo()
 
 
