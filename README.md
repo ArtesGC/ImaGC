@@ -37,12 +37,13 @@ O ImaGC permite ao usuario:
 `erro ao converter para ico`
 ![erro-converter-ico](img/07.png)
 
-**Para melhor experiência e confirmação da capacidade do programa
+**Para melhor experiência e confirmação da capacidade do programa \
 disponibilizei nas pastas `./ImaGC-ico` e `./ImaGC-logo` algumas imagens exemplares \
 convertidas em (.ico) e com logotipo adicionado..**
 
 ***Faça Bom Proveito!***
 
 ---
+
 &copy; 2019-2021 [Nurul Carvalho](mailto:nuruldecarvalho@gmail.com) \
 &trade; [ArtesGC](https://artesgc.home.blog)
