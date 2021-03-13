@@ -3,6 +3,7 @@
 ![imagc-icon](img/imagc.png)
 
 ## Intodução
+
 ```txt
 Editor de Imagens mais simples que já existiu
 porém, igualmente cheio de funções..
@@ -12,6 +13,7 @@ O ImaGC permite ao usuario:
 - redefine automaticamente o tamanho da imagem se necessário;
 - converter para ico;
 ```
+
 _**OBS: os logotipos devem ter uma mascara (fundo) transparente!**_
 
 ## Demonstração
@@ -35,10 +37,11 @@ _**OBS: os logotipos devem ter uma mascara (fundo) transparente!**_
 `erro ao converter para ico`
 ![erro-converter-ico](img/07.png)
 
-**Para melhor experiência e confirmação da capacidade do programa disponibilizei \
-nas pastas `./ImaGC-ico` e `./ImaGC-logo` as imagens exemplares \
-convertidas em (.ico) e com logotipo adicionado.. \
-Faça Bom Proveito!**
+**Para melhor experiência e confirmação da capacidade do programa
+disponibilizei nas pastas `./ImaGC-ico` e `./ImaGC-logo` algumas imagens exemplares \
+convertidas em (.ico) e com logotipo adicionado..**
+
+***Faça Bom Proveito!***
 
 ---
 &copy; 2019-2021 [Nurul Carvalho](mailto:nuruldecarvalho@gmail.com) \
