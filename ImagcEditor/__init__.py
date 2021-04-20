@@ -88,17 +88,42 @@ class ImaGC:
         else:
             logging.critical("\t***[Adicionando Logo]***\n" + "[x_x] - Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
 
-    def convertendoIcone(self):
+    def convertendoIcone(self, _size: int = None):
+        nome = ""
         if self.nome_imagem:
             try:
-                SIZES = [[(16, 16)], [(32, 32)], [(64, 64)], [(128, 128)], [(256, 256)]]
+                SIZES = [[(16, 16)], [(32, 32)], [(128, 128)], [(256, 256)]]
                 img_to_icon = Image.open(self.nome_imagem)
-                for size in SIZES:
+                if _size == 16:
+                    size = SIZES[0]
                     for sz in size:
                         for s in sz:
                             nome = f"{self.dir_salvar}/imagc-{s}x{s}.ico"
                     img_to_icon.save(nome, sizes=size)
                     logging.debug(f"[i] - Criando o icone {nome}.. SUCESSO!")
+                elif _size == 32:
+                    size = SIZES[1]
+                    for sz in size:
+                        for s in sz:
+                            nome = f"{self.dir_salvar}/imagc-{s}x{s}.ico"
+                    img_to_icon.save(nome, sizes=size)
+                    logging.debug(f"[i] - Criando o icone {nome}.. SUCESSO!")
+                elif _size == 64:
+                    size = SIZES[2]
+                    for sz in size:
+                        for s in sz:
+                            nome = f"{self.dir_salvar}/imagc-{s}x{s}.ico"
+                    img_to_icon.save(nome, sizes=size)
+                    logging.debug(f"[i] - Criando o icone {nome}.. SUCESSO!")
+                elif _size == 256:
+                    size = SIZES[3]
+                    for sz in size:
+                        for s in sz:
+                            nome = f"{self.dir_salvar}/imagc-{s}x{s}.ico"
+                    img_to_icon.save(nome, sizes=size)
+                    logging.debug(f"[i] - Criando o icone {nome}.. SUCESSO!")
+                else:
+                    pass
             except Exception as erro:
                 logging.critical(f"[x] - {erro}..")
         else:
