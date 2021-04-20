@@ -17,7 +17,6 @@ import webbrowser
 
 class ImaGC_GUI:
     def __init__(self):
-        self.gc = QApplication(argv)
         self.janela = QWidget()
         self.janela.setWindowTitle("ImaGC")
         self.janela.setWindowIcon(QIcon("img/imagc-icon.png"))
@@ -29,7 +28,7 @@ class ImaGC_GUI:
         label.setPixmap(QPixmap("img/imagc.png").scaled(QSize(400, 400)))
         layout.addWidget(label)
 
-        listaIdiomas = ['Set language - Defina o idioma', 'EN', 'PT']
+        listaIdiomas = ['Set language - Defina o idioma', 'English', 'Português']
         self.idiomas = QComboBox()
         self.idiomas.addItems(listaIdiomas)
         layout.addWidget(self.idiomas)
@@ -45,7 +44,7 @@ class ImaGC_GUI:
         self.janela.setLayout(layout)
 
     def iniciar(self):
-        if self.idiomas.currentText() == 'EN':
+        if self.idiomas.currentText() == 'English':
             n = 0
             while n < 101:
                 self.barraIniciar.setValue(n)
@@ -54,7 +53,7 @@ class ImaGC_GUI:
             self.janela.destroy()
             app = ImaGC_GUI.EN()
             app.ferramentas.show()
-        elif self.idiomas.currentText() == 'PT':
+        elif self.idiomas.currentText() == 'Português':
             n = 0
             while n < 101:
                 self.barraIniciar.setValue(n)
@@ -126,26 +125,26 @@ class ImaGC_GUI:
         # ******* menu-functions *******
         def _instr(self):
             QMessageBox.information(self.ferramentas, "Instruções", """
-    Olaa caro usuário!
-    
-    É com muito prazer e orgulho que apresento te o ImaGC..
-    Um programa simples e cheio de funcionalidades!
-    Das quais a sua principal função é de editar imagens,
-    adicionando logotipos ou convertendo para (.ico)..
-    
-    - PARA O ADICIONAMENTO DO LOGOTIPO ELE DEVE TER O FUNDO OU MASCARA TRANSPARENTE!
-    - PARA A CONVERSÃO DE (.ico) O PROGRAMA SUBESCREVE OS DADOS BINÁRIOS DA IMAGEM E REDEFINE AS DIMENSÕES DA MESMA!
-    
-    Muito Obrigado pelo apoio!
-    © 2019-2021 Nurul Carvalho
-    ™ ArtesGC Inc""")
+Olaa caro usuário!
+
+É com muito prazer e orgulho que apresento te o ImaGC..
+Um programa simples e cheio de funcionalidades!
+Das quais a sua principal função é de editar imagens,
+adicionando logotipos ou convertendo para (.ico)..
+
+- PARA O ADICIONAMENTO DO LOGOTIPO ELE DEVE TER O FUNDO OU MASCARA TRANSPARENTE!
+- PARA A CONVERSÃO DE (.ico) O PROGRAMA SUBESCREVE OS DADOS BINÁRIOS DA IMAGEM E REDEFINE AS DIMENSÕES DA MESMA!
+
+Muito Obrigado pelo apoio!
+© 2019-2021 Nurul Carvalho
+™ ArtesGC Inc""")
 
         def _sobre(self):
             QMessageBox.information(self.ferramentas, "Sobre", """
-    Nome: ImaGC
-    Versão: 0.3-042021
-    Programador & Designer: Nurul-GC
-    Empresa: ArtesGC Inc.""")
+Nome: ImaGC
+Versão: 0.3-042021
+Programador & Designer: Nurul-GC
+Empresa: ArtesGC Inc.""")
 
         def _sair(self):
             exit(0)
@@ -205,13 +204,13 @@ class ImaGC_GUI:
             labelIntro = QLabel("<h2><i>Adicionar Logotipo</i></h2>")
             labelIntro.setAlignment(Qt.AlignCenter)
             labelIntro.setFont(QFont("cambria", 20))
-            layout.addWidget(labelIntro)
+            layout.addWidget(labelIntro, 5)
 
             layoutLogo = QFormLayout()
             self.nomeLogo = QLineEdit()
             self.nomeLogo.setReadOnly(True)
             self.nomeLogo.setPlaceholderText("Procure pelo arquivo para obter o seu nome..")
-            layoutLogo.addWidget(self.nomeLogo)
+            layoutLogo.addrow(self.nomeLogo)
 
             botaoLogo = QPushButton("Procurar Logotipo")
             botaoLogo.setDefault(True)
@@ -227,12 +226,12 @@ class ImaGC_GUI:
             self.nomeImagem = QLineEdit()
             self.nomeImagem.setReadOnly(True)
             self.nomeImagem.setPlaceholderText("Procure pela imagem para obter o seu nome..")
-            layoutImagem.addWidget(self.nomeImagem)
+            layoutImagem.addRow(self.nomeImagem)
 
             self.nomeImagemBotao = QPushButton("Procurar Imagem")
             self.nomeImagemBotao.setDefault(True)
             self.nomeImagemBotao.clicked.connect(self.procurarImagem)
-            layoutImagem.addWidget(self.nomeImagemBotao)
+            layoutImagem.addRow(self.nomeImagemBotao)
 
             botaoAddLogoImagem = QPushButton("Adicionar Logo a Imagem")
             botaoAddLogoImagem.setDefault(True)
@@ -243,6 +242,7 @@ class ImaGC_GUI:
             botaoVerImagem.clicked.connect(visualizarImagem)
             layoutImagem.addRow(botaoAddLogoImagem, botaoVerImagem)
             layout.addLayout(layoutImagem)
+            layout.addStretch(2)
 
             self.dirImagem = QLineEdit()
             self.dirImagem.setReadOnly(True)
@@ -279,7 +279,7 @@ class ImaGC_GUI:
                         QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
 
             def visualizarImagem():
-                if self.nomeImagem.text() == "":
+                if self.nomeImagem.text() == "" or self.nomeImagem.text().isspace():
                     QMessageBox.warning(self.ferramentas, "Falha ao apresentar a imagem", "Por favor selecione a imagem antes de prosseguir..")
                 else:
                     janelaImagem = QDialog()
@@ -328,7 +328,7 @@ class ImaGC_GUI:
             labelConverter = QLabel("<b><i>Converta para ícone com dimensões diferentes:</i></b>")
             labelConverter.setFont(QFont("cambria", 10))
             labelConverter.setAlignment(Qt.AlignCenter)
-            layoutConverter.addWidget(labelConverter)
+            layoutConverter.addRow(labelConverter)
 
             botaoConverter = QPushButton("Converter")
             botaoConverter.setDefault(True)
@@ -446,27 +446,27 @@ class ImaGC_GUI:
         # ******* menu-functions *******
         def _instr(self):
             QMessageBox.information(self.ferramentas, "Instructions", """
-    Hello dear user!
+Hello dear user!
 
-    It is with great pleasure and pride that I present the ImaGC to you.
-    A simple and full of features program!
-    Of which its main function is to edit images.
-    Adding logos or converting to (.ico)..
-    
-    - TO ADD THE LOGO IT MUST HAVE THE BACKGROUND OR TRANSPARENT MASCARA!
-    - FOR THE CONVERSION OF (.ico) THE PROGRAM SUBSCRIBES THE BINARY DATA OF THE IMAGE
-    AND REDEFINES THE DIMENSIONS OF THE SAME!
-    
-    Thank you very much for your support!
-    © 2019-2021 Nurul Carvalho
-    ™ ArtesGC Inc""")
+It is with great pleasure and pride that I present the ImaGC to you.
+A simple and full of features program!
+Of which its main function is to edit images.
+Adding logos or converting to (.ico)..
+
+- TO ADD THE LOGO IT MUST HAVE THE BACKGROUND OR TRANSPARENT MASCARA!
+- FOR THE CONVERSION OF (.ico) THE PROGRAM SUBSCRIBES THE BINARY DATA OF THE IMAGE
+AND REDEFINES THE DIMENSIONS OF THE SAME!
+
+Thank you very much for your support!
+© 2019-2021 Nurul Carvalho
+™ ArtesGC Inc""")
 
         def _sobre(self):
             QMessageBox.information(self.ferramentas, "About", """
-    Name: ImaGC
-    Version: 0.3-042021
-    Programmer & Designer: Nurul-GC
-    Company: ArtesGC Inc.""")
+Name: ImaGC
+Version: 0.3-042021
+Programmer & Designer: Nurul-GC
+Company: ArtesGC Inc.""")
 
         def _sair(self):
             exit(0)
@@ -526,13 +526,13 @@ class ImaGC_GUI:
             labelIntro = QLabel("<h2><i>Add Logo</i></h2>")
             labelIntro.setAlignment(Qt.AlignCenter)
             labelIntro.setFont(QFont("cambria", 20))
-            layout.addWidget(labelIntro)
+            layout.addWidget(labelIntro, 5)
 
             layoutLogo = QFormLayout()
             self.nomeLogo = QLineEdit()
             self.nomeLogo.setReadOnly(True)
             self.nomeLogo.setPlaceholderText("Search the file to provide his name..")
-            layoutLogo.addWidget(self.nomeLogo)
+            layoutLogo.addRow(self.nomeLogo)
 
             botaoLogo = QPushButton("Search Logo")
             botaoLogo.setDefault(True)
@@ -548,12 +548,12 @@ class ImaGC_GUI:
             self.nomeImagem = QLineEdit()
             self.nomeImagem.setReadOnly(True)
             self.nomeImagem.setPlaceholderText("Search the image to provide his name..")
-            layoutImagem.addWidget(self.nomeImagem)
+            layoutImagem.addRow(self.nomeImagem)
 
             self.nomeImagemBotao = QPushButton("Search Image")
             self.nomeImagemBotao.setDefault(True)
             self.nomeImagemBotao.clicked.connect(self.procurarImagem)
-            layoutImagem.addWidget(self.nomeImagemBotao)
+            layoutImagem.addRow(self.nomeImagem)
 
             botaoAddLogoImagem = QPushButton("Add Logo to Image")
             botaoAddLogoImagem.setDefault(True)
@@ -564,6 +564,7 @@ class ImaGC_GUI:
             botaoVerImagem.clicked.connect(visualizarImagem)
             layoutImagem.addRow(botaoAddLogoImagem, botaoVerImagem)
             layout.addLayout(layoutImagem)
+            layout.addStretch(2)
 
             self.dirImagem = QLineEdit()
             self.dirImagem.setReadOnly(True)
@@ -600,7 +601,7 @@ class ImaGC_GUI:
                         QMessageBox.critical(self.ferramentas, "Error", f"{erro}..")
 
             def visualizarImagem():
-                if self.nomeImagem.text() == "":
+                if self.nomeImagem.text() == "" or self.nomeImagem.text().isspace():
                     QMessageBox.warning(self.ferramentas, "Failed to display the image", "Please select the image before proceeding..")
                 else:
                     janelaImagem = QDialog()
@@ -649,7 +650,7 @@ class ImaGC_GUI:
             labelConverter = QLabel("<b><i>Convert to icon with different dimensions:</i></b>")
             labelConverter.setFont(QFont("cambria", 10))
             labelConverter.setAlignment(Qt.AlignCenter)
-            layoutConverter.addWidget(labelConverter)
+            layoutConverter.addRow(labelConverter)
 
             botaoConverter = QPushButton("Convert")
             botaoConverter.setDefault(True)
@@ -709,6 +710,7 @@ class ImaGC_GUI:
 
 
 if __name__ == '__main__':
+    gc = QApplication(argv)
     gcApp = ImaGC_GUI()
     gcApp.janela.show()
-    gcApp.gc.exec_()
+    gc.exec_()
