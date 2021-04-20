@@ -2,46 +2,45 @@
 
 ![imagc-icon](img/imagc.png)
 
-## Intodução
+## Intro
 
 ```txt
-Editor de Imagens mais simples que já existiu
-porém, igualmente cheio de funções..
+Simplest Image Editor that ever existed,
+but also full of functions..
 
-O ImaGC permite ao usuario:
-- adicionar logotipos as imagens;
-- redefine automaticamente o tamanho da imagem se necessário;
-- converter uma imagem selecionada para icone (.ico);
+The ImaGC allows the user:
+- add logos to images;
+- automatically resizes the image if necessary;
+- convert a selected image to an icon (.ico);
 ```
 
-***OBS: os logotipos devem ter uma mascara (fundo) transparente!***
+***OBS: logos should have a transparent (background) mask!***
 
-## Demonstração
+## Demo
 
-![demo-01](img/01.png)
-![demo-02](img/02.png)
+![demo-01](img/demo/intro.png)
+![demo-02](img/demo/intro-info.png)
+![demo-03](img/demo/intro-init.png)
+![demo-04](img/demo/addlogo-en.png)
 
-## Instruções e Informações
+## Instructions and Information
 
-![instrucao-programa](img/03.png)
-![informacao-programa](img/04.png)
+![instrucao-programa](img/demo/instr-en.png)
+![informacao-programa](img/demo/about-en.png)
 
-## Erros
+## Error
 
-`falha ao visualizar imagem`
-![falha-visualizar-imagem](img/05.png)
+`fail to display image`
+![falha-visualizar-imagem](img/demo/error-01.png)
 
-`erro ao adicionar logotipo a imagem`
-![erro-adicionar-logo](img/06.png)
+`error trying to convert ico`
+![erro-converter-ico](img/demo/error-02.png)
 
-`erro ao converter para ico`
-![erro-converter-ico](img/07.png)
+**For better experience and confirmation of program capacity \
+I made it available in the folders `./ImaGC-ico` and `./ImaGC-logo` some exemplary images \
+converted into (.ico) and with a logo added…**
 
-**Para melhor experiência e confirmação da capacidade do programa \
-disponibilizei nas pastas `./ImaGC-ico` e `./ImaGC-logo` algumas imagens exemplares \
-convertidas em (.ico) e com logotipo adicionado..**
-
-***Faça Bom Proveito!***
+***Enjoy!***
 
 ---
 
