@@ -17,8 +17,8 @@ import logging
 __author__ = "Nurul Carvalho"
 __email__ = "nuruldecarvalho@gmail.com"
 __github_profile__ = "https://github.com/Nurul-GC"
-__version__ = "0.1-022021"
-__copyright__ = "© 2019-2021 Nurul-GC"
+__version__ = "0.3-042021"
+__copyright__ = "© 2021 Nurul-GC"
 __trademark__ = "ArtesGC Inc"
 __trade_website_ = "https://artesgc.home.blog"
 
