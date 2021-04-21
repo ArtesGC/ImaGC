@@ -21,6 +21,7 @@ class ImaGC_GUI:
         self.janela.setWindowTitle("ImaGC")
         self.janela.setWindowIcon(QIcon("img/imagc-icon.png"))
         self.janela.setPalette(QPalette(QColor('black')))
+        self.janela.setStyleSheet('color: black;')
 
         layout = QVBoxLayout()
 
