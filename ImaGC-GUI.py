@@ -10,7 +10,7 @@
 
 from ImagcEditor import ImaGC
 from PyQt5.Qt import *
-from sys import argv
+from sys import argv, exit
 from time import sleep
 import webbrowser
 
