@@ -38,33 +38,32 @@ class ImaGC_GUI:
         self.barraIniciar.setOrientation(Qt.Horizontal)
         layout.addWidget(self.barraIniciar)
 
-        botaoIniciar = QPushButton('Iniciar..')
+        botaoIniciar = QPushButton('In..')
         botaoIniciar.clicked.connect(self.iniciar)
         layout.addWidget(botaoIniciar)
 
         self.janela.setLayout(layout)
 
     def iniciar(self):
+        n = 0
         if self.idiomas.currentText() == 'English':
-            n = 0
             while n < 101:
                 self.barraIniciar.setValue(n)
-                sleep(0.2)
+                sleep(0.3)
                 n += 2
             self.janela.destroy()
             app = ImaGC_GUI.EN()
             app.ferramentas.show()
         elif self.idiomas.currentText() == 'Português':
-            n = 0
             while n < 101:
                 self.barraIniciar.setValue(n)
-                sleep(0.2)
+                sleep(0.3)
                 n += 2
             self.janela.destroy()
             app = ImaGC_GUI.PT()
             app.ferramentas.show()
         else:
-            QMessageBox.information(self.janela, "Infor", "- Please select a language!\n- Por favor selecione um idioma!")
+            QMessageBox.information(self.janela, "Info", "- Please select a language!\n- Por favor selecione um idioma!")
 
     # ******* portuguese-program *******
     class PT:
