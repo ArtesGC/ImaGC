@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "ImaGC"
-#define MyAppVersion "0.2-022021"
+#define MyAppVersion "0.3.042021"
 #define MyAppPublisher "ArtesGC, Inc."
 #define MyAppURL "http://artesgc.home.blog/"
 #define MyAppExeName "ImaGC.exe"
@@ -19,39 +19,41 @@ AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 VersionInfoCompany={#MyAppPublisher}
-VersionInfoCopyright="2019-2021 Nurul Carvalho"
-VersionInfoDescription="Editor de imagens"
+VersionInfoCopyright="(c) 2021 Nurul Carvalho"
+VersionInfoDescription="An easy way to add logos to your images or convert to ico"
 VersionInfoOriginalFileName={#MyAppName}
 VersionInfoProductName={#MyAppName}
 VersionInfoProductTextVersion={#MyAppVersion}
-; VersionInfoProductVersion={#MyAppVersion}
-; VersionInfoVersion={#MyAppVersion}
+VersionInfoProductVersion={#MyAppVersion}
+VersionInfoTextVersion={#MyAppVersion}
+VersionInfoVersion={#MyAppVersion}
 DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DefaultUserInfoName={#MyAppName}
 DefaultUserInfoOrg={#MyAppPublisher}
 DisableProgramGroupPage=yes
-LicenseFile=D:\Projectos\ArtesGC\GC-LicensasOS\license_free(pt).txt
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=D:\Projectos\ImaGC\dist
-OutputBaseFilename=ImaGC
-SetupIconFile=D:\Projectos\ImaGC\ImaGC-ico\imagc-256x256.ico
+OutputBaseFilename={#MyAppName}_{#MyAppVersion}
+SetupIconFile=D:\Projectos\ImaGC\img\icon\imagc-256x256.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
 
 [Languages]
-Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
+Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"; LicenseFile: "D:\Projectos\ArtesGC\GC-LicensasOS\license_BSL(pt).txt";
+Name: "english"; MessagesFile: "compiler:Default.isl"; LicenseFile: "D:\Projectos\ArtesGC\GC-LicensasOS\license_BSL(en).txt"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\Projectos\ImaGC\ImaGC.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Projectos\ImaGC\img\*"; DestDir: "{app}\img"; Flags: ignoreversion recursesubdirs
-Source: "D:\Projectos\ArtesGC\GC-LicensasOS\license_free(pt).txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Projectos\ImaGC\dist\ImaGC.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Projectos\ImaGC\dist\img\*"; DestDir: "{app}\img"; Flags: ignoreversion recursesubdirs
+Source: "D:\Projectos\ArtesGC\GC-LicensasOS\license_BSL(pt).txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Projectos\ArtesGC\GC-LicensasOS\license_BSL(en).txt"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
