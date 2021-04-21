@@ -134,8 +134,8 @@ if __name__ == '__main__':
     print("""
     [***] ImaGC [***]
 -------------------------
-""")
     try:
         ImaGC().addLogo()
     finally:
         ImaGC().convertendoIcone()
+""")

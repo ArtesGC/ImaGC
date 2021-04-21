@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=ImaGC
+Version=0.3
+Exec=ImaGC
+Comment=A simple way to add logos to your images or convert to ico.
+Icon=img/imagc-icon.png
+Type=Application
+Terminal=false
+StartupNotify=true
+Encoding=UTF-8
+Categories=Graphics;
+Comment[pt]=Um modo simples de adicionar logotipos as suas imagens ou converte-las para ico.
+GenericName=ImaGC - image editor
+GenericName[pt]=ImaGC - editor de imagens
+StartupWMClass=ImaGC
