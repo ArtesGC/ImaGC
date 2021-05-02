@@ -1,9 +1,9 @@
 [Desktop Entry]
 Name=ImaGC
-Version=0.3
-Exec=ImaGC
+Version=1.0
+Exec=/usr/local/bin/imagc/ImaGC
 Comment=A simple way to add logos to your images or convert to ico.
-Icon=img/imagc-icon.png
+Icon=/usr/local/bin/imagc/img/imagc-icon.png
 Type=Application
 Terminal=false
 StartupNotify=true
