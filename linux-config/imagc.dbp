@@ -79,6 +79,7 @@ DEALINGS IN THE SOFTWARE.
 Name=ImaGC
 Version=1.0
 Exec=/usr/share/imagc/ImaGC
+Path=/usr/share/imagc/
 Comment=A simple way to add logos to your images or convert to ico.
 Icon=/usr/share/imagc/img/imagc-icon.png
 Type=Application
