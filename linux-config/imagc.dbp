@@ -87,9 +87,9 @@ Terminal=false
 StartupNotify=true
 Encoding=UTF-8
 Categories=Graphics;
-Comment[pt]=Um modo simples de adicionar logotipos as suas imagens ou converte-las para ico.
+Comment[PT]=Um modo simples de adicionar logotipos as suas imagens ou converte-las para ico.
 GenericName=ImaGC - image editor
-GenericName[pt]=ImaGC - editor de imagens
+GenericName[PT]=ImaGC - editor de imagens
 StartupWMClass=ImaGC
 <</MENU>>
 <<BUILD>>
