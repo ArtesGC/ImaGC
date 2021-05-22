@@ -9,10 +9,11 @@
  - MODULO RESPONSAVEL PELA EDIÇÃO DAS IMAGENS
 """
 
-from datetime import datetime
-import os
-from PIL import Image
 import logging
+import os
+from datetime import datetime
+
+from PIL import Image
 
 __author__ = "Nurul Carvalho"
 __email__ = "nuruldecarvalho@gmail.com"
@@ -28,11 +29,11 @@ logging.info('*' * 25 + 'NEW DEBUG' + '*' * 25)
 
 
 class ImaGC:
-    def __init__(self, dir_salvar: str, nome_logotipo: str = None, nome_imagem: str = None, dir_imagem: str = None):
-        self.nome_logotipo = nome_logotipo
-        self.nome_imagem = nome_imagem
-        self.dir_imagem = dir_imagem
-        self.dir_salvar = dir_salvar
+    def __init__(self, _dir_salvar: str, _nome_logotipo: str = None, _nome_imagem: str = None, _dir_imagem: str = None):
+        self.nome_logotipo = _nome_logotipo
+        self.nome_imagem = _nome_imagem
+        self.dir_imagem = _dir_imagem
+        self.dir_salvar = _dir_salvar
 
     def addLogo(self):
         if self.dir_imagem and self.nome_logotipo:
@@ -50,17 +51,17 @@ class ImaGC:
                 im = Image.open(f"{self.dir_imagem}/{filename}")
                 width, height = im.size
 
-                if not (filename.endswith("png") or filename.endswith("jpg") or filename.endswith("jpeg")) or filename == LOGO_FILENAME:
+                if (not filename.endswith("png")) or (not filename.endswith("jpg")) or (not filename.endswith("jpeg")) or (filename == LOGO_FILENAME) or os.path.isdir(filename):
                     continue
 
                 try:
                     # Add logo.
-                    logging.debug(f'Adicionando logo a imagem {filename}... SUCESSO!')
+                    logging.debug(f"- Adicionando logo a imagem '{filename}'... SUCESSO!")
                     im.paste(logoIm, (width - logoWidth, height - logoHeight), logoIm)
                     # Save changes.
                     im.save(os.path.join(f'{self.dir_salvar}', f"imagc-{filename}"))
                 except Exception as erro:
-                    logging.critical(f"[x] - {erro}..")
+                    logging.critical(f"- {erro}..")
                     continue
         elif self.nome_imagem and self.nome_logotipo:
             SQUARE_FIT_SIZE = 100
@@ -79,14 +80,14 @@ class ImaGC:
 
             try:
                 # Add logo.
-                logging.debug(f'[i] - Adicionando logo a imagem {filename}... SUCESSO!')
+                logging.debug(f"- Adicionando logo a imagem '{filename}'... SUCESSO!")
                 im.paste(logoIm, (width - logoWidth, height - logoHeight), logoIm)
                 # Save changes.
                 im.save(f"{self.dir_salvar}/imagc-{filename}")
             except Exception as erro:
-                logging.critical(f"[x] - {erro}..")
+                logging.critical(f"- {erro}..")
         else:
-            logging.critical("\t***[Adicionando Logo]***\n" + "[x_x] - Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
+            logging.critical("- Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
 
     def convertendoIcone(self, _size: int = None):
         nome = ""
@@ -100,42 +101,79 @@ class ImaGC:
                         for s in sz:
                             nome = f"{self.dir_salvar}/imagc-{s}x{s}.ico"
                     img_to_icon.save(nome, sizes=size)
-                    logging.debug(f"[i] - Criando o icone {nome}.. SUCESSO!")
+                    logging.debug(f"- Criando o icone '{nome}'.. SUCESSO!")
                 elif _size == 32:
                     size = SIZES[1]
                     for sz in size:
                         for s in sz:
                             nome = f"{self.dir_salvar}/imagc-{s}x{s}.ico"
                     img_to_icon.save(nome, sizes=size)
-                    logging.debug(f"[i] - Criando o icone {nome}.. SUCESSO!")
+                    logging.debug(f"- Criando o icone '{nome}'.. SUCESSO!")
                 elif _size == 64:
                     size = SIZES[2]
                     for sz in size:
                         for s in sz:
                             nome = f"{self.dir_salvar}/imagc-{s}x{s}.ico"
                     img_to_icon.save(nome, sizes=size)
-                    logging.debug(f"[i] - Criando o icone {nome}.. SUCESSO!")
+                    logging.debug(f"- Criando o icone '{nome}'.. SUCESSO!")
                 elif _size == 256:
                     size = SIZES[3]
                     for sz in size:
                         for s in sz:
                             nome = f"{self.dir_salvar}/imagc-{s}x{s}.ico"
                     img_to_icon.save(nome, sizes=size)
-                    logging.debug(f"[i] - Criando o icone {nome}.. SUCESSO!")
+                    logging.debug(f"- Criando o icone '{nome}'.. SUCESSO!")
                 else:
                     pass
             except Exception as erro:
-                logging.critical(f"[x] - {erro}..")
+                logging.critical(f"- {erro}..")
         else:
-            logging.critical("\t***[Convertendo para Ico]***\n" + "[x_x] - Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
+            logging.critical("- Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
 
-
-if __name__ == '__main__':
-    print("""
-    [***] ImaGC [***]
--------------------------
-    try:
-        ImaGC().addLogo()
-    finally:
-        ImaGC().convertendoIcone()
-""")
+    def redimensionarImagem(self, _size: int):
+        nome = ""
+        if self.nome_imagem:
+            try:
+                SIZES = [[(200, 200)], [(400, 400)], [(600, 600)], [(800, 800)], [(1200, 1200)]]
+                resize_img = Image.open(self.nome_imagem)
+                if _size == 200:
+                    size = SIZES[0]
+                    for sz in size:
+                        for s in sz:
+                            nome = f"{self.dir_salvar}/imagc-{s}x{s}-{self.nome_imagem}"
+                    resize_img.save(nome, sizes=size)
+                    logging.debug(f"- Criando o icone '{nome}'.. SUCESSO!")
+                elif _size == 400:
+                    size = SIZES[1]
+                    for sz in size:
+                        for s in sz:
+                            nome = f"{self.dir_salvar}/imagc-{s}x{s}-{self.nome_imagem}"
+                    resize_img.save(nome, sizes=size)
+                    logging.debug(f"- Criando o icone '{nome}'.. SUCESSO!")
+                elif _size == 600:
+                    size = SIZES[2]
+                    for sz in size:
+                        for s in sz:
+                            nome = f"{self.dir_salvar}/imagc-{s}x{s}-{self.nome_imagem}"
+                    resize_img.save(nome, sizes=size)
+                    logging.debug(f"- Criando o icone '{nome}'.. SUCESSO!")
+                elif _size == 800:
+                    size = SIZES[3]
+                    for sz in size:
+                        for s in sz:
+                            nome = f"{self.dir_salvar}/imagc-{s}x{s}-{self.nome_imagem}"
+                    resize_img.save(nome, sizes=size)
+                    logging.debug(f"- Criando o icone '{nome}'.. SUCESSO!")
+                elif _size == 1200:
+                    size = SIZES[4]
+                    for sz in size:
+                        for s in sz:
+                            nome = f"{self.dir_salvar}/imagc-{s}x{s}-{self.nome_imagem}"
+                    resize_img.save(nome, sizes=size)
+                    logging.debug(f"- Criando o icone '{nome}'.. SUCESSO!")
+                else:
+                    pass
+            except Exception as erro:
+                logging.critical(f"- {erro}..")
+        else:
+            logging.critical("- Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
