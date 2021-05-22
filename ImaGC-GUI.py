@@ -20,7 +20,7 @@ class ImaGC_GUI:
         self.janela = QWidget()
         self.janela.setWindowTitle("ImaGC")
         self.janela.setWindowIcon(QIcon("img/imagc-icon.png"))
-        self.janela.setPalette(QPalette(QColor('black')))
+        self.janela.setPalette(QPalette(QColor('orange')))
         self.janela.setStyleSheet('color: black;')
 
         layout = QVBoxLayout()
@@ -199,18 +199,18 @@ Empresa: ArtesGC Inc.""")
                     janelaImagem.setLayout(layoutJanelaImagem)
                     janelaImagem.show()
 
-            layout = QVBoxLayout()
+            layout = QFormLayout()
+            layout.setSpacing(10)
 
             labelIntro = QLabel("<h2><i>Adicionar Logotipo</i></h2>")
             labelIntro.setAlignment(Qt.AlignCenter)
             labelIntro.setFont(QFont("cambria", 20))
-            layout.addWidget(labelIntro, 5)
+            layout.addRow(labelIntro)
 
-            layoutLogo = QFormLayout()
             self.nomeLogo = QLineEdit()
             self.nomeLogo.setReadOnly(True)
             self.nomeLogo.setPlaceholderText("Procure pelo arquivo para obter o seu nome..")
-            layoutLogo.addRow(self.nomeLogo)
+            layout.addRow(self.nomeLogo)
 
             botaoLogo = QPushButton("Procurar Logotipo")
             botaoLogo.setDefault(True)
@@ -219,42 +219,37 @@ Empresa: ArtesGC Inc.""")
             botaoVerLogo = QPushButton("Visualizar Logotipo")
             botaoVerLogo.setDefault(True)
             botaoVerLogo.clicked.connect(visualizarLogo)
-            layoutLogo.addRow(botaoLogo, botaoVerLogo)
-            layout.addLayout(layoutLogo)
-            layout.addStretch(2)
+            layout.addRow(botaoLogo, botaoVerLogo)
 
-            layoutImagem = QFormLayout()
             self.nomeImagem = QLineEdit()
             self.nomeImagem.setReadOnly(True)
             self.nomeImagem.setPlaceholderText("Procure pela imagem para obter o seu nome..")
-            layoutImagem.addRow(self.nomeImagem)
+            layout.addRow(self.nomeImagem)
 
             self.nomeImagemBotao = QPushButton("Procurar Imagem")
             self.nomeImagemBotao.setDefault(True)
             self.nomeImagemBotao.clicked.connect(self.procurarImagem)
-            layoutImagem.addRow(self.nomeImagemBotao)
-
-            botaoAddLogoImagem = QPushButton("Adicionar Logo a Imagem")
-            botaoAddLogoImagem.setDefault(True)
-            botaoAddLogoImagem.clicked.connect(self.addLogoImagem)
+            layout.addRow(self.nomeImagemBotao)
 
             botaoVerImagem = QPushButton("Visualizar Imagem")
             botaoVerImagem.setDefault(True)
             botaoVerImagem.clicked.connect(visualizarImagem)
-            layoutImagem.addRow(botaoAddLogoImagem, botaoVerImagem)
-            layout.addLayout(layoutImagem)
-            layout.addStretch(2)
+
+            botaoAddLogoImagem = QPushButton("Adicionar Logo a Imagem")
+            botaoAddLogoImagem.setDefault(True)
+            botaoAddLogoImagem.clicked.connect(self.addLogoImagem)
+            layout.addRow(botaoVerImagem, botaoAddLogoImagem)
 
             self.dirImagem = QLineEdit()
             self.dirImagem.setReadOnly(True)
-            self.dirImagem.setPlaceholderText("Localize o diretorio contendo as imagens..")
-            layout.addWidget(self.dirImagem)
+            self.dirImagem.setPlaceholderText("Localize o diretório contendo as imagens..")
+            layout.addRow(self.dirImagem)
 
             dirImagemBotao = QPushButton("Localizar Directório")
             dirImagemBotao.setDefault(True)
             dirImagemBotao.setToolTip("o logotipo sera adicionado as imagens automaticamente!")
             dirImagemBotao.clicked.connect(self.procurarDirectorio)
-            layout.addWidget(dirImagemBotao)
+            layout.addRow(dirImagemBotao)
 
             browser = lambda p: webbrowser.open('https://artesgc.home.blog')
             labeCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
@@ -274,7 +269,7 @@ Empresa: ArtesGC Inc.""")
                     try:
                         QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                         dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-                        ImaGC(dir_salvar=dirSalvar, nome_imagem=self.nomeImagem.text()).convertendoIcone(_size=int(tamanhos.currentText()))
+                        ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagem.text()).convertendoIcone(_size=int(tamanhos.currentText()))
                         QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
                     except Exception as erro:
                         QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
@@ -303,33 +298,33 @@ Empresa: ArtesGC Inc.""")
                     janelaImagem.setLayout(layoutJanelaImagem)
                     janelaImagem.show()
 
-            layout = QVBoxLayout()
+            layout = QFormLayout()
+            layout.setSpacing(10)
 
             labelIntro = QLabel("<h2><i>Converter para Ico</i></h2>")
             labelIntro.setAlignment(Qt.AlignCenter)
             labelIntro.setFont(QFont("cambria", 20))
-            layout.addWidget(labelIntro, 5)
+            layout.addRow(labelIntro)
 
             self.nomeImagem = QLineEdit()
             self.nomeImagem.setReadOnly(True)
             self.nomeImagem.setPlaceholderText("Procure pela imagem para obter o seu nome..")
-            layout.addWidget(self.nomeImagem)
+            layout.addRow(self.nomeImagem)
 
             self.botaoIco = QPushButton("Procurar Imagem")
             self.botaoIco.setDefault(True)
             self.botaoIco.clicked.connect(self.procurarImagem)
-            layout.addWidget(self.botaoIco)
+            layout.addRow(self.botaoIco)
 
             botaoVerImagem = QPushButton("Visualizar Imagem")
             botaoVerImagem.setDefault(True)
             botaoVerImagem.clicked.connect(visualizarImagem)
-            layout.addWidget(botaoVerImagem)
+            layout.addRow(botaoVerImagem)
 
-            layoutConverter = QFormLayout()
             labelConverter = QLabel("<b><i>Converta para ícone com dimensões diferentes:</i></b>")
             labelConverter.setFont(QFont("cambria", 10))
             labelConverter.setAlignment(Qt.AlignCenter)
-            layoutConverter.addRow(labelConverter)
+            layout.addRow(labelConverter)
 
             botaoConverter = QPushButton("Converter")
             botaoConverter.setDefault(True)
@@ -339,8 +334,7 @@ Empresa: ArtesGC Inc.""")
             tamanhos = QComboBox()
             tamanhos.addItems(listaTamanhos)
             tamanhos.setToolTip('Escolha a dimensão!')
-            layoutConverter.addRow(tamanhos, botaoConverter)
-            layout.addLayout(layoutConverter)
+            layout.addRow(tamanhos, botaoConverter)
 
             browser = lambda p: webbrowser.open('https://artesgc.home.blog')
             labelCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
@@ -356,32 +350,30 @@ Empresa: ArtesGC Inc.""")
 
         # ******* imagc-functions *******
         def procurarLogo(self):
-            nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas,
-                                                                        caption="Selecione o Logotipo", filter="Image Files (*.png *.jpg *.jpeg)")
+            nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Selecione o Logotipo", filter="Image Files (*.png *.jpg *.jpeg)")
             self.nomeLogo.setText(nomeFicheiro)
 
         def procurarImagem(self):
-            nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas,
-                                                                        caption="Selecione a Imagem", filter="Image Files (*.png *.jpg *.jpeg)")
+            nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Selecione a Imagem", filter="Image Files (*.png *.jpg *.jpeg)")
             self.nomeImagem.setText(nomeFicheiro)
 
         def addLogoImagem(self):
             if self.nomeLogo.text() != "":
                 QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                 dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-                ImaGC(dir_salvar=dirSalvar, nome_logotipo=self.nomeLogo.text(), nome_imagem=self.nomeImagem.text()).addLogo()
+                ImaGC(_dir_salvar=dirSalvar, _nome_logotipo=self.nomeLogo.text(), _nome_imagem=self.nomeImagem.text()).addLogo()
                 QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
             else:
                 QMessageBox.critical(self.ferramentas, "Erro", f"Selecione o logotipo antes de continuar e tente novamente..")
                 self.procurarLogo()
 
         def procurarDirectorio(self):
-            nomeDirectorio = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione a Imagem")
             if self.nomeLogo.text() != "":
+                nomeDirectorio = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione a Imagem")
                 self.dirImagem.setText(nomeDirectorio)
                 QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                 dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-                ImaGC(dir_salvar=dirSalvar, nome_logotipo=self.nomeLogo.text(), dir_imagem=self.dirImagem.text()).addLogo()
+                ImaGC(_dir_salvar=dirSalvar, _nome_logotipo=self.nomeLogo.text(), _dir_imagem=self.dirImagem.text()).addLogo()
                 QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
             else:
                 QMessageBox.critical(self.ferramentas, "Erro", f"Selecione o logotipo antes de continuar e tente novamente..")
@@ -522,18 +514,18 @@ Company: ArtesGC Inc.""")
                     janelaImagem.setLayout(layoutJanelaImagem)
                     janelaImagem.show()
 
-            layout = QVBoxLayout()
+            layout = QFormLayout()
+            layout.setSpacing(10)
 
             labelIntro = QLabel("<h2><i>Add Logo</i></h2>")
             labelIntro.setAlignment(Qt.AlignCenter)
             labelIntro.setFont(QFont("cambria", 20))
-            layout.addWidget(labelIntro, 5)
+            layout.addRow(labelIntro)
 
-            layoutLogo = QFormLayout()
             self.nomeLogo = QLineEdit()
             self.nomeLogo.setReadOnly(True)
             self.nomeLogo.setPlaceholderText("Search the file to provide his name..")
-            layoutLogo.addRow(self.nomeLogo)
+            layout.addRow(self.nomeLogo)
 
             botaoLogo = QPushButton("Search Logo")
             botaoLogo.setDefault(True)
@@ -542,41 +534,36 @@ Company: ArtesGC Inc.""")
             botaoVerLogo = QPushButton("View Logo")
             botaoVerLogo.setDefault(True)
             botaoVerLogo.clicked.connect(visualizarLogo)
-            layoutLogo.addRow(botaoLogo, botaoVerLogo)
-            layout.addLayout(layoutLogo)
+            layout.addRow(botaoLogo, botaoVerLogo)
 
-            layoutImagem = QFormLayout()
             self.nomeImagem = QLineEdit()
             self.nomeImagem.setReadOnly(True)
             self.nomeImagem.setPlaceholderText("Search the image to provide his name..")
-            layoutImagem.addRow(self.nomeImagem)
+            layout.addRow(self.nomeImagem)
 
             self.nomeImagemBotao = QPushButton("Search Image")
-            self.nomeImagemBotao.setDefault(True)
             self.nomeImagemBotao.clicked.connect(self.procurarImagem)
-            layoutImagem.addRow(self.nomeImagem)
-
-            botaoAddLogoImagem = QPushButton("Add Logo to Image")
-            botaoAddLogoImagem.setDefault(True)
-            botaoAddLogoImagem.clicked.connect(self.addLogoImagem)
+            layout.addRow(self.nomeImagemBotao)
 
             botaoVerImagem = QPushButton("View Image")
             botaoVerImagem.setDefault(True)
             botaoVerImagem.clicked.connect(visualizarImagem)
-            layoutImagem.addRow(botaoAddLogoImagem, botaoVerImagem)
-            layout.addLayout(layoutImagem)
-            layout.addStretch(2)
+
+            botaoAddLogoImagem = QPushButton("Add Logo to Image")
+            botaoAddLogoImagem.setDefault(True)
+            botaoAddLogoImagem.clicked.connect(self.addLogoImagem)
+            layout.addRow(botaoVerImagem, botaoAddLogoImagem)
 
             self.dirImagem = QLineEdit()
             self.dirImagem.setReadOnly(True)
             self.dirImagem.setPlaceholderText("Find the directory containing the images..")
-            layout.addWidget(self.dirImagem)
+            layout.addRow(self.dirImagem)
 
             dirImagemBotao = QPushButton("Find Directory")
             dirImagemBotao.setDefault(True)
             dirImagemBotao.setToolTip("the logo will be added to the images automatically!")
             dirImagemBotao.clicked.connect(self.procurarDirectorio)
-            layout.addWidget(dirImagemBotao)
+            layout.addRow(dirImagemBotao)
 
             browser = lambda p: webbrowser.open('https://artesgc.home.blog')
             labelCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
@@ -596,7 +583,7 @@ Company: ArtesGC Inc.""")
                     try:
                         QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
                         dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
-                        ImaGC(dir_salvar=dirSalvar, nome_imagem=self.nomeImagem.text()).convertendoIcone(_size=int(tamanhos.currentText()))
+                        ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagem.text()).convertendoIcone(_size=int(tamanhos.currentText()))
                         QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
                     except Exception as erro:
                         QMessageBox.critical(self.ferramentas, "Error", f"{erro}..")
@@ -625,33 +612,33 @@ Company: ArtesGC Inc.""")
                     janelaImagem.setLayout(layoutJanelaImagem)
                     janelaImagem.show()
 
-            layout = QVBoxLayout()
+            layout = QFormLayout()
+            layout.setSpacing(10)
 
             labelIntro = QLabel("<h2><i>Convert to Ico</i></h2>")
             labelIntro.setAlignment(Qt.AlignCenter)
             labelIntro.setFont(QFont("cambria", 20))
-            layout.addWidget(labelIntro, 5)
+            layout.addRow(labelIntro, 5)
 
             self.nomeImagem = QLineEdit()
             self.nomeImagem.setReadOnly(True)
             self.nomeImagem.setPlaceholderText('Search the image to provide his name..')
-            layout.addWidget(self.nomeImagem)
+            layout.addRow(self.nomeImagem)
 
             self.botaoIco = QPushButton("Search Image")
             self.botaoIco.setDefault(True)
             self.botaoIco.clicked.connect(self.procurarImagem)
-            layout.addWidget(self.botaoIco)
+            layout.addRow(self.botaoIco)
 
-            botaoVerImagem = QPushButton("Visualize Image")
+            botaoVerImagem = QPushButton("View Image")
             botaoVerImagem.setDefault(True)
             botaoVerImagem.clicked.connect(visualizarImagem)
-            layout.addWidget(botaoVerImagem)
+            layout.addRow(botaoVerImagem)
 
-            layoutConverter = QFormLayout()
             labelConverter = QLabel("<b><i>Convert to icon with different dimensions:</i></b>")
             labelConverter.setFont(QFont("cambria", 10))
             labelConverter.setAlignment(Qt.AlignCenter)
-            layoutConverter.addRow(labelConverter)
+            layout.addRow(labelConverter)
 
             botaoConverter = QPushButton("Convert")
             botaoConverter.setDefault(True)
@@ -661,8 +648,7 @@ Company: ArtesGC Inc.""")
             tamanhos = QComboBox()
             tamanhos.addItems(listaTamanhos)
             tamanhos.setToolTip('Choose the size!')
-            layoutConverter.addRow(tamanhos, botaoConverter)
-            layout.addLayout(layoutConverter)
+            layout.addRow(tamanhos, botaoConverter)
 
             browser = lambda p: webbrowser.open('https://artesgc.home.blog')
             labelCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
@@ -678,32 +664,30 @@ Company: ArtesGC Inc.""")
 
         # ******* imagc-functions *******
         def procurarLogo(self):
-            nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas,
-                                                                        caption="Select the Logo", filter="Image Files (*.png *.jpg *.jpeg)")
+            nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Select the Logo", filter="Image Files (*.png *.jpg *.jpeg)")
             self.nomeLogo.setText(nomeFicheiro)
 
         def procurarImagem(self):
-            nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas,
-                                                                        caption="Select Image", filter="Image Files (*.png *.jpg *.jpeg)")
+            nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Select Image", filter="Image Files (*.png *.jpg *.jpeg)")
             self.nomeImagem.setText(nomeFicheiro)
 
         def addLogoImagem(self):
             if self.nomeLogo.text() != "":
                 QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
                 dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
-                ImaGC(dir_salvar=dirSalvar, nome_logotipo=self.nomeLogo.text(), nome_imagem=self.nomeImagem.text()).addLogo()
+                ImaGC(_dir_salvar=dirSalvar, _nome_logotipo=self.nomeLogo.text(), _nome_imagem=self.nomeImagem.text()).addLogo()
                 QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
             else:
                 QMessageBox.critical(self.ferramentas, "Error", f"Select the logo before continuing and try again..")
                 self.procurarLogo()
 
         def procurarDirectorio(self):
-            nomeDirectorio = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select the Image")
             if self.nomeLogo.text() != "":
+                nomeDirectorio = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select the Image")
                 self.dirImagem.setText(nomeDirectorio)
                 QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
                 dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
-                ImaGC(dir_salvar=dirSalvar, nome_logotipo=self.nomeLogo.text(), dir_imagem=self.dirImagem.text()).addLogo()
+                ImaGC(_dir_salvar=dirSalvar, _nome_logotipo=self.nomeLogo.text(), _dir_imagem=self.dirImagem.text()).addLogo()
                 QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
             else:
                 QMessageBox.critical(self.ferramentas, "Error", f"Select the logo before continuing and try again..")
