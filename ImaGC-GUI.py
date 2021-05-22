@@ -69,14 +69,14 @@ class ImaGC_GUI:
     class PT:
         def __init__(self):
             self.ferramentas = QWidget()
-            self.ferramentas.setFixedSize(800, 400)
+            self.ferramentas.setFixedSize(QSize(800, 500))
             self.ferramentas.setWindowTitle("ImaGC")
             self.ferramentas.setWindowIcon(QIcon("img/imagc-icon.png"))
             # self.ferramentas.setPalette(QPalette(QColor("orange")))  # background-color
 
             # ******* background-image *******
             setBgImage = QImage("img/bg.jpg")
-            sizeBgImage = setBgImage.scaled(QSize(800, 400))  # resize Image to widget's size
+            sizeBgImage = setBgImage.scaled(QSize(800, 500))  # resize Image to widget's size
             palette = QPalette()
             palette.setBrush(QPalette.Window, QBrush(sizeBgImage))
             self.ferramentas.setPalette(palette)
@@ -99,20 +99,24 @@ class ImaGC_GUI:
 
             # ******* list-options *******
             self.listaJanelas = QListWidget(self.ferramentas)
-            self.listaJanelas.setFixedSize(150, 36)
+            self.listaJanelas.setFixedSize(QSize(200, 55))
             self.listaJanelas.addItem("Adicionar Logotipo")
             self.listaJanelas.addItem("Converter para Ico")
+            self.listaJanelas.addItem("Redimensionar Imagem")
 
             # ******* init-windows *******
             self.janela1 = QWidget()
             self.adicionarLogo()
             self.janela2 = QWidget()
             self.converterIco()
+            self.janela3 = QWidget()
+            self.redimensionarImagem()
 
             # ******* stack *******
             self.stack = QStackedWidget(self.ferramentas)
             self.stack.addWidget(self.janela1)
             self.stack.addWidget(self.janela2)
+            self.stack.addWidget(self.janela3)
 
             # ******* layout-principal *******
             hbox = QHBoxLayout()
@@ -162,9 +166,15 @@ Empresa: ArtesGC Inc.""")
 
                     layoutJanelaLogo = QVBoxLayout()
                     labelLogo = QLabel()
+                    labelLogo.setAlignment(Qt.AlignCenter)
                     labelLogo.setToolTip("Apresentação do logotipo!")
-                    labelLogo.setPixmap(QPixmap(f"{self.nomeLogo.text()}"))
+                    labelLogo.setPixmap(QPixmap(f"{self.nomeLogo.text()}").scaled(QSize(400, 400)))
                     layoutJanelaLogo.addWidget(labelLogo)
+
+                    infoImage = QLabel(f"""<b>Nome & Localização</b>: {self.nomeLogo.text()}<br>
+<b>Dimensões (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeLogo.text())} px<br>
+<b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeLogo.text())}""")
+                    layoutJanelaLogo.addWidget(infoImage)
 
                     _fechar = lambda: janelaLogo.destroy(True)
                     botaoFechar = QPushButton("Fechar")
@@ -186,9 +196,15 @@ Empresa: ArtesGC Inc.""")
 
                     layoutJanelaImagem = QVBoxLayout()
                     labelImagem = QLabel()
+                    labelImagem.setAlignment(Qt.AlignCenter)
                     labelImagem.setToolTip("Apresentação do logotipo!")
-                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}"))
+                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}").scaled(QSize(400, 400)))
                     layoutJanelaImagem.addWidget(labelImagem)
+
+                    infoImage = QLabel(f"""<b>Nome & Localização</b>: {self.nomeImagem.text()}<br>
+<b>Dimensões (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagem.text())} px<br>
+<b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeImagem.text())}""")
+                    layoutJanelaImagem.addWidget(infoImage)
 
                     _fechar = lambda: janelaImagem.destroy(True)
                     botaoFechar = QPushButton("Fechar")
@@ -199,17 +215,19 @@ Empresa: ArtesGC Inc.""")
                     janelaImagem.setLayout(layoutJanelaImagem)
                     janelaImagem.show()
 
+            spacer = QLabel()
             layout = QFormLayout()
             layout.setSpacing(10)
 
             labelIntro = QLabel("<h2><i>Adicionar Logotipo</i></h2>")
             labelIntro.setAlignment(Qt.AlignCenter)
-            labelIntro.setFont(QFont("cambria", 20))
+            labelIntro.setFont(QFont("times", 20))
             layout.addRow(labelIntro)
+            layout.addWidget(spacer)
 
             self.nomeLogo = QLineEdit()
             self.nomeLogo.setReadOnly(True)
-            self.nomeLogo.setPlaceholderText("Procure pelo arquivo para obter o seu nome..")
+            self.nomeLogo.setPlaceholderText("Procure pela imagem para obter o seu nome..")
             layout.addRow(self.nomeLogo)
 
             botaoLogo = QPushButton("Procurar Logotipo")
@@ -220,6 +238,7 @@ Empresa: ArtesGC Inc.""")
             botaoVerLogo.setDefault(True)
             botaoVerLogo.clicked.connect(visualizarLogo)
             layout.addRow(botaoLogo, botaoVerLogo)
+            layout.addWidget(spacer)
 
             self.nomeImagem = QLineEdit()
             self.nomeImagem.setReadOnly(True)
@@ -239,6 +258,7 @@ Empresa: ArtesGC Inc.""")
             botaoAddLogoImagem.setDefault(True)
             botaoAddLogoImagem.clicked.connect(self.addLogoImagem)
             layout.addRow(botaoVerImagem, botaoAddLogoImagem)
+            layout.addWidget(spacer)
 
             self.dirImagem = QLineEdit()
             self.dirImagem.setReadOnly(True)
@@ -285,9 +305,15 @@ Empresa: ArtesGC Inc.""")
 
                     layoutJanelaImagem = QVBoxLayout()
                     labelImagem = QLabel()
+                    labelImagem.setAlignment(Qt.AlignCenter)
                     labelImagem.setToolTip("Apresentação do logotipo!")
-                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}"))
+                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}").scaled(QSize(400, 400)))
                     layoutJanelaImagem.addWidget(labelImagem)
+
+                    infoImage = QLabel(f"""<b>Nome & Localização</b>: {self.nomeImagem.text()}<br>
+<b>Dimensões (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagem.text())} px<br>
+<b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeImagem.text())}""")
+                    layoutJanelaImagem.addWidget(infoImage)
 
                     _fechar = lambda: janelaImagem.destroy(True)
                     botaoFechar = QPushButton("Fechar")
@@ -298,36 +324,37 @@ Empresa: ArtesGC Inc.""")
                     janelaImagem.setLayout(layoutJanelaImagem)
                     janelaImagem.show()
 
+            spacer = QLabel()
             layout = QFormLayout()
             layout.setSpacing(10)
 
             labelIntro = QLabel("<h2><i>Converter para Ico</i></h2>")
             labelIntro.setAlignment(Qt.AlignCenter)
-            labelIntro.setFont(QFont("cambria", 20))
+            labelIntro.setFont(QFont("times", 20))
             layout.addRow(labelIntro)
+            layout.addWidget(spacer)
+            layout.addWidget(spacer)
 
             self.nomeImagem = QLineEdit()
             self.nomeImagem.setReadOnly(True)
             self.nomeImagem.setPlaceholderText("Procure pela imagem para obter o seu nome..")
-            layout.addRow(self.nomeImagem)
 
             self.botaoIco = QPushButton("Procurar Imagem")
-            self.botaoIco.setDefault(True)
             self.botaoIco.clicked.connect(self.procurarImagem)
-            layout.addRow(self.botaoIco)
+            layout.addRow(self.botaoIco, self.nomeImagem)
 
             botaoVerImagem = QPushButton("Visualizar Imagem")
-            botaoVerImagem.setDefault(True)
             botaoVerImagem.clicked.connect(visualizarImagem)
             layout.addRow(botaoVerImagem)
+            layout.addWidget(spacer)
+            layout.addWidget(spacer)
 
             labelConverter = QLabel("<b><i>Converta para ícone com dimensões diferentes:</i></b>")
-            labelConverter.setFont(QFont("cambria", 10))
+            labelConverter.setFont(QFont("times", 10))
             labelConverter.setAlignment(Qt.AlignCenter)
             layout.addRow(labelConverter)
 
             botaoConverter = QPushButton("Converter")
-            botaoConverter.setDefault(True)
             botaoConverter.clicked.connect(converter)
 
             listaTamanhos = ['16', '32', '128', '256']
@@ -335,6 +362,8 @@ Empresa: ArtesGC Inc.""")
             tamanhos.addItems(listaTamanhos)
             tamanhos.setToolTip('Escolha a dimensão!')
             layout.addRow(tamanhos, botaoConverter)
+            layout.addWidget(spacer)
+            layout.addWidget(spacer)
 
             browser = lambda p: webbrowser.open('https://artesgc.home.blog')
             labelCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
@@ -345,10 +374,105 @@ Empresa: ArtesGC Inc.""")
 
             self.janela2.setLayout(layout)
 
+        def redimensionarImagem(self):
+            def redimensionar():
+                if self.nomeImagem.text() == "" or self.nomeImagem.text().isspace():
+                    QMessageBox.critical(self.ferramentas, "Erro", f"Selecione a imagem antes de continuar e tente novamente..")
+                    self.procurarImagem()
+                else:
+                    try:
+                        QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
+                        dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
+                        ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagem.text()).redimensionarImagem(_size=int(tamanhos.currentText()))
+                        QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
+                    except Exception as erro:
+                        QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
+
+            def visualizarImagem():
+                from PIL import Image
+                if self.nomeImagem.text() == "" or self.nomeImagem.text().isspace():
+                    QMessageBox.warning(self.ferramentas, "Falha ao apresentar a imagem", "Por favor selecione a imagem antes de prosseguir..")
+                else:
+                    janelaImagem = QDialog()
+                    janelaImagem.setWindowIcon(QIcon("img/imagc.png"))
+                    janelaImagem.setWindowTitle("Visualizar Imagem")
+                    janelaImagem.setPalette(QPalette(QColor("orange")))
+
+                    layoutJanelaImagem = QVBoxLayout()
+                    labelImagem = QLabel()
+                    labelImagem.setAlignment(Qt.AlignCenter)
+                    labelImagem.setToolTip("Apresentação do logotipo!")
+                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}").scaled(QSize(400, 400)))
+                    layoutJanelaImagem.addWidget(labelImagem)
+
+                    infoImage = QLabel(f"""<b>Nome & Localização</b>: {self.nomeImagem.text()}<br>
+<b>Dimensões (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagem.text())} px<br>
+<b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeImagem.text())}""")
+                    layoutJanelaImagem.addWidget(infoImage)
+
+                    _fechar = lambda: janelaImagem.destroy(True)
+                    botaoFechar = QPushButton("Fechar")
+                    botaoFechar.setDefault(True)
+                    botaoFechar.clicked.connect(_fechar)
+                    layoutJanelaImagem.addWidget(botaoFechar)
+
+                    janelaImagem.setLayout(layoutJanelaImagem)
+                    janelaImagem.show()
+
+            spacer = QLabel()
+            layout = QFormLayout()
+            layout.setSpacing(10)
+
+            labelIntro = QLabel("<h2><i>Redimensionar Imagem</i></h2>")
+            labelIntro.setAlignment(Qt.AlignCenter)
+            labelIntro.setFont(QFont("times", 20))
+            layout.addRow(labelIntro)
+            layout.addWidget(spacer)
+            layout.addWidget(spacer)
+
+            self.nomeImagem = QLineEdit()
+            self.nomeImagem.setReadOnly(True)
+            self.nomeImagem.setPlaceholderText("Procure pela imagem para obter o seu nome..")
+
+            self.botaoIco = QPushButton("Procurar Imagem")
+            self.botaoIco.clicked.connect(self.procurarImagem)
+            layout.addRow(self.botaoIco, self.nomeImagem)
+
+            botaoVerImagem = QPushButton("Visualizar Imagem")
+            botaoVerImagem.clicked.connect(visualizarImagem)
+            layout.addRow(botaoVerImagem)
+            layout.addWidget(spacer)
+            layout.addWidget(spacer)
+
+            labelConverter = QLabel("<b><i>Redimensione a imagem para varios tamanhos:</i></b>")
+            labelConverter.setFont(QFont("times", 10))
+            labelConverter.setAlignment(Qt.AlignCenter)
+            layout.addRow(labelConverter)
+
+            botaoConverter = QPushButton("Redimensionar")
+            botaoConverter.clicked.connect(redimensionar)
+
+            listaTamanhos = ['200', '400', '600', '800', '1200']
+            tamanhos = QComboBox()
+            tamanhos.addItems(listaTamanhos)
+            tamanhos.setToolTip('Escolha a dimensão!')
+            layout.addRow(tamanhos, botaoConverter)
+            layout.addWidget(spacer)
+            layout.addWidget(spacer)
+
+            browser = lambda p: webbrowser.open('https://artesgc.home.blog')
+            labelCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
+            labelCopyright.setAlignment(Qt.AlignRight)
+            labelCopyright.setToolTip('Acesso a pagina oficial da ArtesGC!')
+            labelCopyright.linkActivated.connect(browser)
+            layout.addWidget(labelCopyright)
+
+            self.janela3.setLayout(layout)
+
         def alterarJanela(self, i):
             self.stack.setCurrentIndex(i)
 
-        # ******* imagc-functions *******
+        # ******* background-functions *******
         def procurarLogo(self):
             nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Selecione o Logotipo", filter="Image Files (*.png *.jpg *.jpeg)")
             self.nomeLogo.setText(nomeFicheiro)
@@ -383,14 +507,14 @@ Empresa: ArtesGC Inc.""")
     class EN:
         def __init__(self):
             self.ferramentas = QWidget()
-            self.ferramentas.setFixedSize(800, 400)
+            self.ferramentas.setFixedSize(QSize(800, 500))
             self.ferramentas.setWindowTitle("ImaGC")
             self.ferramentas.setWindowIcon(QIcon("img/imagc-icon.png"))
             # self.ferramentas.setPalette(QPalette(QColor("orange")))  # background-color
 
             # ******* background-image *******
             setBgImage = QImage("img/bg.jpg")
-            sizeBgImage = setBgImage.scaled(QSize(800, 400))  # resize Image to widget's size
+            sizeBgImage = setBgImage.scaled(QSize(800, 500))  # resize Image to widget's size
             palette = QPalette()
             palette.setBrush(QPalette.Window, QBrush(sizeBgImage))
             self.ferramentas.setPalette(palette)
@@ -413,20 +537,24 @@ Empresa: ArtesGC Inc.""")
 
             # ******* list-options *******
             self.listaJanelas = QListWidget(self.ferramentas)
-            self.listaJanelas.setFixedSize(150, 36)
+            self.listaJanelas.setFixedSize(QSize(200, 55))
             self.listaJanelas.addItem("Insert Logo")
             self.listaJanelas.addItem("Convert to Ico")
+            self.listaJanelas.addItem("Resize Image")
 
             # ******* init-windows *******
             self.janela1 = QWidget()
             self.adicionarLogo()
             self.janela2 = QWidget()
             self.converterIco()
+            self.janela3 = QWidget()
+            self.redimensionarImagem()
 
             # ******* stack *******
             self.stack = QStackedWidget(self.ferramentas)
             self.stack.addWidget(self.janela1)
             self.stack.addWidget(self.janela2)
+            self.stack.addWidget(self.janela3)
 
             # ******* layout-principal *******
             hbox = QHBoxLayout()
@@ -477,9 +605,15 @@ Company: ArtesGC Inc.""")
 
                     layoutJanelaLogo = QVBoxLayout()
                     labelLogo = QLabel()
+                    labelLogo.setAlignment(Qt.AlignCenter)
                     labelLogo.setToolTip("Logo presentation!")
-                    labelLogo.setPixmap(QPixmap(f"{self.nomeLogo.text()}"))
+                    labelLogo.setPixmap(QPixmap(f"{self.nomeLogo.text()}").scaled(QSize(400, 400)))
                     layoutJanelaLogo.addWidget(labelLogo)
+
+                    infoImage = QLabel(f"""<b>Name & Location</b>: {self.nomeLogo.text()}<br>
+<b>Scale (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeLogo.text())} px<br>
+<b>Size</b>: {ImaGC().tamanhoImagem(self.nomeLogo.text())}""")
+                    layoutJanelaLogo.addWidget(infoImage)
 
                     _fechar = lambda: janelaLogo.destroy(True)
                     botaoFechar = QPushButton("Close")
@@ -501,9 +635,15 @@ Company: ArtesGC Inc.""")
 
                     layoutJanelaImagem = QVBoxLayout()
                     labelImagem = QLabel()
+                    labelImagem.setAlignment(Qt.AlignCenter)
                     labelImagem.setToolTip("Image presentation!")
-                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}"))
+                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}").scaled(QSize(400, 400)))
                     layoutJanelaImagem.addWidget(labelImagem)
+
+                    infoImage = QLabel(f"""<b>Name & Location</b>: {self.nomeImagem.text()}<br>
+<b>Scale (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagem.text())} px<br>
+<b>Size</b>: {ImaGC().tamanhoImagem(self.nomeImagem.text())}""")
+                    layoutJanelaImagem.addWidget(infoImage)
 
                     _fechar = lambda: janelaImagem.destroy(True)
                     botaoFechar = QPushButton("Close")
@@ -514,17 +654,19 @@ Company: ArtesGC Inc.""")
                     janelaImagem.setLayout(layoutJanelaImagem)
                     janelaImagem.show()
 
+            spacer = QLabel()
             layout = QFormLayout()
             layout.setSpacing(10)
 
             labelIntro = QLabel("<h2><i>Add Logo</i></h2>")
             labelIntro.setAlignment(Qt.AlignCenter)
-            labelIntro.setFont(QFont("cambria", 20))
+            labelIntro.setFont(QFont("times", 20))
             layout.addRow(labelIntro)
+            layout.addWidget(spacer)
 
             self.nomeLogo = QLineEdit()
             self.nomeLogo.setReadOnly(True)
-            self.nomeLogo.setPlaceholderText("Search the file to provide his name..")
+            self.nomeLogo.setPlaceholderText("Search the image to provide his name..")
             layout.addRow(self.nomeLogo)
 
             botaoLogo = QPushButton("Search Logo")
@@ -535,6 +677,7 @@ Company: ArtesGC Inc.""")
             botaoVerLogo.setDefault(True)
             botaoVerLogo.clicked.connect(visualizarLogo)
             layout.addRow(botaoLogo, botaoVerLogo)
+            layout.addWidget(spacer)
 
             self.nomeImagem = QLineEdit()
             self.nomeImagem.setReadOnly(True)
@@ -553,6 +696,7 @@ Company: ArtesGC Inc.""")
             botaoAddLogoImagem.setDefault(True)
             botaoAddLogoImagem.clicked.connect(self.addLogoImagem)
             layout.addRow(botaoVerImagem, botaoAddLogoImagem)
+            layout.addWidget(spacer)
 
             self.dirImagem = QLineEdit()
             self.dirImagem.setReadOnly(True)
@@ -599,9 +743,15 @@ Company: ArtesGC Inc.""")
 
                     layoutJanelaImagem = QVBoxLayout()
                     labelImagem = QLabel()
+                    labelImagem.setAlignment(Qt.AlignCenter)
                     labelImagem.setToolTip("Image presentation!")
-                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}"))
+                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}").scaled(QSize(400, 400)))
                     layoutJanelaImagem.addWidget(labelImagem)
+
+                    infoImage = QLabel(f"""<b>Name & Location</b>: {self.nomeImagem.text()}<br>
+<b>Scale (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagem.text())} px<br>
+<b>Size</b>: {ImaGC().tamanhoImagem(self.nomeImagem.text())}""")
+                    layoutJanelaImagem.addWidget(infoImage)
 
                     _fechar = lambda: janelaImagem.destroy(True)
                     botaoFechar = QPushButton("Close")
@@ -612,36 +762,37 @@ Company: ArtesGC Inc.""")
                     janelaImagem.setLayout(layoutJanelaImagem)
                     janelaImagem.show()
 
+            spacer = QLabel()
             layout = QFormLayout()
             layout.setSpacing(10)
 
             labelIntro = QLabel("<h2><i>Convert to Ico</i></h2>")
             labelIntro.setAlignment(Qt.AlignCenter)
-            labelIntro.setFont(QFont("cambria", 20))
-            layout.addRow(labelIntro, 5)
+            labelIntro.setFont(QFont("times", 20))
+            layout.addRow(labelIntro)
+            layout.addWidget(spacer)
+            layout.addWidget(spacer)
 
             self.nomeImagem = QLineEdit()
             self.nomeImagem.setReadOnly(True)
             self.nomeImagem.setPlaceholderText('Search the image to provide his name..')
-            layout.addRow(self.nomeImagem)
 
             self.botaoIco = QPushButton("Search Image")
-            self.botaoIco.setDefault(True)
             self.botaoIco.clicked.connect(self.procurarImagem)
-            layout.addRow(self.botaoIco)
+            layout.addRow(self.botaoIco, self.nomeImagem)
 
             botaoVerImagem = QPushButton("View Image")
-            botaoVerImagem.setDefault(True)
             botaoVerImagem.clicked.connect(visualizarImagem)
             layout.addRow(botaoVerImagem)
+            layout.addWidget(spacer)
+            layout.addWidget(spacer)
 
             labelConverter = QLabel("<b><i>Convert to icon with different dimensions:</i></b>")
-            labelConverter.setFont(QFont("cambria", 10))
+            labelConverter.setFont(QFont("times", 10))
             labelConverter.setAlignment(Qt.AlignCenter)
             layout.addRow(labelConverter)
 
             botaoConverter = QPushButton("Convert")
-            botaoConverter.setDefault(True)
             botaoConverter.clicked.connect(converter)
 
             listaTamanhos = ['16', '32', '128', '256']
@@ -649,6 +800,8 @@ Company: ArtesGC Inc.""")
             tamanhos.addItems(listaTamanhos)
             tamanhos.setToolTip('Choose the size!')
             layout.addRow(tamanhos, botaoConverter)
+            layout.addWidget(spacer)
+            layout.addWidget(spacer)
 
             browser = lambda p: webbrowser.open('https://artesgc.home.blog')
             labelCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
@@ -659,10 +812,104 @@ Company: ArtesGC Inc.""")
 
             self.janela2.setLayout(layout)
 
+        def redimensionarImagem(self):
+            def redimensionar():
+                if self.nomeImagem.text() == "" or self.nomeImagem.text().isspace():
+                    QMessageBox.critical(self.ferramentas, "Error", f"Select the image before continuing and try again..")
+                    self.procurarImagem()
+                else:
+                    try:
+                        QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
+                        dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
+                        ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagem.text()).redimensionarImagem(_size=int(tamanhos.currentText()))
+                        QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
+                    except Exception as erro:
+                        QMessageBox.critical(self.ferramentas, "Error", f"{erro}..")
+
+            def visualizarImagem():
+                if self.nomeImagem.text() == "" or self.nomeImagem.text().isspace():
+                    QMessageBox.warning(self.ferramentas, "Failed to display the image", "Please select the image before proceeding..")
+                else:
+                    janelaImagem = QDialog()
+                    janelaImagem.setWindowIcon(QIcon("img/imagc.png"))
+                    janelaImagem.setWindowTitle("View Image")
+                    janelaImagem.setPalette(QPalette(QColor("orange")))
+
+                    layoutJanelaImagem = QVBoxLayout()
+                    labelImagem = QLabel()
+                    labelImagem.setAlignment(Qt.AlignCenter)
+                    labelImagem.setToolTip("Image presentation!")
+                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}").scaled(QSize(400, 400)))
+                    layoutJanelaImagem.addWidget(labelImagem)
+
+                    infoImage = QLabel(f"""<b>Name & Location</b>: {self.nomeImagem.text()}<br>
+<b>Scale (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagem.text())} px<br>
+<b>Size</b>: {ImaGC().tamanhoImagem(self.nomeImagem.text())}""")
+                    layoutJanelaImagem.addWidget(infoImage)
+
+                    _fechar = lambda: janelaImagem.destroy(True)
+                    botaoFechar = QPushButton("Close")
+                    botaoFechar.setDefault(True)
+                    botaoFechar.clicked.connect(_fechar)
+                    layoutJanelaImagem.addWidget(botaoFechar)
+
+                    janelaImagem.setLayout(layoutJanelaImagem)
+                    janelaImagem.show()
+
+            spacer = QLabel()
+            layout = QFormLayout()
+            layout.setSpacing(10)
+
+            labelIntro = QLabel("<h2><i>Resize Image</i></h2>")
+            labelIntro.setAlignment(Qt.AlignCenter)
+            labelIntro.setFont(QFont("times", 20))
+            layout.addRow(labelIntro)
+            layout.addWidget(spacer)
+            layout.addWidget(spacer)
+
+            self.nomeImagem = QLineEdit()
+            self.nomeImagem.setReadOnly(True)
+            self.nomeImagem.setPlaceholderText('Search the image to provide his name..')
+
+            self.botaoIco = QPushButton("Search Image")
+            self.botaoIco.clicked.connect(self.procurarImagem)
+            layout.addRow(self.botaoIco, self.nomeImagem)
+
+            botaoVerImagem = QPushButton("View Image")
+            botaoVerImagem.clicked.connect(visualizarImagem)
+            layout.addRow(botaoVerImagem)
+            layout.addWidget(spacer)
+            layout.addWidget(spacer)
+
+            labelConverter = QLabel("<b><i>Resize the image to different dimensions:</i></b>")
+            labelConverter.setFont(QFont("times", 10))
+            labelConverter.setAlignment(Qt.AlignCenter)
+            layout.addRow(labelConverter)
+
+            botaoConverter = QPushButton("Resize")
+            botaoConverter.clicked.connect(redimensionar)
+
+            listaTamanhos = ['200', '400', '600', '800', '1200']
+            tamanhos = QComboBox()
+            tamanhos.addItems(listaTamanhos)
+            tamanhos.setToolTip('Choose the scale!')
+            layout.addRow(tamanhos, botaoConverter)
+            layout.addWidget(spacer)
+            layout.addWidget(spacer)
+
+            browser = lambda p: webbrowser.open('https://artesgc.home.blog')
+            labelCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
+            labelCopyright.setAlignment(Qt.AlignRight)
+            labelCopyright.setToolTip('Access to the official website of ArtesGC!')
+            labelCopyright.linkActivated.connect(browser)
+            layout.addWidget(labelCopyright)
+
+            self.janela3.setLayout(layout)
+
         def alterarJanela(self, i):
             self.stack.setCurrentIndex(i)
 
-        # ******* imagc-functions *******
+        # ******* background-functions *******
         def procurarLogo(self):
             nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Select the Logo", filter="Image Files (*.png *.jpg *.jpeg)")
             self.nomeLogo.setText(nomeFicheiro)

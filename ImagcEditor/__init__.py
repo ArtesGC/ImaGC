@@ -29,7 +29,7 @@ logging.info('*' * 25 + 'NEW DEBUG' + '*' * 25)
 
 
 class ImaGC:
-    def __init__(self, _dir_salvar: str, _nome_logotipo: str = None, _nome_imagem: str = None, _dir_imagem: str = None):
+    def __init__(self, _dir_salvar: str = None, _nome_logotipo: str = None, _nome_imagem: str = None, _dir_imagem: str = None):
         self.nome_logotipo = _nome_logotipo
         self.nome_imagem = _nome_imagem
         self.dir_imagem = _dir_imagem
@@ -177,3 +177,14 @@ class ImaGC:
                 logging.critical(f"- {erro}..")
         else:
             logging.critical("- Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
+
+    def dimensaoImagem(self, _filename: str):
+        imagem = Image.open(_filename)
+        return imagem.size
+
+    def tamanhoImagem(self, _filename: str):
+        num = os.path.getsize(_filename)
+        for x in ['bytes', 'KB', 'MB', 'GB', 'TB']:
+            if num < 1024.0:
+                return "%3.1f %s" % (num, x)
+            num /= 1024.0
