@@ -1,6 +1,6 @@
 The 2-Clause BSD License
 SPDX short identifier: BSD-2-Clause
-Note: This license has also been called the "Simplified BSD License" and the "FreeBSD License". See also the 3-clause BSD License.
+Note: This license has also been called the "Simplified BSD License" and the "FreeBSD License".
 
 Copyright <2020-2021> <Nurul GC>
 
