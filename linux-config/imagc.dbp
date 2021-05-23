@@ -1,19 +1,19 @@
 [DEBREATE-0.7.13]
 <<CTRL>>
 Package: ImaGC
-Version: 0.3-042021
+Version: 0.4-052021
 Maintainer: ArtesGC <nuruldecarvalho@gmail.com>
 Section: graphics
 Architecture: amd64
 Priority: standard
-Description: image-editor
+Description: image editor
  An easy way to add logos to images or convert them to ico
 
 <</CTRL>>
 <<FILES>>
 1
-/home/nurul-gc/PycharmProjects/ImaGC/dist/img -> img -> /usr/share/imagc
 /home/nurul-gc/PycharmProjects/ImaGC/dist/ImaGC* -> ImaGC -> /usr/share/imagc
+/home/nurul-gc/PycharmProjects/ImaGC/dist/img -> img -> /usr/share/imagc
 <</FILES>>
 <<SCRIPTS>>
 <<PREINST>>
@@ -37,7 +37,7 @@ rm -f "/usr/bin/ImaGC"
 <</SCRIPTS>>
 <<CHANGELOG>>
 <<DEST>>DEFAULT<</DEST>>
-imagc (0.3-042021) sid; urgency=low
+imagc (0.4-052021) sid; urgency=low
 
   * v0.1
     - When everything started...
@@ -45,6 +45,10 @@ imagc (0.3-042021) sid; urgency=low
     - Released to public and provided as open-source...
   * v0.3 -> https://github.com/ArtesGC/ImaGC/releases/tag/v0.3
     - Reestrutured the layout and added the English version...
+  * v0.4 -> https://github.com/ArtesGC/ImaGC/releases/tag/v0.4
+    - new function (resize manually images)
+    - bugs fixed
+    - layout improved
 
  -- ArtesGC <nuruldecarvalho@gmail.com>  Sat, 24 Apr 2021 10:20:05 +0200
 
@@ -77,9 +81,8 @@ DEALINGS IN THE SOFTWARE.
 <<MENU>>
 1
 Name=ImaGC
-Version=0.3
+Version=1.0
 Exec=/usr/share/imagc/ImaGC
-Path=/usr/share/imagc/
 Comment=A simple way to add logos to your images or convert to ico.
 Icon=/usr/share/imagc/img/imagc-icon.png
 Type=Application
@@ -90,6 +93,7 @@ Categories=Graphics;
 Comment[PT]=Um modo simples de adicionar logotipos as suas imagens ou converte-las para ico.
 GenericName=ImaGC - image editor
 GenericName[PT]=ImaGC - editor de imagens
+Path=/usr/share/imagc/
 StartupWMClass=ImaGC
 <</MENU>>
 <<BUILD>>
