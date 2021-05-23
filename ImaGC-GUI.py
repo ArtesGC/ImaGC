@@ -72,6 +72,8 @@ class ImaGC_GUI:
             self.ferramentas.setFixedSize(QSize(800, 500))
             self.ferramentas.setWindowTitle("ImaGC")
             self.ferramentas.setWindowIcon(QIcon("img/imagc-icon.png"))
+            self.ferramentas.setStyleSheet("QWidget{font-family: times;} "
+                                           "QLineEdit{border-radius:3px;}")
             # self.ferramentas.setPalette(QPalette(QColor("orange")))  # background-color
 
             # ******* background-image *******
@@ -101,7 +103,8 @@ class ImaGC_GUI:
 
             # ******* list-options *******
             self.listaJanelas = QListWidget(self.ferramentas)
-            self.listaJanelas.setFixedSize(QSize(200, 55))
+            self.listaJanelas.setAlternatingRowColors(True)
+            self.listaJanelas.setFixedSize(QSize(200, 65))
             self.listaJanelas.addItem("Adicionar Logotipo")
             self.listaJanelas.addItem("Converter para Ico")
             self.listaJanelas.addItem("Redimensionar Imagem")
@@ -148,7 +151,7 @@ Muito Obrigado pelo apoio!
         def _sobre(self):
             QMessageBox.information(self.ferramentas, "Sobre", """
 Nome: ImaGC
-Versão: 0.3-042021
+Versão: 0.4-052021
 Programador & Designer: Nurul-GC
 Empresa: ArtesGC Inc.""")
 
@@ -177,8 +180,9 @@ Empresa: ArtesGC Inc.""")
                     labelLogo.setPixmap(QPixmap(f"{self.nomeLogo.text()}").scaled(QSize(400, 400)))
                     layoutJanelaLogo.addWidget(labelLogo)
 
-                    infoImage = QLabel(f"""<b>Nome & Localização</b>: {self.nomeLogo.text()}<br>
-<b>Dimensões (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeLogo.text())} px<br>
+                    infoImage = QLabel(f"""<h3><i>Detalhes</i></h3>
+<b>Nome & Localização</b>: {self.nomeLogo.text()}<br>
+<b>Dimensão (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeLogo.text())} px<br>
 <b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeLogo.text())}""")
                     layoutJanelaLogo.addWidget(infoImage)
 
@@ -207,8 +211,9 @@ Empresa: ArtesGC Inc.""")
                     labelImagem.setPixmap(QPixmap(f"{self.nomeImagemAL.text()}").scaled(QSize(400, 400)))
                     layoutJanelaImagem.addWidget(labelImagem)
 
-                    infoImage = QLabel(f"""<b>Nome & Localização</b>: {self.nomeImagemAL.text()}<br>
-<b>Dimensões (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemAL.text())} px<br>
+                    infoImage = QLabel(f"""<h3><i>Detalhes</i></h3>
+<b>Nome & Localização</b>: {self.nomeImagemAL.text()}<br>
+<b>Dimensão (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemAL.text())} px<br>
 <b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeImagemAL.text())}""")
                     layoutJanelaImagem.addWidget(infoImage)
 
@@ -319,8 +324,9 @@ Empresa: ArtesGC Inc.""")
                     labelImagem.setPixmap(QPixmap(f"{self.nomeImagemCI.text()}").scaled(QSize(400, 400)))
                     layoutJanelaImagem.addWidget(labelImagem)
 
-                    infoImage = QLabel(f"""<b>Nome & Localização</b>: {self.nomeImagemCI.text()}<br>
-<b>Dimensões (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemCI.text())} px<br>
+                    infoImage = QLabel(f"""<h3><i>Detalhes</i></h3>
+<b>Nome & Localização</b>: {self.nomeImagemCI.text()}<br>
+<b>Dimensão (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemCI.text())} px<br>
 <b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeImagemCI.text())}""")
                     layoutJanelaImagem.addWidget(infoImage)
 
@@ -359,7 +365,7 @@ Empresa: ArtesGC Inc.""")
             layout.addWidget(spacer)
 
             labelConverter = QLabel("<b><i>Converta para ícone com dimensões diferentes:</i></b>")
-            labelConverter.setFont(QFont("times", 10))
+            labelConverter.setFont(QFont("times", 15))
             labelConverter.setAlignment(Qt.AlignCenter)
             layout.addRow(labelConverter)
 
@@ -420,7 +426,7 @@ Empresa: ArtesGC Inc.""")
 
                     infoImage = QLabel(f"""<h3><i>Detalhes</i></h3>
 <b>Nome & Localização</b>: {self.nomeImagemRI.text()}<br>
-<b>Dimensões (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemRI.text())} px<br>
+<b>Dimensão (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemRI.text())} px<br>
 <b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeImagemRI.text())}""")
                     layoutJanelaImagem.addWidget(infoImage)
 
@@ -459,7 +465,7 @@ Empresa: ArtesGC Inc.""")
             layout.addWidget(spacer)
 
             labelConverter = QLabel("<b><i>Redimensione a imagem para varios tamanhos:</i></b>")
-            labelConverter.setFont(QFont("times", 10))
+            labelConverter.setFont(QFont("times", 15))
             labelConverter.setAlignment(Qt.AlignCenter)
             layout.addRow(labelConverter)
 
@@ -520,6 +526,8 @@ Empresa: ArtesGC Inc.""")
             self.ferramentas.setFixedSize(QSize(800, 500))
             self.ferramentas.setWindowTitle("ImaGC")
             self.ferramentas.setWindowIcon(QIcon("img/imagc-icon.png"))
+            self.ferramentas.setStyleSheet("QWidget{font-family: times;} "
+                                           "QLineEdit{border-radius: 3px;}")
             # self.ferramentas.setPalette(QPalette(QColor("orange")))  # background-color
 
             # ******* background-image *******
@@ -549,7 +557,8 @@ Empresa: ArtesGC Inc.""")
 
             # ******* list-options *******
             self.listaJanelas = QListWidget(self.ferramentas)
-            self.listaJanelas.setFixedSize(QSize(200, 55))
+            self.listaJanelas.setAlternatingRowColors(True)
+            self.listaJanelas.setFixedSize(QSize(200, 65))
             self.listaJanelas.addItem("Insert Logo")
             self.listaJanelas.addItem("Convert to Ico")
             self.listaJanelas.addItem("Resize Image")
@@ -581,14 +590,14 @@ Empresa: ArtesGC Inc.""")
             QMessageBox.information(self.ferramentas, "Instructions", """
 Hello dear user!
 
-It is with great pleasure and pride that I present the ImaGC to you.
+It's with great pleasure and pride that I present the ImaGC to you.
 A simple and full of features program!
 Of which its main function is to edit images.
 Adding logos or converting to (.ico)..
 
-- TO ADD THE LOGO IT MUST HAVE THE BACKGROUND OR TRANSPARENT MASCARA!
-- FOR THE CONVERSION OF (.ico) THE PROGRAM SUBSCRIBES THE BINARY DATA OF THE IMAGE
-AND REDEFINES THE DIMENSIONS OF THE SAME!
+- TO ADD THE LOGO THE IMAGE MUST HAVE THE BACKGROUND TRANSPARENT OR A TRANSPARENT MASK!
+- FOR THE CONVERSION TO (.ico) THE PROGRAM EDIT THE BINARY DATA OF THE IMAGE
+AND REDEFINES ITS DIMENSIONS!
 
 Thank you very much for your support!
 © 2019-2021 Nurul Carvalho
@@ -597,7 +606,7 @@ Thank you very much for your support!
         def _sobre(self):
             QMessageBox.information(self.ferramentas, "About", """
 Name: ImaGC
-Version: 0.3-042021
+Version: 0.4-052021
 Programmer & Designer: Nurul-GC
 Company: ArtesGC Inc.""")
 
@@ -626,7 +635,8 @@ Company: ArtesGC Inc.""")
                     labelLogo.setPixmap(QPixmap(f"{self.nomeLogo.text()}").scaled(QSize(400, 400)))
                     layoutJanelaLogo.addWidget(labelLogo)
 
-                    infoImage = QLabel(f"""<b>Name & Location</b>: {self.nomeLogo.text()}<br>
+                    infoImage = QLabel(f"""<h3><i>Details</i></h3>
+<b>Name & Location</b>: {self.nomeLogo.text()}<br>
 <b>Scale (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeLogo.text())} px<br>
 <b>Size</b>: {ImaGC().tamanhoImagem(self.nomeLogo.text())}""")
                     layoutJanelaLogo.addWidget(infoImage)
@@ -809,7 +819,7 @@ Company: ArtesGC Inc.""")
             layout.addWidget(spacer)
 
             labelConverter = QLabel("<b><i>Convert to icon with different dimensions:</i></b>")
-            labelConverter.setFont(QFont("times", 10))
+            labelConverter.setFont(QFont("times", 15))
             labelConverter.setAlignment(Qt.AlignCenter)
             layout.addRow(labelConverter)
 
@@ -908,7 +918,7 @@ Company: ArtesGC Inc.""")
             layout.addWidget(spacer)
 
             labelConverter = QLabel("<b><i>Resize the image to different dimensions:</i></b>")
-            labelConverter.setFont(QFont("times", 10))
+            labelConverter.setFont(QFont("times", 15))
             labelConverter.setAlignment(Qt.AlignCenter)
             layout.addRow(labelConverter)
 
