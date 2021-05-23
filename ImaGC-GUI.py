@@ -82,9 +82,9 @@ class ImaGC_GUI:
             self.ferramentas.setPalette(palette)
 
             # ******* var *******
-            self.nomeImagemAD = None
+            self.nomeImagemAL = None
             self.nomeImagemCI = None
-            self.nomeImagemRD = None
+            self.nomeImagemRI = None
             self.nomeLogo = None
             self.dirImagem = None
             self.botaoIco = None
@@ -159,7 +159,7 @@ Empresa: ArtesGC Inc.""")
         def adicionarLogo(self):
             def procurarImagem():
                 nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Selecione a Imagem", filter="Image Files (*.png *.jpg *.jpeg)")
-                self.nomeImagemAD.setText(nomeFicheiro)
+                self.nomeImagemAL.setText(nomeFicheiro)
 
             def visualizarLogo():
                 if self.nomeLogo.text() == "" or self.nomeLogo.text().isspace():
@@ -192,7 +192,7 @@ Empresa: ArtesGC Inc.""")
                     janelaLogo.show()
 
             def visualizarImagem():
-                if self.nomeImagemAD.text() == "" or self.nomeImagemAD.text().isspace():
+                if self.nomeImagemAL.text() == "" or self.nomeImagemAL.text().isspace():
                     QMessageBox.warning(self.ferramentas, "Falha ao apresentar a imagem", "Por favor selecione a imagem antes de prosseguir..")
                 else:
                     janelaImagem = QDialog()
@@ -204,12 +204,12 @@ Empresa: ArtesGC Inc.""")
                     labelImagem = QLabel()
                     labelImagem.setAlignment(Qt.AlignCenter)
                     labelImagem.setToolTip("Apresentação do logotipo!")
-                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagemAD.text()}").scaled(QSize(400, 400)))
+                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagemAL.text()}").scaled(QSize(400, 400)))
                     layoutJanelaImagem.addWidget(labelImagem)
 
-                    infoImage = QLabel(f"""<b>Nome & Localização</b>: {self.nomeImagemAD.text()}<br>
-<b>Dimensões (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemAD.text())} px<br>
-<b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeImagemAD.text())}""")
+                    infoImage = QLabel(f"""<b>Nome & Localização</b>: {self.nomeImagemAL.text()}<br>
+<b>Dimensões (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemAL.text())} px<br>
+<b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeImagemAL.text())}""")
                     layoutJanelaImagem.addWidget(infoImage)
 
                     _fechar = lambda: janelaImagem.destroy(True)
@@ -246,14 +246,14 @@ Empresa: ArtesGC Inc.""")
             layout.addRow(botaoLogo, botaoVerLogo)
             layout.addWidget(spacer)
 
-            self.nomeImagemAD = QLineEdit()
-            self.nomeImagemAD.setReadOnly(True)
-            self.nomeImagemAD.setPlaceholderText("Procure pela imagem para obter o seu nome..")
+            self.nomeImagemAL = QLineEdit()
+            self.nomeImagemAL.setReadOnly(True)
+            self.nomeImagemAL.setPlaceholderText("Procure pela imagem para obter o seu nome..")
 
             self.nomeImagemBotao = QPushButton("Procurar Imagem")
             self.nomeImagemBotao.setDefault(True)
             self.nomeImagemBotao.clicked.connect(procurarImagem)
-            layout.addRow(self.nomeImagemBotao, self.nomeImagemAD)
+            layout.addRow(self.nomeImagemBotao, self.nomeImagemAL)
 
             botaoVerImagem = QPushButton("Visualizar Imagem")
             botaoVerImagem.setDefault(True)
@@ -386,24 +386,24 @@ Empresa: ArtesGC Inc.""")
         def redimensionarImagem(self):
             def procurarImagem():
                 nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Selecione a Imagem", filter="Image Files (*.png *.jpg *.jpeg)")
-                self.nomeImagemRD.setText(nomeFicheiro)
+                self.nomeImagemRI.setText(nomeFicheiro)
 
             def redimensionar():
-                if self.nomeImagemRD.text() == "" or self.nomeImagemRD.text().isspace():
+                if self.nomeImagemRI.text() == "" or self.nomeImagemRI.text().isspace():
                     QMessageBox.critical(self.ferramentas, "Erro", f"Selecione a imagem antes de continuar e tente novamente..")
                     self.procurarImagem()
                 else:
                     try:
                         QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                         dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-                        ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagemRD.text()).redimensionarImagem(_size=int(tamanhos.currentText()))
+                        ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagemRI.text()).redimensionarImagem(_size=int(tamanhos.currentText()))
                         QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
                     except Exception as erro:
                         QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
 
             def visualizarImagem():
                 from PIL import Image
-                if self.nomeImagemRD.text() == "" or self.nomeImagemRD.text().isspace():
+                if self.nomeImagemRI.text() == "" or self.nomeImagemRI.text().isspace():
                     QMessageBox.warning(self.ferramentas, "Falha ao apresentar a imagem", "Por favor selecione a imagem antes de prosseguir..")
                 else:
                     janelaImagem = QDialog()
@@ -415,12 +415,13 @@ Empresa: ArtesGC Inc.""")
                     labelImagem = QLabel()
                     labelImagem.setAlignment(Qt.AlignCenter)
                     labelImagem.setToolTip("Apresentação do logotipo!")
-                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagemRD.text()}").scaled(QSize(400, 400)))
+                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagemRI.text()}").scaled(QSize(400, 400)))
                     layoutJanelaImagem.addWidget(labelImagem)
 
-                    infoImage = QLabel(f"""<b>Nome & Localização</b>: {self.nomeImagemRD.text()}<br>
-<b>Dimensões (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemRD.text())} px<br>
-<b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeImagemRD.text())}""")
+                    infoImage = QLabel(f"""<h3><i>Detalhes</i></h3>
+<b>Nome & Localização</b>: {self.nomeImagemRI.text()}<br>
+<b>Dimensões (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemRI.text())} px<br>
+<b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeImagemRI.text())}""")
                     layoutJanelaImagem.addWidget(infoImage)
 
                     _fechar = lambda: janelaImagem.destroy(True)
@@ -443,13 +444,13 @@ Empresa: ArtesGC Inc.""")
             layout.addWidget(spacer)
             layout.addWidget(spacer)
 
-            self.nomeImagemRD = QLineEdit()
-            self.nomeImagemRD.setReadOnly(True)
-            self.nomeImagemRD.setPlaceholderText("Procure pela imagem para obter o seu nome..")
+            self.nomeImagemRI = QLineEdit()
+            self.nomeImagemRI.setReadOnly(True)
+            self.nomeImagemRI.setPlaceholderText("Procure pela imagem para obter o seu nome..")
 
             self.botaoIco = QPushButton("Procurar Imagem")
             self.botaoIco.clicked.connect(procurarImagem)
-            layout.addRow(self.botaoIco, self.nomeImagemRD)
+            layout.addRow(self.botaoIco, self.nomeImagemRI)
 
             botaoVerImagem = QPushButton("Visualizar Imagem")
             botaoVerImagem.clicked.connect(visualizarImagem)
@@ -494,7 +495,7 @@ Empresa: ArtesGC Inc.""")
             if self.nomeLogo.text() != "":
                 QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                 dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-                ImaGC(_dir_salvar=dirSalvar, _nome_logotipo=self.nomeLogo.text(), _nome_imagem=self.nomeImagemAD.text()).addLogo()
+                ImaGC(_dir_salvar=dirSalvar, _nome_logotipo=self.nomeLogo.text(), _nome_imagem=self.nomeImagemAL.text()).addLogo()
                 QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
             else:
                 QMessageBox.critical(self.ferramentas, "Erro", f"Selecione o logotipo antes de continuar e tente novamente..")
@@ -529,7 +530,9 @@ Empresa: ArtesGC Inc.""")
             self.ferramentas.setPalette(palette)
 
             # ******* var *******
-            self.nomeImagem = None
+            self.nomeImagemAL = None
+            self.nomeImagemCI = None
+            self.nomeImagemRI = None
             self.nomeLogo = None
             self.dirImagem = None
             self.botaoIco = None
@@ -603,6 +606,10 @@ Company: ArtesGC Inc.""")
 
         # ******* windows *******
         def adicionarLogo(self):
+            def procurarImagem():
+                nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Select Image", filter="Image Files (*.png *.jpg *.jpeg)")
+                self.nomeImagemAL.setText(nomeFicheiro)
+
             def visualizarLogo():
                 if self.nomeLogo.text() == "" or self.nomeLogo.text().isspace():
                     QMessageBox.warning(self.ferramentas, "Failed to display the image", "Please select the image before proceeding..")
@@ -634,7 +641,7 @@ Company: ArtesGC Inc.""")
                     janelaLogo.show()
 
             def visualizarImagem():
-                if self.nomeImagem.text() == "" or self.nomeImagem.text().isspace():
+                if self.nomeImagemAL.text() == "" or self.nomeImagemAL.text().isspace():
                     QMessageBox.warning(self.ferramentas, "Failed to display the image", "Please select the image before proceeding..")
                 else:
                     janelaImagem = QDialog()
@@ -646,12 +653,13 @@ Company: ArtesGC Inc.""")
                     labelImagem = QLabel()
                     labelImagem.setAlignment(Qt.AlignCenter)
                     labelImagem.setToolTip("Image presentation!")
-                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}").scaled(QSize(400, 400)))
+                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagemAL.text()}").scaled(QSize(400, 400)))
                     layoutJanelaImagem.addWidget(labelImagem)
 
-                    infoImage = QLabel(f"""<b>Name & Location</b>: {self.nomeImagem.text()}<br>
-<b>Scale (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagem.text())} px<br>
-<b>Size</b>: {ImaGC().tamanhoImagem(self.nomeImagem.text())}""")
+                    infoImage = QLabel(f"""<h3><i>Details</i></h3>
+<b>Name & Location</b>: {self.nomeImagemAL.text()}<br>
+<b>Scale (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemAL.text())} px<br>
+<b>Size</b>: {ImaGC().tamanhoImagem(self.nomeImagemAL.text())}""")
                     layoutJanelaImagem.addWidget(infoImage)
 
                     _fechar = lambda: janelaImagem.destroy(True)
@@ -688,13 +696,13 @@ Company: ArtesGC Inc.""")
             layout.addRow(botaoLogo, botaoVerLogo)
             layout.addWidget(spacer)
 
-            self.nomeImagem = QLineEdit()
-            self.nomeImagem.setReadOnly(True)
-            self.nomeImagem.setPlaceholderText("Search the image to provide his name..")
+            self.nomeImagemAL = QLineEdit()
+            self.nomeImagemAL.setReadOnly(True)
+            self.nomeImagemAL.setPlaceholderText("Search the image to provide his name..")
 
             self.nomeImagemBotao = QPushButton("Search Image")
-            self.nomeImagemBotao.clicked.connect(self.procurarImagem)
-            layout.addRow(self.nomeImagemBotao, self.nomeImagem)
+            self.nomeImagemBotao.clicked.connect(procurarImagem)
+            layout.addRow(self.nomeImagemBotao, self.nomeImagemAL)
 
             botaoVerImagem = QPushButton("View Image")
             botaoVerImagem.setDefault(True)
@@ -727,21 +735,25 @@ Company: ArtesGC Inc.""")
             self.janela1.setLayout(layout)
 
         def converterIco(self):
+            def procurarImagem():
+                nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Select Image", filter="Image Files (*.png *.jpg *.jpeg)")
+                self.nomeImagemCI.setText(nomeFicheiro)
+
             def converter():
-                if self.nomeImagem.text() == "" or self.nomeImagem.text().isspace():
+                if self.nomeImagemCI.text() == "" or self.nomeImagemCI.text().isspace():
                     QMessageBox.critical(self.ferramentas, "Error", f"Select the image before continuing and try again..")
                     self.procurarImagem()
                 else:
                     try:
                         QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
                         dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
-                        ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagem.text()).convertendoIcone(_size=int(tamanhos.currentText()))
+                        ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagemCI.text()).convertendoIcone(_size=int(tamanhos.currentText()))
                         QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
                     except Exception as erro:
                         QMessageBox.critical(self.ferramentas, "Error", f"{erro}..")
 
             def visualizarImagem():
-                if self.nomeImagem.text() == "" or self.nomeImagem.text().isspace():
+                if self.nomeImagemCI.text() == "" or self.nomeImagemCI.text().isspace():
                     QMessageBox.warning(self.ferramentas, "Failed to display the image", "Please select the image before proceeding..")
                 else:
                     janelaImagem = QDialog()
@@ -753,12 +765,13 @@ Company: ArtesGC Inc.""")
                     labelImagem = QLabel()
                     labelImagem.setAlignment(Qt.AlignCenter)
                     labelImagem.setToolTip("Image presentation!")
-                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}").scaled(QSize(400, 400)))
+                    labelImagem.setPixmap(QPixmap(f"{self.nomeImagemCI.text()}").scaled(QSize(400, 400)))
                     layoutJanelaImagem.addWidget(labelImagem)
 
-                    infoImage = QLabel(f"""<b>Name & Location</b>: {self.nomeImagem.text()}<br>
-<b>Scale (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagem.text())} px<br>
-<b>Size</b>: {ImaGC().tamanhoImagem(self.nomeImagem.text())}""")
+                    infoImage = QLabel(f"""<h3><i>Details</i></h3>
+<b>Name & Location</b>: {self.nomeImagemCI.text()}<br>
+<b>Scale (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemCI.text())} px<br>
+<b>Size</b>: {ImaGC().tamanhoImagem(self.nomeImagemCI.text())}""")
                     layoutJanelaImagem.addWidget(infoImage)
 
                     _fechar = lambda: janelaImagem.destroy(True)
@@ -781,13 +794,13 @@ Company: ArtesGC Inc.""")
             layout.addWidget(spacer)
             layout.addWidget(spacer)
 
-            self.nomeImagem = QLineEdit()
-            self.nomeImagem.setReadOnly(True)
-            self.nomeImagem.setPlaceholderText('Search the image to provide his name..')
+            self.nomeImagemCI = QLineEdit()
+            self.nomeImagemCI.setReadOnly(True)
+            self.nomeImagemCI.setPlaceholderText('Search the image to provide his name..')
 
             self.botaoIco = QPushButton("Search Image")
-            self.botaoIco.clicked.connect(self.procurarImagem)
-            layout.addRow(self.botaoIco, self.nomeImagem)
+            self.botaoIco.clicked.connect(procurarImagem)
+            layout.addRow(self.botaoIco, self.nomeImagemCI)
 
             botaoVerImagem = QPushButton("View Image")
             botaoVerImagem.clicked.connect(visualizarImagem)
@@ -821,21 +834,25 @@ Company: ArtesGC Inc.""")
             self.janela2.setLayout(layout)
 
         def redimensionarImagem(self):
+            def procurarImagem():
+                nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Select Image", filter="Image Files (*.png *.jpg *.jpeg)")
+                self.nomeImagemRI.setText(nomeFicheiro)
+
             def redimensionar():
-                if self.nomeImagem.text() == "" or self.nomeImagem.text().isspace():
+                if self.nomeImagemRI.text() == "" or self.nomeImagemRI.text().isspace():
                     QMessageBox.critical(self.ferramentas, "Error", f"Select the image before continuing and try again..")
                     self.procurarImagem()
                 else:
                     try:
                         QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
                         dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
-                        ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagem.text()).redimensionarImagem(_size=int(tamanhos.currentText()))
+                        ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagemRI.text()).redimensionarImagem(_size=int(tamanhos.currentText()))
                         QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
                     except Exception as erro:
                         QMessageBox.critical(self.ferramentas, "Error", f"{erro}..")
 
             def visualizarImagem():
-                if self.nomeImagem.text() == "" or self.nomeImagem.text().isspace():
+                if self.nomeImagemRI.text() == "" or self.nomeImagemRI.text().isspace():
                     QMessageBox.warning(self.ferramentas, "Failed to display the image", "Please select the image before proceeding..")
                 else:
                     janelaImagem = QDialog()
@@ -850,9 +867,10 @@ Company: ArtesGC Inc.""")
                     labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}").scaled(QSize(400, 400)))
                     layoutJanelaImagem.addWidget(labelImagem)
 
-                    infoImage = QLabel(f"""<b>Name & Location</b>: {self.nomeImagem.text()}<br>
-<b>Scale (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagem.text())} px<br>
-<b>Size</b>: {ImaGC().tamanhoImagem(self.nomeImagem.text())}""")
+                    infoImage = QLabel(f"""<h3><i>Details</i></h3>
+<b>Name & Location</b>: {self.nomeImagemRI.text()}<br>
+<b>Scale (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemRI.text())} px<br>
+<b>Size</b>: {ImaGC().tamanhoImagem(self.nomeImagemRI.text())}""")
                     layoutJanelaImagem.addWidget(infoImage)
 
                     _fechar = lambda: janelaImagem.destroy(True)
@@ -875,13 +893,13 @@ Company: ArtesGC Inc.""")
             layout.addWidget(spacer)
             layout.addWidget(spacer)
 
-            self.nomeImagem = QLineEdit()
-            self.nomeImagem.setReadOnly(True)
-            self.nomeImagem.setPlaceholderText('Search the image to provide his name..')
+            self.nomeImagemRI = QLineEdit()
+            self.nomeImagemRI.setReadOnly(True)
+            self.nomeImagemRI.setPlaceholderText('Search the image to provide his name..')
 
             self.botaoIco = QPushButton("Search Image")
-            self.botaoIco.clicked.connect(self.procurarImagem)
-            layout.addRow(self.botaoIco, self.nomeImagem)
+            self.botaoIco.clicked.connect(procurarImagem)
+            layout.addRow(self.botaoIco, self.nomeImagemRI)
 
             botaoVerImagem = QPushButton("View Image")
             botaoVerImagem.clicked.connect(visualizarImagem)
@@ -922,15 +940,11 @@ Company: ArtesGC Inc.""")
             nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Select the Logo", filter="Image Files (*.png *.jpg *.jpeg)")
             self.nomeLogo.setText(nomeFicheiro)
 
-        def procurarImagem(self):
-            nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Select Image", filter="Image Files (*.png *.jpg *.jpeg)")
-            self.nomeImagem.setText(nomeFicheiro)
-
         def addLogoImagem(self):
             if self.nomeLogo.text() != "":
                 QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
                 dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
-                ImaGC(_dir_salvar=dirSalvar, _nome_logotipo=self.nomeLogo.text(), _nome_imagem=self.nomeImagem.text()).addLogo()
+                ImaGC(_dir_salvar=dirSalvar, _nome_logotipo=self.nomeLogo.text(), _nome_imagem=self.nomeImagemAL.text()).addLogo()
                 QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
             else:
                 QMessageBox.critical(self.ferramentas, "Error", f"Select the logo before continuing and try again..")
