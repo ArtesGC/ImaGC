@@ -7,6 +7,7 @@
 #  Foco Fé Força Paciência                      *
 #  Allah no Comando.                            *
 # ***********************************************
+from random import randint
 
 from ImagcEditor import ImaGC
 from PyQt5.Qt import *
@@ -17,6 +18,7 @@ import webbrowser
 
 class ImaGC_GUI:
     def __init__(self):
+        self.gc = QApplication(argv)
         self.janela = QWidget()
         self.janela.setWindowTitle("ImaGC")
         self.janela.setWindowIcon(QIcon("img/imagc-icon.png"))
@@ -49,16 +51,16 @@ class ImaGC_GUI:
         if self.idiomas.currentText() == 'English':
             while n < 101:
                 self.barraIniciar.setValue(n)
-                sleep(0.3)
-                n += 2
+                sleep(0.2)
+                n += randint(1, 5)
             self.janela.destroy()
             app = ImaGC_GUI.EN()
             app.ferramentas.show()
         elif self.idiomas.currentText() == 'Português':
             while n < 101:
                 self.barraIniciar.setValue(n)
-                sleep(0.3)
-                n += 2
+                sleep(0.2)
+                n += randint(1, 5)
             self.janela.destroy()
             app = ImaGC_GUI.PT()
             app.ferramentas.show()
@@ -151,7 +153,7 @@ Muito Obrigado pelo apoio!
         def _sobre(self):
             QMessageBox.information(self.ferramentas, "Sobre", """
 Nome: ImaGC
-Versão: 0.4-052021
+Versão: 0.5-072021
 Programador & Designer: Nurul-GC
 Empresa: ArtesGC Inc.""")
 
@@ -606,7 +608,7 @@ Thank you very much for your support!
         def _sobre(self):
             QMessageBox.information(self.ferramentas, "About", """
 Name: ImaGC
-Version: 0.4-052021
+Version: 0.5-072021
 Programmer & Designer: Nurul-GC
 Company: ArtesGC Inc.""")
 
@@ -974,7 +976,6 @@ Company: ArtesGC Inc.""")
 
 
 if __name__ == '__main__':
-    gc = QApplication(argv)
     gcApp = ImaGC_GUI()
     gcApp.janela.show()
-    gc.exec_()
+    gcApp.gc.exec_()
