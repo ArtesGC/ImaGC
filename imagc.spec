@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['ImaGC-GUI.py'],
+a = Analysis(['imagc.py'],
              pathex=['./'],
              binaries=[],
              datas=[],
