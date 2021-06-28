@@ -12,7 +12,9 @@
 import logging
 import os
 from datetime import datetime
+from typing import List
 
+import imageio
 from PIL import Image
 
 __author__ = "Nurul Carvalho"
@@ -34,6 +36,7 @@ class ImaGC:
         self.nome_imagem = _nome_imagem
         self.dir_imagem = _dir_imagem
         self.dir_salvar = _dir_salvar
+        self.imagens_data = []
 
     def addLogo(self):
         if self.dir_imagem and self.nome_logotipo:
@@ -188,3 +191,9 @@ class ImaGC:
             if num < 1024.0:
                 return "%3.1f %s" % (num, x)
             num /= 1024.0
+
+    def convertendoGif(self, _images: List[str]):
+        for image in images:
+            imgData = imageio.imread(image)
+            self.imagens_data.append(imgData)
+        imageio.mimsave(f'{self.dir_salvar}/imagc.gif', self.imagens_data, duration=1.0)
