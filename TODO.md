@@ -1,5 +1,6 @@
 # to-do
 
     1. leitura e apresentação do registro de debugs!
-    5. SEARCH IMAGE BUTTON IS MISSING
-    6. ...
+    2. otimizar redimensionamento da imagem!
+    3. is DirectoryError: continue!
+    4. new feature: converter imagens em gif!
