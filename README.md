@@ -29,26 +29,25 @@ The ImaGC allows the user:
 ![demo-03](img/demo/intro-init.png)
 ![demo-04](img/demo/addLogo.png)
 
-## Instructions and Information
+### Instructions and Information
 
 ![instrucao-programa](img/demo/instr.png)
 ![informacao-programa](img/demo/about.png)
 
-## Error
+---
 
-`fail to display image`
-![falha-visualizar-imagem](img/demo/error-01.png)
+<div align="center">
 
-`error trying to convert ico`
-![erro-converter-ico](img/demo/error-02.png)
 
-**For better experience and confirmation of program capacity \
-I made it available in the folders `./ImaGC-ico`, `./ImaGC-logo`, ``, some exemplary images \
-converted into (.ico) and with a logo added…**
+**For better experience and confirmation of the program power \
+I made it available in the folders: \
+`./ImaGC-ico`, `./ImaGC-logo`, `./ImaGC-pdf` and `./ImaGC-gif` \
+some exemplary images converted into (.ico, .gif, .pdf) and with a logo added…**
+
 
 ***Enjoy!***
 
----
-
-&copy; 2019-2021 [Nurul Carvalho](mailto:nuruldecarvalho@gmail.com) \
+&copy; 2020-2021 [Nurul Carvalho](mailto:nuruldecarvalho@gmail.com) \
 &trade; [ArtesGC](https://artesgc.home.blog)
+
+</div>
