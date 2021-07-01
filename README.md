@@ -26,14 +26,13 @@ The ImaGC allows the user:
 ## Demo
 
 ![demo-01](img/demo/intro.png)
-![demo-02](img/demo/intro-info.png)
 ![demo-03](img/demo/intro-init.png)
-![demo-04](img/demo/addlogo-en.png)
+![demo-04](img/demo/addLogo.png)
 
 ## Instructions and Information
 
-![instrucao-programa](img/demo/instr-en.png)
-![informacao-programa](img/demo/about-en.png)
+![instrucao-programa](img/demo/instr.png)
+![informacao-programa](img/demo/about.png)
 
 ## Error
 
@@ -44,7 +43,7 @@ The ImaGC allows the user:
 ![erro-converter-ico](img/demo/error-02.png)
 
 **For better experience and confirmation of program capacity \
-I made it available in the folders `./ImaGC-ico` and `./ImaGC-logo` some exemplary images \
+I made it available in the folders `./ImaGC-ico`, `./ImaGC-logo`, ``, some exemplary images \
 converted into (.ico) and with a logo added…**
 
 ***Enjoy!***
