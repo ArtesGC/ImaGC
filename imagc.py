@@ -7,13 +7,16 @@
 #  Foco Fé Força Paciência                      *
 #  Allah no Comando.                            *
 # ***********************************************
+import webbrowser
 from random import randint
-
-from ImagcEditor import ImaGC
-from PyQt5.Qt import *
 from sys import argv, exit
 from time import sleep
-import webbrowser
+
+from PyQt5.Qt import *
+
+from ImagcEditor import ImaGC
+
+theme = open('themes/imagc.qss').read().strip()
 
 
 class ImaGC_GUI:
@@ -23,7 +26,7 @@ class ImaGC_GUI:
         self.janela.setWindowTitle("ImaGC")
         self.janela.setWindowIcon(QIcon("img/imagc-icon.png"))
         self.janela.setPalette(QPalette(QColor('orange')))
-        self.janela.setStyleSheet('color: black;')
+        self.janela.setStyleSheet(theme)
 
         layout = QVBoxLayout()
 
@@ -74,8 +77,7 @@ class ImaGC_GUI:
             self.ferramentas.setFixedSize(QSize(800, 500))
             self.ferramentas.setWindowTitle("ImaGC")
             self.ferramentas.setWindowIcon(QIcon("img/imagc-icon.png"))
-            self.ferramentas.setStyleSheet("QWidget{font-family: times;} "
-                                           "QLineEdit{border-radius:3px;}")
+            self.ferramentas.setStyleSheet(theme)
             # self.ferramentas.setPalette(QPalette(QColor("orange")))  # background-color
 
             # ******* background-image *******
@@ -89,6 +91,9 @@ class ImaGC_GUI:
             self.nomeImagemAL = None
             self.nomeImagemCI = None
             self.nomeImagemRI = None
+            self.nomeImagensCG = None
+            self.nomeImagensCP = None
+            self.nomeFicheiros = None
             self.nomeLogo = None
             self.dirImagem = None
             self.botaoIco = None
@@ -106,17 +111,27 @@ class ImaGC_GUI:
             # ******* list-options *******
             self.listaJanelas = QListWidget(self.ferramentas)
             self.listaJanelas.setAlternatingRowColors(True)
-            self.listaJanelas.setFixedSize(QSize(200, 65))
+            self.listaJanelas.setFixedSize(QSize(200, 110))
             self.listaJanelas.addItem("Adicionar Logotipo")
+            self.listaJanelas.addItem("Converter para Gif")
             self.listaJanelas.addItem("Converter para Ico")
+            self.listaJanelas.addItem("Converter para Pdf")
             self.listaJanelas.addItem("Redimensionar Imagem")
 
             # ******* init-windows *******
             self.janela1 = QWidget()
             self.adicionarLogo()
+
             self.janela2 = QWidget()
-            self.converterIco()
+            self.converterGif()
+
             self.janela3 = QWidget()
+            self.converterIco()
+
+            self.janela4 = QWidget()
+            self.converterPdf()
+
+            self.janela5 = QWidget()
             self.redimensionarImagem()
 
             # ******* stack *******
@@ -124,6 +139,8 @@ class ImaGC_GUI:
             self.stack.addWidget(self.janela1)
             self.stack.addWidget(self.janela2)
             self.stack.addWidget(self.janela3)
+            self.stack.addWidget(self.janela4)
+            self.stack.addWidget(self.janela5)
 
             # ******* layout-principal *******
             hbox = QHBoxLayout()
@@ -292,6 +309,71 @@ Empresa: ArtesGC Inc.""")
 
             self.janela1.setLayout(layout)
 
+        def converterGif(self):
+            def procurarImagens():
+                self.nomeFicheiros, filtroFicheiros = QFileDialog.getOpenFileNames(self.ferramentas, caption="Selecione a Imagem", filter="Image Files (*.png *.jpg *.jpeg)")
+                self.nomeImagensCG.addItems(self.nomeFicheiros)
+
+            def previsualizarImg():
+                imagem = QPixmap(self.nomeImagensCG.currentItem().text())
+                imagemLabel.setPixmap(imagem.scaled(QSize(150, 150)))
+
+            def converterImagens():
+                if self.nomeFicheiros is None:
+                    QMessageBox.critical(self.ferramentas, "Erro", f"Selecione as imagens antes de continuar e tente novamente..")
+                    procurarImagens()
+                else:
+                    try:
+                        QMessageBox.warning(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
+                        dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
+                        ImaGC(_dir_salvar=dirSalvar).convertendoGif(_images=self.nomeFicheiros)
+                        QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
+                    except Exception as erro:
+                        QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
+
+            layout = QFormLayout()
+            layout.setSpacing(10)
+            spacer = QLabel()
+
+            introLabel = QLabel("<h2><i>Converter para Gif</i></h2>")
+            introLabel.setAlignment(Qt.AlignCenter)
+            introLabel.setFont(QFont("times", 20))
+            layout.addRow(introLabel)
+            layout.addRow(spacer)
+
+            imagemLabel = QLabel("Search the image\nto provide his name..")
+            imagemLabel.setFixedSize(QSize(150, 150))
+            imagemLabel.setAlignment(Qt.AlignCenter)
+            imagemLabel.setStyleSheet('background-color: white; padding: 2px;')
+            layout.addRow(imagemLabel)
+            layout.addRow(spacer)
+
+            self.nomeImagensCG = QListWidget()
+            self.nomeImagensCG.setAlternatingRowColors(True)
+            self.nomeImagensCG.itemClicked.connect(previsualizarImg)
+            layout.addRow(self.nomeImagensCG)
+            layout.addRow(spacer)
+
+            layoutBtns = QHBoxLayout()
+            procurarBtn = QPushButton("Procurar Imagens")
+            procurarBtn.clicked.connect(procurarImagens)
+            layoutBtns.addWidget(procurarBtn)
+            converterBtn = QPushButton("Converter Imagens")
+            converterBtn.clicked.connect(converterImagens)
+            layoutBtns.addWidget(converterBtn)
+
+            layout.addRow(layoutBtns)
+            layout.addRow(spacer)
+
+            browser = lambda p: webbrowser.open('https://artesgc.home.blog')
+            labelCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
+            labelCopyright.setAlignment(Qt.AlignRight)
+            labelCopyright.setToolTip('Acesso a pagina oficial da ArtesGC!')
+            labelCopyright.linkActivated.connect(browser)
+            layout.addWidget(labelCopyright)
+
+            self.janela2.setLayout(layout)
+
         def converterIco(self):
             def procurarImagem():
                 nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Selecione a Imagem", filter="Image Files (*.png *.jpg *.jpeg)")
@@ -371,13 +453,14 @@ Empresa: ArtesGC Inc.""")
             labelConverter.setAlignment(Qt.AlignCenter)
             layout.addRow(labelConverter)
 
-            botaoConverter = QPushButton("Converter")
-            botaoConverter.clicked.connect(converter)
-
             listaTamanhos = ['16', '32', '128', '256']
             tamanhos = QComboBox()
             tamanhos.addItems(listaTamanhos)
             tamanhos.setToolTip('Escolha a dimensão!')
+
+            botaoConverter = QPushButton("Converter")
+            botaoConverter.clicked.connect(converter)
+
             layout.addRow(tamanhos, botaoConverter)
             layout.addWidget(spacer)
             layout.addWidget(spacer)
@@ -389,7 +472,72 @@ Empresa: ArtesGC Inc.""")
             labelCopyright.linkActivated.connect(browser)
             layout.addWidget(labelCopyright)
 
-            self.janela2.setLayout(layout)
+            self.janela3.setLayout(layout)
+
+        def converterPdf(self):
+            def procurarImagens():
+                self.nomeFicheiros, filtroFicheiros = QFileDialog.getOpenFileNames(self.ferramentas, caption="Selecione a Imagem", filter="Image Files (*.png *.jpg *.jpeg)")
+                self.nomeImagensCP.addItems(self.nomeFicheiros)
+
+            def previsualizarImg():
+                imagem = QPixmap(self.nomeImagensCP.currentItem().text())
+                imagemLabel.setPixmap(imagem.scaled(QSize(100, 100)))
+
+            def converterImagens():
+                if self.nomeFicheiros is None:
+                    QMessageBox.critical(self.ferramentas, "Erro", f"Selecione as imagens antes de continuar e tente novamente..")
+                    procurarImagens()
+                else:
+                    try:
+                        QMessageBox.warning(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
+                        dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
+                        ImaGC(_dir_salvar=dirSalvar).convertendoPdf(_images=self.nomeFicheiros)
+                        QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
+                    except Exception as erro:
+                        QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
+
+            layout = QFormLayout()
+            layout.setSpacing(10)
+            spacer = QLabel()
+
+            introLabel = QLabel("<h2><i>Converter para Pdf</i></h2>")
+            introLabel.setAlignment(Qt.AlignCenter)
+            introLabel.setFont(QFont("times", 20))
+            layout.addRow(introLabel)
+            layout.addRow(spacer)
+
+            imagemLabel = QLabel("Search the image\nto provide his name..")
+            imagemLabel.setFixedSize(QSize(150, 150))
+            imagemLabel.setAlignment(Qt.AlignCenter)
+            imagemLabel.setStyleSheet('background-color: white; padding: 2px;')
+            layout.addRow(imagemLabel)
+            layout.addRow(spacer)
+
+            self.nomeImagensCP = QListWidget()
+            self.nomeImagensCP.setAlternatingRowColors(True)
+            self.nomeImagensCP.itemClicked.connect(previsualizarImg)
+            layout.addRow(self.nomeImagensCP)
+            layout.addRow(spacer)
+
+            layoutBtns = QHBoxLayout()
+            procurarBtn = QPushButton("Procurar Imagens")
+            procurarBtn.clicked.connect(procurarImagens)
+            layoutBtns.addWidget(procurarBtn)
+            converterBtn = QPushButton("Converter Imagens")
+            converterBtn.clicked.connect(converterImagens)
+            layoutBtns.addWidget(converterBtn)
+
+            layout.addRow(layoutBtns)
+            layout.addRow(spacer)
+
+            browser = lambda p: webbrowser.open('https://artesgc.home.blog')
+            labelCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
+            labelCopyright.setAlignment(Qt.AlignRight)
+            labelCopyright.setToolTip('Acesso a pagina oficial da ArtesGC!')
+            labelCopyright.linkActivated.connect(browser)
+            layout.addWidget(labelCopyright)
+
+            self.janela4.setLayout(layout)
 
         def redimensionarImagem(self):
             def procurarImagem():
@@ -404,13 +552,12 @@ Empresa: ArtesGC Inc.""")
                     try:
                         QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                         dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-                        ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagemRI.text()).redimensionarImagem(_size=int(tamanhos.currentText()))
+                        ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagemRI.text()).redimensionarImagem(_resizer=int(divisor.currentText()) / 100)
                         QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
                     except Exception as erro:
                         QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
 
             def visualizarImagem():
-                from PIL import Image
                 if self.nomeImagemRI.text() == "" or self.nomeImagemRI.text().isspace():
                     QMessageBox.warning(self.ferramentas, "Falha ao apresentar a imagem", "Por favor selecione a imagem antes de prosseguir..")
                 else:
@@ -466,19 +613,23 @@ Empresa: ArtesGC Inc.""")
             layout.addWidget(spacer)
             layout.addWidget(spacer)
 
-            labelConverter = QLabel("<b><i>Redimensione a imagem para varios tamanhos:</i></b>")
+            labelConverter = QLabel("<b><i>Defina a percentagem que redimensionara a imagem:</i></b>")
             labelConverter.setFont(QFont("times", 15))
             labelConverter.setAlignment(Qt.AlignCenter)
             layout.addRow(labelConverter)
 
+            layoutDimensoes = QHBoxLayout()
+            listaDivisor = [f'{n}' for n in range(0, 501, 10)]
+            divisor = QComboBox()
+            divisor.addItems(listaDivisor)
+            divisor.setToolTip('Escolha a percentagem a ser aplicada!')
+            layoutDimensoes.addWidget(divisor)
+
             botaoConverter = QPushButton("Redimensionar")
             botaoConverter.clicked.connect(redimensionar)
+            layoutDimensoes.addWidget(botaoConverter)
 
-            listaTamanhos = ['200', '400', '600', '800', '1200']
-            tamanhos = QComboBox()
-            tamanhos.addItems(listaTamanhos)
-            tamanhos.setToolTip('Escolha a dimensão!')
-            layout.addRow(tamanhos, botaoConverter)
+            layout.addRow(layoutDimensoes)
             layout.addWidget(spacer)
             layout.addWidget(spacer)
 
@@ -489,10 +640,10 @@ Empresa: ArtesGC Inc.""")
             labelCopyright.linkActivated.connect(browser)
             layout.addWidget(labelCopyright)
 
-            self.janela3.setLayout(layout)
+            self.janela5.setLayout(layout)
 
-        def alterarJanela(self, i):
-            self.stack.setCurrentIndex(i)
+        def alterarJanela(self, index):
+            self.stack.setCurrentIndex(index)
 
         # ******* background-functions *******
         def procurarLogo(self):
@@ -528,8 +679,7 @@ Empresa: ArtesGC Inc.""")
             self.ferramentas.setFixedSize(QSize(800, 500))
             self.ferramentas.setWindowTitle("ImaGC")
             self.ferramentas.setWindowIcon(QIcon("img/imagc-icon.png"))
-            self.ferramentas.setStyleSheet("QWidget{font-family: times;} "
-                                           "QLineEdit{border-radius: 3px;}")
+            self.ferramentas.setStyleSheet(theme)
             # self.ferramentas.setPalette(QPalette(QColor("orange")))  # background-color
 
             # ******* background-image *******
@@ -543,6 +693,9 @@ Empresa: ArtesGC Inc.""")
             self.nomeImagemAL = None
             self.nomeImagemCI = None
             self.nomeImagemRI = None
+            self.nomeImagensCG = None
+            self.nomeImagensCP = None
+            self.nomeFicheiros = None
             self.nomeLogo = None
             self.dirImagem = None
             self.botaoIco = None
@@ -560,17 +713,27 @@ Empresa: ArtesGC Inc.""")
             # ******* list-options *******
             self.listaJanelas = QListWidget(self.ferramentas)
             self.listaJanelas.setAlternatingRowColors(True)
-            self.listaJanelas.setFixedSize(QSize(200, 65))
-            self.listaJanelas.addItem("Insert Logo")
+            self.listaJanelas.setFixedSize(QSize(200, 110))
+            self.listaJanelas.addItem("Add Logo")
+            self.listaJanelas.addItem("Convert to Gif")
             self.listaJanelas.addItem("Convert to Ico")
+            self.listaJanelas.addItem("Convert to Pdf")
             self.listaJanelas.addItem("Resize Image")
 
             # ******* init-windows *******
             self.janela1 = QWidget()
             self.adicionarLogo()
+
             self.janela2 = QWidget()
-            self.converterIco()
+            self.converterGif()
+
             self.janela3 = QWidget()
+            self.converterIco()
+
+            self.janela4 = QWidget()
+            self.converterPdf()
+
+            self.janela5 = QWidget()
             self.redimensionarImagem()
 
             # ******* stack *******
@@ -578,6 +741,8 @@ Empresa: ArtesGC Inc.""")
             self.stack.addWidget(self.janela1)
             self.stack.addWidget(self.janela2)
             self.stack.addWidget(self.janela3)
+            self.stack.addWidget(self.janela4)
+            self.stack.addWidget(self.janela5)
 
             # ******* layout-principal *******
             hbox = QHBoxLayout()
@@ -746,6 +911,71 @@ Company: ArtesGC Inc.""")
 
             self.janela1.setLayout(layout)
 
+        def converterGif(self):
+            def procurarImagens():
+                self.nomeFicheiros, filtroFicheiros = QFileDialog.getOpenFileNames(self.ferramentas, caption="Select the Image", filter="Image Files (*.png *.jpg *.jpeg)")
+                self.nomeImagensCG.addItems(self.nomeFicheiros)
+
+            def previsualizarImg():
+                imagem = QPixmap(self.nomeImagensCG.currentItem().text())
+                imagemLabel.setPixmap(imagem.scaled(QSize(150, 150)))
+
+            def converterImagens():
+                if self.nomeFicheiros is None:
+                    QMessageBox.critical(self.ferramentas, "Error", f"Select the images before continuing and try again..")
+                    procurarImagens()
+                else:
+                    try:
+                        QMessageBox.warning(self.ferramentas, 'Warning', 'Select where to save the file..')
+                        dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
+                        ImaGC(_dir_salvar=dirSalvar).convertendoGif(_images=self.nomeFicheiros)
+                        QMessageBox.information(self.ferramentas, "Conclude", "Operation Sucessful..")
+                    except Exception as erro:
+                        QMessageBox.critical(self.ferramentas, "Error", f"{erro}..")
+
+            layout = QFormLayout()
+            layout.setSpacing(10)
+            spacer = QLabel()
+
+            introLabel = QLabel("<h2><i>Convert to Gif</i></h2>")
+            introLabel.setAlignment(Qt.AlignCenter)
+            introLabel.setFont(QFont("times", 20))
+            layout.addRow(introLabel)
+            layout.addRow(spacer)
+
+            imagemLabel = QLabel("Search the image\nto provide his name..")
+            imagemLabel.setFixedSize(QSize(150, 150))
+            imagemLabel.setAlignment(Qt.AlignCenter)
+            imagemLabel.setStyleSheet('background-color: white; padding: 2px;')
+            layout.addRow(imagemLabel)
+            layout.addRow(spacer)
+
+            self.nomeImagensCG = QListWidget()
+            self.nomeImagensCG.setAlternatingRowColors(True)
+            self.nomeImagensCG.itemClicked.connect(previsualizarImg)
+            layout.addRow(self.nomeImagensCG)
+            layout.addRow(spacer)
+
+            layoutBtns = QHBoxLayout()
+            procurarBtn = QPushButton("Search Images")
+            procurarBtn.clicked.connect(procurarImagens)
+            layoutBtns.addWidget(procurarBtn)
+            converterBtn = QPushButton("Convert Images")
+            converterBtn.clicked.connect(converterImagens)
+            layoutBtns.addWidget(converterBtn)
+
+            layout.addRow(layoutBtns)
+            layout.addRow(spacer)
+
+            browser = lambda p: webbrowser.open('https://artesgc.home.blog')
+            labelCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
+            labelCopyright.setAlignment(Qt.AlignRight)
+            labelCopyright.setToolTip('Access to the official website of ArtesGC!')
+            labelCopyright.linkActivated.connect(browser)
+            layout.addWidget(labelCopyright)
+
+            self.janela2.setLayout(layout)
+
         def converterIco(self):
             def procurarImagem():
                 nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Select Image", filter="Image Files (*.png *.jpg *.jpeg)")
@@ -825,13 +1055,14 @@ Company: ArtesGC Inc.""")
             labelConverter.setAlignment(Qt.AlignCenter)
             layout.addRow(labelConverter)
 
-            botaoConverter = QPushButton("Convert")
-            botaoConverter.clicked.connect(converter)
-
             listaTamanhos = ['16', '32', '128', '256']
             tamanhos = QComboBox()
             tamanhos.addItems(listaTamanhos)
             tamanhos.setToolTip('Choose the size!')
+
+            botaoConverter = QPushButton("Convert")
+            botaoConverter.clicked.connect(converter)
+
             layout.addRow(tamanhos, botaoConverter)
             layout.addWidget(spacer)
             layout.addWidget(spacer)
@@ -843,7 +1074,72 @@ Company: ArtesGC Inc.""")
             labelCopyright.linkActivated.connect(browser)
             layout.addWidget(labelCopyright)
 
-            self.janela2.setLayout(layout)
+            self.janela3.setLayout(layout)
+
+        def converterPdf(self):
+            def procurarImagens():
+                self.nomeFicheiros, filtroFicheiros = QFileDialog.getOpenFileNames(self.ferramentas, caption="Selecione a Imagem", filter="Image Files (*.png *.jpg *.jpeg)")
+                self.nomeImagensCP.addItems(self.nomeFicheiros)
+
+            def previsualizarImg():
+                imagem = QPixmap(self.nomeImagensCP.currentItem().text())
+                imagemLabel.setPixmap(imagem.scaled(QSize(150, 150)))
+
+            def converterImagens():
+                if self.nomeFicheiros is None:
+                    QMessageBox.critical(self.ferramentas, "Error", f"Select the images before continuing and try again..")
+                    procurarImagens()
+                else:
+                    try:
+                        QMessageBox.warning(self.ferramentas, 'Warning', 'Select where to save the file..')
+                        dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
+                        ImaGC(_dir_salvar=dirSalvar).convertendoPdf(_images=self.nomeFicheiros)
+                        QMessageBox.information(self.ferramentas, "Conclude", "Operation Sucessful..")
+                    except Exception as erro:
+                        QMessageBox.critical(self.ferramentas, "Error", f"{erro}..")
+
+            layout = QFormLayout()
+            layout.setSpacing(10)
+            spacer = QLabel()
+
+            introLabel = QLabel("<h2><i>Convert to Pdf</i></h2>")
+            introLabel.setAlignment(Qt.AlignCenter)
+            introLabel.setFont(QFont("times", 20))
+            layout.addRow(introLabel)
+            layout.addRow(spacer)
+
+            imagemLabel = QLabel("Search the image\nto provide his name..")
+            imagemLabel.setFixedSize(QSize(150, 150))
+            imagemLabel.setAlignment(Qt.AlignCenter)
+            imagemLabel.setStyleSheet('background-color: white; padding: 2px;')
+            layout.addRow(imagemLabel)
+            layout.addRow(spacer)
+
+            self.nomeImagensCP = QListWidget()
+            self.nomeImagensCP.setAlternatingRowColors(True)
+            self.nomeImagensCP.itemClicked.connect(previsualizarImg)
+            layout.addRow(self.nomeImagensCP)
+            layout.addRow(spacer)
+
+            layoutBtns = QHBoxLayout()
+            procurarBtn = QPushButton("Search Images")
+            procurarBtn.clicked.connect(procurarImagens)
+            layoutBtns.addWidget(procurarBtn)
+            converterBtn = QPushButton("Convert Images")
+            converterBtn.clicked.connect(converterImagens)
+            layoutBtns.addWidget(converterBtn)
+
+            layout.addRow(layoutBtns)
+            layout.addRow(spacer)
+
+            browser = lambda p: webbrowser.open('https://artesgc.home.blog')
+            labelCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
+            labelCopyright.setAlignment(Qt.AlignRight)
+            labelCopyright.setToolTip('Access to the official website of ArtesGC!')
+            labelCopyright.linkActivated.connect(browser)
+            layout.addWidget(labelCopyright)
+
+            self.janela4.setLayout(layout)
 
         def redimensionarImagem(self):
             def procurarImagem():
@@ -858,7 +1154,7 @@ Company: ArtesGC Inc.""")
                     try:
                         QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
                         dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
-                        ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagemRI.text()).redimensionarImagem(_size=int(tamanhos.currentText()))
+                        ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagemRI.text()).redimensionarImagem(_resizer=int(divisor.currentText()) / 100)
                         QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
                     except Exception as erro:
                         QMessageBox.critical(self.ferramentas, "Error", f"{erro}..")
@@ -919,19 +1215,23 @@ Company: ArtesGC Inc.""")
             layout.addWidget(spacer)
             layout.addWidget(spacer)
 
-            labelConverter = QLabel("<b><i>Resize the image to different dimensions:</i></b>")
+            labelConverter = QLabel("<b><i>Set the percentage to resize the image:</i></b>")
             labelConverter.setFont(QFont("times", 15))
             labelConverter.setAlignment(Qt.AlignCenter)
             layout.addRow(labelConverter)
 
+            layoutDimensoes = QHBoxLayout()
+            listaDivisor = [f'{n}' for n in range(0, 501, 10)]
+            divisor = QComboBox()
+            divisor.addItems(listaDivisor)
+            divisor.setToolTip('Choose the percentage to be aplied!')
+            layoutDimensoes.addWidget(divisor)
+
             botaoConverter = QPushButton("Resize")
             botaoConverter.clicked.connect(redimensionar)
+            layoutDimensoes.addWidget(botaoConverter)
 
-            listaTamanhos = ['200', '400', '600', '800', '1200']
-            tamanhos = QComboBox()
-            tamanhos.addItems(listaTamanhos)
-            tamanhos.setToolTip('Choose the scale!')
-            layout.addRow(tamanhos, botaoConverter)
+            layout.addRow(layoutDimensoes)
             layout.addWidget(spacer)
             layout.addWidget(spacer)
 
@@ -942,10 +1242,10 @@ Company: ArtesGC Inc.""")
             labelCopyright.linkActivated.connect(browser)
             layout.addWidget(labelCopyright)
 
-            self.janela3.setLayout(layout)
+            self.janela5.setLayout(layout)
 
-        def alterarJanela(self, i):
-            self.stack.setCurrentIndex(i)
+        def alterarJanela(self, index):
+            self.stack.setCurrentIndex(index)
 
         # ******* background-functions *******
         def procurarLogo(self):
