@@ -316,7 +316,10 @@ Empresa: ArtesGC Inc.""")
         def converterGif(self):
             def procurarImagens():
                 self.nomeFicheiros, filtroFicheiros = QFileDialog.getOpenFileNames(self.ferramentas, caption="Selecione a Imagem", filter="Image Files (*.png *.jpg *.jpeg)")
-                nomeImagensCG.addItems(self.nomeFicheiros)
+                if len(self.nomeFicheiros) < 2:
+                    QMessageBox.critical(self.ferramentas, "Erro", f"Selecione 'as imagens' antes de continuar e tente novamente..")
+                else:
+                    nomeImagensCG.addItems(self.nomeFicheiros)
 
             def previsualizarImg():
                 self.nomeImagensCG = nomeImagensCG.currentItem().text()
@@ -493,7 +496,10 @@ Empresa: ArtesGC Inc.""")
         def converterPdf(self):
             def procurarImagens():
                 self.nomeFicheiros, filtroFicheiros = QFileDialog.getOpenFileNames(self.ferramentas, caption="Selecione a Imagem", filter="Image Files (*.png *.jpg *.jpeg)")
-                nomeImagensCP.addItems(self.nomeFicheiros)
+                if len(self.nomeFicheiros) < 2:
+                    QMessageBox.critical(self.ferramentas, "Erro", f"Selecione 'as imagens' antes de continuar e tente novamente..")
+                else:
+                    nomeImagensCP.addItems(self.nomeFicheiros)
 
             def previsualizarImg():
                 self.nomeImagensCP = nomeImagensCP.currentItem().text()
@@ -945,7 +951,10 @@ Company: ArtesGC Inc.""")
         def converterGif(self):
             def procurarImagens():
                 self.nomeFicheiros, filtroFicheiros = QFileDialog.getOpenFileNames(self.ferramentas, caption="Select the Image", filter="Image Files (*.png *.jpg *.jpeg)")
-                nomeImagensCG.addItems(self.nomeFicheiros)
+                if len(self.nomeFicheiros) < 2:
+                    QMessageBox.critical(self.ferramentas, "Error", f"Select 'the images' before continuing and try again..")
+                else:
+                    nomeImagensCG.addItems(self.nomeFicheiros)
 
             def previsualizarImg():
                 self.nomeImagensCG = nomeImagensCG.currentItem().text()
@@ -1122,7 +1131,10 @@ Company: ArtesGC Inc.""")
         def converterPdf(self):
             def procurarImagens():
                 self.nomeFicheiros, filtroFicheiros = QFileDialog.getOpenFileNames(self.ferramentas, caption="Selecione a Imagem", filter="Image Files (*.png *.jpg *.jpeg)")
-                nomeImagensCP.addItems(self.nomeFicheiros)
+                if len(self.nomeFicheiros) < 2:
+                    QMessageBox.critical(self.ferramentas, "Error", f"Select 'the images' before continuing and try again..")
+                else:
+                    nomeImagensCP.addItems(self.nomeFicheiros)
 
             def previsualizarImg():
                 self.nomeImagensCP = nomeImagensCP.currentItem().text()
