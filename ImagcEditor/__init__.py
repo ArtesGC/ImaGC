@@ -16,6 +16,7 @@ from typing import List
 
 import imageio
 from PIL import Image
+from fpdf import FPDF
 
 __author__ = "Nurul Carvalho"
 __email__ = "nuruldecarvalho@gmail.com"
@@ -32,6 +33,7 @@ logging.info('*' * 25 + 'NEW DEBUG' + '*' * 25)
 
 class ImaGC:
     def __init__(self, _dir_salvar: str = None, _nome_logotipo: str = None, _nome_imagem: str = None, _dir_imagem: str = None):
+        self.pdf = FPDF()
         self.nome_logotipo = _nome_logotipo
         self.nome_imagem = _nome_imagem
         self.dir_imagem = _dir_imagem
@@ -133,49 +135,20 @@ class ImaGC:
         else:
             logging.critical("- Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
 
-    def redimensionarImagem(self, _size: int):
+    def redimensionarImagem(self, _resizer: float):
+        """
+for n in range(0, 100):
+    print(n/100)"""
         nome = ""
         if self.nome_imagem:
             try:
-                SIZES = [[(200, 200)], [(400, 400)], [(600, 600)], [(800, 800)], [(1200, 1200)]]
                 resize_img = Image.open(self.nome_imagem)
-                if _size == 200:
-                    size = SIZES[0]
-                    for sz in size:
-                        for s in sz:
-                            nome = f"{self.dir_salvar}/imagc-{s}x{s}-{self.nome_imagem}"
-                    resize_img.save(nome, sizes=size)
-                    logging.debug(f"- Criando o icone '{nome}'.. SUCESSO!")
-                elif _size == 400:
-                    size = SIZES[1]
-                    for sz in size:
-                        for s in sz:
-                            nome = f"{self.dir_salvar}/imagc-{s}x{s}-{self.nome_imagem}"
-                    resize_img.save(nome, sizes=size)
-                    logging.debug(f"- Criando o icone '{nome}'.. SUCESSO!")
-                elif _size == 600:
-                    size = SIZES[2]
-                    for sz in size:
-                        for s in sz:
-                            nome = f"{self.dir_salvar}/imagc-{s}x{s}-{self.nome_imagem}"
-                    resize_img.save(nome, sizes=size)
-                    logging.debug(f"- Criando o icone '{nome}'.. SUCESSO!")
-                elif _size == 800:
-                    size = SIZES[3]
-                    for sz in size:
-                        for s in sz:
-                            nome = f"{self.dir_salvar}/imagc-{s}x{s}-{self.nome_imagem}"
-                    resize_img.save(nome, sizes=size)
-                    logging.debug(f"- Criando o icone '{nome}'.. SUCESSO!")
-                elif _size == 1200:
-                    size = SIZES[4]
-                    for sz in size:
-                        for s in sz:
-                            nome = f"{self.dir_salvar}/imagc-{s}x{s}-{self.nome_imagem}"
-                    resize_img.save(nome, sizes=size)
-                    logging.debug(f"- Criando o icone '{nome}'.. SUCESSO!")
-                else:
-                    pass
+                width, heigth = self.dimensaoImagem(self.nome_imagem)
+                SIZES = [(width/_resizer, heigth/_resizer)]
+                for size in SIZES[0]:
+                    nome = f"{self.dir_salvar}/imagc-{size}x{size}-{self.nome_imagem}"
+                resize_img.save(nome, sizes=SIZES)
+                logging.debug(f"- Criando o icone '{nome}'.. SUCESSO!")
             except Exception as erro:
                 logging.critical(f"- {erro}..")
         else:
@@ -193,7 +166,16 @@ class ImaGC:
             num /= 1024.0
 
     def convertendoGif(self, _images: List[str]):
-        for image in images:
+        for image in _images:
             imgData = imageio.imread(image)
             self.imagens_data.append(imgData)
         imageio.mimsave(f'{self.dir_salvar}/imagc.gif', self.imagens_data, duration=1.0)
+
+    def convertendoPdf(self, _images: List[str]):
+        for image in _images:
+            width, height = self.dimensaoImagem(_filename=image)
+            width /= 4
+            height /= 4
+            self.pdf.add_page('P')
+            self.pdf.image(image, x=40, y=30, w=width, h=height)
+        self.pdf.output(f'{self.dir_salvar}/imagc.pdf', 'F')
