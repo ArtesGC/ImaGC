@@ -1,0 +1,44 @@
+QWidget{
+    font-family: times;
+}
+QLineEdit{
+    border-radius: 3px;
+    padding: 3px;
+    color: black;
+    background-color: orange;
+}
+QListWidget{
+    border-radius: 3px;
+    color: black;
+    background-color: orange;
+}
+QPushButton{
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: white;
+}
+QComboBox{
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 3px;
+    color: black;
+    width: auto;
+    background-color: orange;
+}
+QProgressBar{
+    text-align: center;
+    color: black;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 5px;
+    padding: 2px;
+}
+QProgressBar::chunk {
+    background-color: orange;
+    border-radius: 5px;
+}
