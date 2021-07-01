@@ -53,13 +53,13 @@ class ImaGC:
                 logoIm = logoIm.resize((logoWidth, logoHeight))
 
             for filename in os.listdir(self.dir_imagem):
-                im = Image.open(f"{self.dir_imagem}/{filename}")
-                width, height = im.size
-
-                if (not filename.endswith("png")) or (not filename.endswith("jpg")) or (not filename.endswith("jpeg")) or (filename == LOGO_FILENAME) or os.path.isdir(filename):
-                    continue
-
                 try:
+                    im = Image.open(f"{self.dir_imagem}/{filename}")
+                    width, height = im.size
+
+                    if (not filename.endswith("png")) or (not filename.endswith("jpg")) or (not filename.endswith("jpeg")) or (filename == LOGO_FILENAME) or os.path.isdir(filename):
+                        continue
+
                     # Add logo.
                     logging.debug(f"- Adicionando logo a imagem '{filename}'... SUCESSO!")
                     im.paste(logoIm, (width - logoWidth, height - logoHeight), logoIm)
