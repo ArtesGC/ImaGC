@@ -34,7 +34,7 @@ class ImaGC_GUI:
         label.setPixmap(QPixmap("img/imagc.png").scaled(QSize(400, 400)))
         layout.addWidget(label)
 
-        listaIdiomas = ['Set language - Defina o idioma', 'English', 'Português']
+        listaIdiomas = ['Set the language - Defina o idioma', 'English', 'Português']
         self.idiomas = QComboBox()
         self.idiomas.addItems(listaIdiomas)
         layout.addWidget(self.idiomas)
@@ -92,7 +92,11 @@ class ImaGC_GUI:
             self.nomeImagemCI = None
             self.nomeImagemRI = None
             self.nomeImagensCG = None
+            self.dimensaoImagensCG = None
+            self.tamanhoImagensCG = None
             self.nomeImagensCP = None
+            self.dimensaoImagensCP = None
+            self.tamanhoImagensCP = None
             self.nomeFicheiros = None
             self.nomeLogo = None
             self.dirImagem = None
@@ -312,11 +316,15 @@ Empresa: ArtesGC Inc.""")
         def converterGif(self):
             def procurarImagens():
                 self.nomeFicheiros, filtroFicheiros = QFileDialog.getOpenFileNames(self.ferramentas, caption="Selecione a Imagem", filter="Image Files (*.png *.jpg *.jpeg)")
-                self.nomeImagensCG.addItems(self.nomeFicheiros)
+                nomeImagensCG.addItems(self.nomeFicheiros)
 
             def previsualizarImg():
-                imagem = QPixmap(self.nomeImagensCG.currentItem().text())
+                self.nomeImagensCG = nomeImagensCG.currentItem().text()
+                self.dimensaoImagensCG = ImaGC().dimensaoImagem(self.nomeImagensCG)
+                self.tamanhoImagensCG = ImaGC().tamanhoImagem(self.nomeImagensCG)
+                imagem = QPixmap(self.nomeImagensCG)
                 imagemLabel.setPixmap(imagem.scaled(QSize(150, 150)))
+                imagemDetail.update()
 
             def converterImagens():
                 if self.nomeFicheiros is None:
@@ -331,6 +339,7 @@ Empresa: ArtesGC Inc.""")
                     except Exception as erro:
                         QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
 
+            nomeImagensCG = QListWidget()
             layout = QFormLayout()
             layout.setSpacing(10)
             spacer = QLabel()
@@ -341,17 +350,24 @@ Empresa: ArtesGC Inc.""")
             layout.addRow(introLabel)
             layout.addRow(spacer)
 
-            imagemLabel = QLabel("Search the image\nto provide his name..")
+            imagemLayout = QHBoxLayout()
+            imagemLabel = QLabel("Pesquise a imagem\npara fornecer o seu nome..")
             imagemLabel.setFixedSize(QSize(150, 150))
             imagemLabel.setAlignment(Qt.AlignCenter)
             imagemLabel.setStyleSheet('background-color: white; padding: 2px;')
-            layout.addRow(imagemLabel)
+            imagemLayout.addWidget(imagemLabel)
+            imagemDetail = QLabel(f"""
+<b>Nome</b>: {self.nomeImagensCG}<br>
+<b>Tamanho</b>: {self.tamanhoImagensCG}<br>
+<b>Dimensões(original)</b>: {self.dimensaoImagensCG}
+""")
+            imagemLayout.addWidget(imagemDetail)
+            layout.addRow(imagemLayout)
             layout.addRow(spacer)
 
-            self.nomeImagensCG = QListWidget()
-            self.nomeImagensCG.setAlternatingRowColors(True)
-            self.nomeImagensCG.itemClicked.connect(previsualizarImg)
-            layout.addRow(self.nomeImagensCG)
+            nomeImagensCG.setAlternatingRowColors(True)
+            nomeImagensCG.itemClicked.connect(previsualizarImg)
+            layout.addRow(nomeImagensCG)
             layout.addRow(spacer)
 
             layoutBtns = QHBoxLayout()
@@ -477,11 +493,15 @@ Empresa: ArtesGC Inc.""")
         def converterPdf(self):
             def procurarImagens():
                 self.nomeFicheiros, filtroFicheiros = QFileDialog.getOpenFileNames(self.ferramentas, caption="Selecione a Imagem", filter="Image Files (*.png *.jpg *.jpeg)")
-                self.nomeImagensCP.addItems(self.nomeFicheiros)
+                nomeImagensCP.addItems(self.nomeFicheiros)
 
             def previsualizarImg():
-                imagem = QPixmap(self.nomeImagensCP.currentItem().text())
-                imagemLabel.setPixmap(imagem.scaled(QSize(100, 100)))
+                self.nomeImagensCP = nomeImagensCP.currentItem().text()
+                self.dimensaoImagensCP = ImaGC().dimensaoImagem(self.nomeImagensCP)
+                self.tamanhoImagensCP = ImaGC().tamanhoImagem(self.nomeImagensCP)
+                imagem = QPixmap(self.nomeImagensCP)
+                imagemLabel.setPixmap(imagem.scaled(QSize(150, 150)))
+                imagemDetail.update()
 
             def converterImagens():
                 if self.nomeFicheiros is None:
@@ -506,17 +526,24 @@ Empresa: ArtesGC Inc.""")
             layout.addRow(introLabel)
             layout.addRow(spacer)
 
-            imagemLabel = QLabel("Search the image\nto provide his name..")
+            imagemLayout = QHBoxLayout()
+            imagemLabel = QLabel("Pesquise a imagem\npara fornecer o seu nome..")
             imagemLabel.setFixedSize(QSize(150, 150))
             imagemLabel.setAlignment(Qt.AlignCenter)
             imagemLabel.setStyleSheet('background-color: white; padding: 2px;')
-            layout.addRow(imagemLabel)
+            imagemLayout.addWidget(imagemLabel)
+            imagemDetail = QLabel(f"""
+<b>Nome</b>: {self.nomeImagensCP}<br>
+<b>Tamanho</b>: {self.tamanhoImagensCP}<br>
+<b>Dimensões(original)</b>: {self.dimensaoImagensCP}""")
+            imagemLayout.addWidget(imagemDetail)
+            layout.addRow(imagemLayout)
             layout.addRow(spacer)
 
-            self.nomeImagensCP = QListWidget()
-            self.nomeImagensCP.setAlternatingRowColors(True)
-            self.nomeImagensCP.itemClicked.connect(previsualizarImg)
-            layout.addRow(self.nomeImagensCP)
+            nomeImagensCP = QListWidget()
+            nomeImagensCP.setAlternatingRowColors(True)
+            nomeImagensCP.itemClicked.connect(previsualizarImg)
+            layout.addRow(nomeImagensCP)
             layout.addRow(spacer)
 
             layoutBtns = QHBoxLayout()
@@ -694,7 +721,11 @@ Empresa: ArtesGC Inc.""")
             self.nomeImagemCI = None
             self.nomeImagemRI = None
             self.nomeImagensCG = None
+            self.dimensaoImagensCG = None
+            self.tamanhoImagensCG = None
             self.nomeImagensCP = None
+            self.dimensaoImagensCP = None
+            self.tamanhoImagensCP = None
             self.nomeFicheiros = None
             self.nomeLogo = None
             self.dirImagem = None
@@ -914,11 +945,15 @@ Company: ArtesGC Inc.""")
         def converterGif(self):
             def procurarImagens():
                 self.nomeFicheiros, filtroFicheiros = QFileDialog.getOpenFileNames(self.ferramentas, caption="Select the Image", filter="Image Files (*.png *.jpg *.jpeg)")
-                self.nomeImagensCG.addItems(self.nomeFicheiros)
+                nomeImagensCG.addItems(self.nomeFicheiros)
 
             def previsualizarImg():
-                imagem = QPixmap(self.nomeImagensCG.currentItem().text())
+                self.nomeImagensCG = nomeImagensCG.currentItem().text()
+                self.dimensaoImagensCG = ImaGC().dimensaoImagem(self.nomeImagensCG)
+                self.tamanhoImagensCG = ImaGC().tamanhoImagem(self.nomeImagensCG)
+                imagem = QPixmap(self.nomeImagensCG)
                 imagemLabel.setPixmap(imagem.scaled(QSize(150, 150)))
+                imagemDetail.update()
 
             def converterImagens():
                 if self.nomeFicheiros is None:
@@ -933,6 +968,7 @@ Company: ArtesGC Inc.""")
                     except Exception as erro:
                         QMessageBox.critical(self.ferramentas, "Error", f"{erro}..")
 
+            nomeImagensCG = QListWidget()
             layout = QFormLayout()
             layout.setSpacing(10)
             spacer = QLabel()
@@ -943,17 +979,24 @@ Company: ArtesGC Inc.""")
             layout.addRow(introLabel)
             layout.addRow(spacer)
 
+            imagemLayout = QHBoxLayout()
             imagemLabel = QLabel("Search the image\nto provide his name..")
             imagemLabel.setFixedSize(QSize(150, 150))
             imagemLabel.setAlignment(Qt.AlignCenter)
             imagemLabel.setStyleSheet('background-color: white; padding: 2px;')
-            layout.addRow(imagemLabel)
+            imagemLayout.addWidget(imagemLabel)
+            imagemDetail = QLabel(f"""
+<b>Name</b>: {self.nomeImagensCG}<br>
+<b>Size</b>: {self.tamanhoImagensCG}<br>
+<b>Dimensions(original)</b>: {self.dimensaoImagensCG}
+""")
+            imagemLayout.addWidget(imagemDetail)
+            layout.addRow(imagemLayout)
             layout.addRow(spacer)
 
-            self.nomeImagensCG = QListWidget()
-            self.nomeImagensCG.setAlternatingRowColors(True)
-            self.nomeImagensCG.itemClicked.connect(previsualizarImg)
-            layout.addRow(self.nomeImagensCG)
+            nomeImagensCG.setAlternatingRowColors(True)
+            nomeImagensCG.itemClicked.connect(previsualizarImg)
+            layout.addRow(nomeImagensCG)
             layout.addRow(spacer)
 
             layoutBtns = QHBoxLayout()
@@ -1079,11 +1122,15 @@ Company: ArtesGC Inc.""")
         def converterPdf(self):
             def procurarImagens():
                 self.nomeFicheiros, filtroFicheiros = QFileDialog.getOpenFileNames(self.ferramentas, caption="Selecione a Imagem", filter="Image Files (*.png *.jpg *.jpeg)")
-                self.nomeImagensCP.addItems(self.nomeFicheiros)
+                nomeImagensCP.addItems(self.nomeFicheiros)
 
             def previsualizarImg():
-                imagem = QPixmap(self.nomeImagensCP.currentItem().text())
+                self.nomeImagensCP = nomeImagensCP.currentItem().text()
+                self.dimensaoImagensCP = ImaGC().dimensaoImagem(self.nomeImagensCP)
+                self.tamanhoImagensCP = ImaGC().tamanhoImagem(self.nomeImagensCP)
+                imagem = QPixmap(self.nomeImagensCP)
                 imagemLabel.setPixmap(imagem.scaled(QSize(150, 150)))
+                imagemDetail.update()
 
             def converterImagens():
                 if self.nomeFicheiros is None:
@@ -1108,17 +1155,24 @@ Company: ArtesGC Inc.""")
             layout.addRow(introLabel)
             layout.addRow(spacer)
 
+            imagemLayout = QHBoxLayout()
             imagemLabel = QLabel("Search the image\nto provide his name..")
             imagemLabel.setFixedSize(QSize(150, 150))
             imagemLabel.setAlignment(Qt.AlignCenter)
             imagemLabel.setStyleSheet('background-color: white; padding: 2px;')
-            layout.addRow(imagemLabel)
+            imagemLayout.addWidget(imagemLabel)
+            imagemDetail = QLabel(f"""
+<b>Name</b>: {self.nomeImagensCP}<br>
+<b>Size</b>: {self.tamanhoImagensCP}<br>
+<b>Dimensions(original)</b>: {self.dimensaoImagensCP}""")
+            imagemLayout.addWidget(imagemDetail)
+            layout.addRow(imagemLayout)
             layout.addRow(spacer)
 
-            self.nomeImagensCP = QListWidget()
-            self.nomeImagensCP.setAlternatingRowColors(True)
-            self.nomeImagensCP.itemClicked.connect(previsualizarImg)
-            layout.addRow(self.nomeImagensCP)
+            nomeImagensCP = QListWidget()
+            nomeImagensCP.setAlternatingRowColors(True)
+            nomeImagensCP.itemClicked.connect(previsualizarImg)
+            layout.addRow(nomeImagensCP)
             layout.addRow(spacer)
 
             layoutBtns = QHBoxLayout()
