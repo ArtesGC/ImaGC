@@ -54,7 +54,7 @@ class ImaGC_GUI:
         if self.idiomas.currentText() == 'English':
             while n < 101:
                 self.barraIniciar.setValue(n)
-                sleep(0.2)
+                sleep(0.5)
                 n += randint(1, 5)
             self.janela.destroy()
             app = ImaGC_GUI.EN()
@@ -62,7 +62,7 @@ class ImaGC_GUI:
         elif self.idiomas.currentText() == 'Português':
             while n < 101:
                 self.barraIniciar.setValue(n)
-                sleep(0.2)
+                sleep(0.5)
                 n += randint(1, 5)
             self.janela.destroy()
             app = ImaGC_GUI.PT()
