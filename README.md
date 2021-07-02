@@ -21,7 +21,7 @@ The ImaGC allows the user:
 - convert a selected image to an icon (.ico);
 ```
 
-***OBS: logos should have a transparent (background) mask!***
+***OBS: logos should have a transparent mask!***
 
 ## Demo
 
