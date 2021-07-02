@@ -14,7 +14,6 @@ class EN:
         self.ferramentas.setWindowTitle("ImaGC")
         self.ferramentas.setWindowIcon(QIcon("img/imagc-icon.png"))
         self.ferramentas.setStyleSheet(theme)
-        # self.ferramentas.setPalette(QPalette(QColor("orange")))  # background-color
 
         # ******* background-image *******
         setBgImage = QImage("img/bg.jpg")
@@ -23,7 +22,7 @@ class EN:
         palette.setBrush(QPalette.Window, QBrush(sizeBgImage))
         self.ferramentas.setPalette(palette)
 
-        # ******* var *******
+        # ******* global-vars *******
         self.nomeImagemAL = None
         self.nomeImagemCI = None
         self.nomeImagemRI = None
@@ -86,7 +85,6 @@ class EN:
         hbox = QHBoxLayout()
         hbox.addWidget(self.listaJanelas)
         hbox.addWidget(self.stack)
-
         self.ferramentas.setLayout(hbox)
         self.listaJanelas.currentRowChanged.connect(self.alterarJanela)
 
@@ -123,6 +121,32 @@ Company: ArtesGC Inc.""")
         def procurarImagem():
             nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Select Image", filter="Image Files (*.png *.jpg *.jpeg)")
             self.nomeImagemAL.setText(nomeFicheiro)
+
+        def procurarLogo():
+            nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Select the Logo", filter="Image Files (*.png *.jpg *.jpeg)")
+            self.nomeLogo.setText(nomeFicheiro)
+
+        def addLogoImagem():
+            if self.nomeLogo.text() != "":
+                QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
+                dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
+                ImaGC(_dir_salvar=dirSalvar).addLogo(_nome_logotipo=self.nomeLogo.text(), _nome_imagem=self.nomeImagemAL.text())
+                QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
+            else:
+                QMessageBox.critical(self.ferramentas, "Error", f"Select the logo before continuing and try again..")
+                self.procurarLogo()
+
+        def procurarDirectorio():
+            if self.nomeLogo.text() != "":
+                nomeDirectorio = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select the Image")
+                self.dirImagem.setText(nomeDirectorio)
+                QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
+                dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
+                ImaGC(_dir_salvar=dirSalvar).addLogo(_nome_logotipo=self.nomeLogo.text(), _dir_imagem=self.dirImagem.text())
+                QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
+            else:
+                QMessageBox.critical(self.ferramentas, "Error", f"Select the logo before continuing and try again..")
+                self.procurarLogo()
 
         def visualizarLogo():
             if self.nomeLogo.text() == "" or self.nomeLogo.text().isspace():
@@ -203,7 +227,7 @@ Company: ArtesGC Inc.""")
 
         botaoLogo = QPushButton("Search Logo")
         botaoLogo.setDefault(True)
-        botaoLogo.clicked.connect(self.procurarLogo)
+        botaoLogo.clicked.connect(procurarLogo)
 
         botaoVerLogo = QPushButton("View Logo")
         botaoVerLogo.setDefault(True)
@@ -225,7 +249,7 @@ Company: ArtesGC Inc.""")
 
         botaoAddLogoImagem = QPushButton("Add Logo to Image")
         botaoAddLogoImagem.setDefault(True)
-        botaoAddLogoImagem.clicked.connect(self.addLogoImagem)
+        botaoAddLogoImagem.clicked.connect(addLogoImagem)
         layout.addRow(botaoVerImagem, botaoAddLogoImagem)
         layout.addWidget(spacer)
 
@@ -237,7 +261,7 @@ Company: ArtesGC Inc.""")
         dirImagemBotao = QPushButton("Find Directory")
         dirImagemBotao.setDefault(True)
         dirImagemBotao.setToolTip("the logo will be added to the images automatically!")
-        dirImagemBotao.clicked.connect(self.procurarDirectorio)
+        dirImagemBotao.clicked.connect(procurarDirectorio)
         layout.addRow(dirImagemBotao)
 
         browser = lambda p: webbrowser.open('https://artesgc.home.blog')
@@ -622,30 +646,3 @@ Company: ArtesGC Inc.""")
 
     def alterarJanela(self, index):
         self.stack.setCurrentIndex(index)
-
-    # ******* background-functions *******
-    def procurarLogo(self):
-        nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Select the Logo", filter="Image Files (*.png *.jpg *.jpeg)")
-        self.nomeLogo.setText(nomeFicheiro)
-
-    def addLogoImagem(self):
-        if self.nomeLogo.text() != "":
-            QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
-            dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
-            ImaGC(_dir_salvar=dirSalvar, _nome_logotipo=self.nomeLogo.text(), _nome_imagem=self.nomeImagemAL.text()).addLogo()
-            QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
-        else:
-            QMessageBox.critical(self.ferramentas, "Error", f"Select the logo before continuing and try again..")
-            self.procurarLogo()
-
-    def procurarDirectorio(self):
-        if self.nomeLogo.text() != "":
-            nomeDirectorio = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select the Image")
-            self.dirImagem.setText(nomeDirectorio)
-            QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
-            dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
-            ImaGC(_dir_salvar=dirSalvar, _nome_logotipo=self.nomeLogo.text(), _dir_imagem=self.dirImagem.text()).addLogo()
-            QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
-        else:
-            QMessageBox.critical(self.ferramentas, "Error", f"Select the logo before continuing and try again..")
-            self.procurarLogo()
