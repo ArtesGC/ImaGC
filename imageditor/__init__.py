@@ -36,6 +36,12 @@ class ImaGC:
         self.dir_salvar = _dir_salvar
 
     def addLogo(self, _nome_logotipo: str, _nome_imagem: str = None, _dir_imagens: str = None):
+        """adicionar logotipo a outra imagem
+
+        :param _nome_imagem: nome e localização da imagem
+        :param _nome_logotipo: nome e localização do logotipo
+        :param _dir_imagens: localização do directorio contendo as imagens
+        :return: uma nova imagem contendo o logotipo no canto inferior direito"""
         if _dir_imagens and _nome_logotipo:
             SQUARE_FIT_SIZE = 100
             LOGO_FILENAME = _nome_logotipo
