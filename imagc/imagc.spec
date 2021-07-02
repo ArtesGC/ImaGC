@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['imagc.py'],
+a = Analysis(['__init__.py'],
              pathex=['./'],
              binaries=[],
              datas=[],
@@ -30,4 +30,4 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=False, icon="./img/icon/imagc-256x256.ico")
+          console=False, icon="./img/imagc-256x256.ico")
