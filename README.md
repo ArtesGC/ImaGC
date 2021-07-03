@@ -2,8 +2,7 @@
 
 [![Download ImaGC](https://img.shields.io/sourceforge/dt/imagc.svg)](https://sourceforge.net/projects/imagc/files/latest/download) \
 [![Download ImaGC](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/imagc/files/latest/download) \
-  
-<img alt="imagc-icon" src="img/imagc.png" width=400 height=400>
+![imagc-icon](img/imagc.png)
   
 # ImaGC
   
