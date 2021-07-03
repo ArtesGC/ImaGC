@@ -1,3 +1,4 @@
+import os
 import webbrowser
 from sys import exit
 from PyQt5.Qt import *
@@ -42,8 +43,13 @@ class PT:
         menu = QToolBar(self.ferramentas)
         instr = menu.addAction("Instruções")
         instr.triggered.connect(self._instr)
+
         sobre = menu.addAction("Sobre")
         sobre.triggered.connect(self._sobre)
+
+        debug = menu.addAction("Registo de erros")
+        debug.triggered.connect(self._debug)
+
         sair = menu.addAction("Sair")
         sair.triggered.connect(self._sair)
 
@@ -111,6 +117,42 @@ Nome: ImaGC
 Versão: 0.5-072021
 Programador & Designer: Nurul-GC
 Empresa: ArtesGC Inc.""")
+
+    def _debug(self):
+        def leituraLog():
+            registo.clear()
+            with open(f'./Debug/{listaRegisto.currentItem().text()}', 'r') as log_file:
+                registo.setText(log_file.read())
+
+        janelaDebug = QDialog(self.ferramentas)
+        janelaDebug.setFixedSize(QSize(500, 500))
+        janelaDebug.setWindowTitle("Registo de erros")
+        layoutJanelaDebug = QFormLayout()
+
+        layoutRegisto = QHBoxLayout()
+        listaRegisto = QListWidget()
+        listaRegisto.setAlternatingRowColors(True)
+        listaRegisto.itemClicked.connect(leituraLog)
+        layoutRegisto.addWidget(listaRegisto)
+
+        registo = QTextEdit()
+        registo.setReadOnly(True)
+        registo.setPlaceholderText("Selecione um dos arquivos para ler o seu conteudo..")
+        layoutRegisto.addWidget(registo)
+
+        for log in os.listdir('./Debug'):
+            listaRegisto.addItem(log)
+
+        layoutJanelaDebug.addRow(layoutRegisto)
+
+        _fechar = lambda: janelaDebug.destroy(True)
+        botaoFechar = QPushButton("Fechar")
+        botaoFechar.setDefault(True)
+        botaoFechar.clicked.connect(_fechar)
+        layoutJanelaDebug.addWidget(botaoFechar)
+
+        janelaDebug.setLayout(layoutJanelaDebug)
+        janelaDebug.show()
 
     def _sair(self):
         exit(0)
@@ -371,7 +413,7 @@ Empresa: ArtesGC Inc.""")
                 try:
                     QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                     dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-                    ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagemCI.text()).convertendoIcone(_size=int(tamanhos.currentText()))
+                    ImaGC(_dir_salvar=dirSalvar).convertendoIcone(_size=int(tamanhos.currentText()), _nome_imagem=self.nomeImagemCI.text())
                     QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
                 except Exception as erro:
                     QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
@@ -554,7 +596,7 @@ Empresa: ArtesGC Inc.""")
                 try:
                     QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                     dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-                    ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagemRI.text()).redimensionarImagem(_resizer=int(divisor.currentText()) / 100)
+                    ImaGC(_dir_salvar=dirSalvar).redimensionarImagem(_resizer=int(divisor.currentText()) / 100, _nome_imagem=self.nomeImagemRI.text())
                     QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
                 except Exception as erro:
                     QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
@@ -621,7 +663,7 @@ Empresa: ArtesGC Inc.""")
         layout.addRow(labelConverter)
 
         layoutDimensoes = QHBoxLayout()
-        listaDivisor = [f'{n}' for n in range(0, 501, 10)]
+        listaDivisor = [f'{n}' for n in range(10, 201, 10)]
         divisor = QComboBox()
         divisor.addItems(listaDivisor)
         divisor.setToolTip('Escolha a percentagem a ser aplicada!')

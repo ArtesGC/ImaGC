@@ -1,3 +1,4 @@
+import os
 import webbrowser
 from sys import exit
 from PyQt5.Qt import *
@@ -42,8 +43,13 @@ class EN:
         menu = QToolBar(self.ferramentas)
         instr = menu.addAction("Instructions")
         instr.triggered.connect(self._instr)
+
         sobre = menu.addAction("About")
         sobre.triggered.connect(self._sobre)
+
+        debug = menu.addAction("Log errors")
+        debug.triggered.connect(self._debug)
+
         sair = menu.addAction("Quit")
         sair.triggered.connect(self._sair)
 
@@ -112,6 +118,42 @@ Name: ImaGC
 Version: 0.5-072021
 Programmer & Designer: Nurul-GC
 Company: ArtesGC Inc.""")
+
+    def _debug(self):
+        def leituraLog():
+            registo.clear()
+            with open(f'./Debug/{listaRegisto.currentItem().text()}', 'r') as log_file:
+                registo.setText(log_file.read())
+
+        janelaDebug = QDialog(self.ferramentas)
+        janelaDebug.setFixedSize(QSize(500, 500))
+        janelaDebug.setWindowTitle("Log errors")
+        layoutJanelaDebug = QFormLayout()
+
+        layoutRegisto = QHBoxLayout()
+        listaRegisto = QListWidget()
+        listaRegisto.setAlternatingRowColors(True)
+        listaRegisto.itemClicked.connect(leituraLog)
+        layoutRegisto.addWidget(listaRegisto)
+
+        registo = QTextEdit()
+        registo.setReadOnly(True)
+        registo.setPlaceholderText("Choose one file to read its content..")
+        layoutRegisto.addWidget(registo)
+
+        for log in os.listdir('./Debug'):
+            listaRegisto.addItem(log)
+
+        layoutJanelaDebug.addRow(layoutRegisto)
+
+        _fechar = lambda: janelaDebug.destroy(True)
+        botaoFechar = QPushButton("Close")
+        botaoFechar.setDefault(True)
+        botaoFechar.clicked.connect(_fechar)
+        layoutJanelaDebug.addWidget(botaoFechar)
+
+        janelaDebug.setLayout(layoutJanelaDebug)
+        janelaDebug.show()
 
     def _sair(self):
         exit(0)
@@ -371,7 +413,7 @@ Company: ArtesGC Inc.""")
                 try:
                     QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
                     dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
-                    ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagemCI.text()).convertendoIcone(_size=int(tamanhos.currentText()))
+                    ImaGC(_dir_salvar=dirSalvar).convertendoIcone(_size=int(tamanhos.currentText()), _nome_imagem=self.nomeImagemCI.text())
                     QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
                 except Exception as erro:
                     QMessageBox.critical(self.ferramentas, "Error", f"{erro}..")
@@ -554,7 +596,7 @@ Company: ArtesGC Inc.""")
                 try:
                     QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
                     dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Select where to save the file")
-                    ImaGC(_dir_salvar=dirSalvar, _nome_imagem=self.nomeImagemRI.text()).redimensionarImagem(_resizer=int(divisor.currentText()) / 100)
+                    ImaGC(_dir_salvar=dirSalvar).redimensionarImagem(_resizer=int(divisor.currentText()) / 100, _nome_imagem=self.nomeImagemRI.text())
                     QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
                 except Exception as erro:
                     QMessageBox.critical(self.ferramentas, "Error", f"{erro}..")
@@ -572,7 +614,7 @@ Company: ArtesGC Inc.""")
                 labelImagem = QLabel()
                 labelImagem.setAlignment(Qt.AlignCenter)
                 labelImagem.setToolTip("Image presentation!")
-                labelImagem.setPixmap(QPixmap(f"{self.nomeImagem.text()}").scaled(QSize(400, 400)))
+                labelImagem.setPixmap(QPixmap(f"{self.nomeImagemRI.text()}").scaled(QSize(400, 400)))
                 layoutJanelaImagem.addWidget(labelImagem)
 
                 infoImage = QLabel(f"""<h3><i>Details</i></h3>
@@ -621,7 +663,7 @@ Company: ArtesGC Inc.""")
         layout.addRow(labelConverter)
 
         layoutDimensoes = QHBoxLayout()
-        listaDivisor = [f'{n}' for n in range(0, 501, 10)]
+        listaDivisor = [f'{n}' for n in range(10, 201, 10)]
         divisor = QComboBox()
         divisor.addItems(listaDivisor)
         divisor.setToolTip('Choose the percentage to be aplied!')
