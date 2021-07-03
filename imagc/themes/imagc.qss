@@ -1,7 +1,14 @@
-QWidget{
+QWidget, QDialog{
     font-family: times;
 }
 QLineEdit{
+    border-radius: 3px;
+    padding: 3px;
+    color: black;
+    background-color: orange;
+}
+QTextEdit{
+    font-size: 8pt;
     border-radius: 3px;
     padding: 3px;
     color: black;
