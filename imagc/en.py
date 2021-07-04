@@ -44,11 +44,11 @@ class EN:
         instr = menu.addAction("Instructions")
         instr.triggered.connect(self._instr)
 
-        sobre = menu.addAction("About")
-        sobre.triggered.connect(self._sobre)
-
         debug = menu.addAction("Log errors")
         debug.triggered.connect(self._debug)
+
+        sobre = menu.addAction("About")
+        sobre.triggered.connect(self._sobre)
 
         sair = menu.addAction("Quit")
         sair.triggered.connect(self._sair)
