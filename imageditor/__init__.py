@@ -168,8 +168,12 @@ class ImaGC:
         if _images:
             try:
                 for image in _images:
+                    if not image.endswith('.jpg'):
+                        logging.warning("Operação Incompleta, ficheiro não suportado!")
+                        continue
+                    width, height = self.dimensaoImagem(_filename=image)
                     self.pdf.add_page('P')
-                    self.pdf.image(image, w=1080, h=1920)
+                    self.pdf.image(image, x=0, y=0, w=1080, h=1920)
                 self.pdf.output(f'{self.dir_salvar}/imagc.pdf', 'F')
                 logging.debug(f"Criando o arquivo '{self.dir_salvar}/imagc.pdf'.. CONCLUIDO!")
             except Exception as erro:
