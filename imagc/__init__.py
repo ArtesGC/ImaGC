@@ -17,11 +17,11 @@ from imagc.pt import PT
 theme = open('themes/imagc.qss').read().strip()
 
 
-class ImaGC_GUI:
+class ImaGC:
     def __init__(self):
         self.gc = QApplication(argv)
         self.janela = QWidget()
-        self.janela.setWindowTitle("ImaGC")
+        self.janela.setWindowTitle("ImagEditor")
         self.janela.setWindowIcon(QIcon("img/imagc-icon.png"))
         self.janela.setPalette(QPalette(QColor('orange')))
         self.janela.setStyleSheet(theme)
@@ -70,6 +70,6 @@ class ImaGC_GUI:
 
 
 if __name__ == '__main__':
-    gcApp = ImaGC_GUI()
+    gcApp = ImaGC()
     gcApp.janela.show()
     gcApp.gc.exec_()
