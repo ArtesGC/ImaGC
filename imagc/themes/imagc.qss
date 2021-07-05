@@ -2,12 +2,18 @@ QWidget, QDialog{
     font-family: times;
 }
 QLineEdit{
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
     border-radius: 3px;
     padding: 3px;
     color: black;
     background-color: orange;
 }
 QTextEdit{
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
     font-size: 8pt;
     border-radius: 3px;
     padding: 3px;
@@ -27,6 +33,13 @@ QPushButton{
     padding: 5px;
     background-color: white;
 }
+QPushButton:hover{
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    background-color: orange;
+    color: black;
+}
 QComboBox{
     border-width: 1px;
     border-style: solid;
@@ -35,6 +48,13 @@ QComboBox{
     color: black;
     width: auto;
     background-color: orange;
+}
+QComboBox:hover{
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    background-color: white;
+    color: black;
 }
 QProgressBar{
     text-align: center;
