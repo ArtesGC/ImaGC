@@ -4,5 +4,5 @@ Maintainer: ArtesGC <nuruldecarvalho@gmail.com>
 Section: graphics
 Architecture: amd64
 Priority: standard
-Description: ImaGC - image editor
+Description: ImagEditor - image editor
  A simple way to add logos to your images or convert to ico.

@@ -1,6 +1,6 @@
 [DEBREATE-0.7.13]
 <<CTRL>>
-Package: ImaGC
+Package: ImagEditor
 Version: 0.4-052021
 Maintainer: ArtesGC <nuruldecarvalho@gmail.com>
 Section: graphics
@@ -12,8 +12,8 @@ Description: image editor
 <</CTRL>>
 <<FILES>>
 1
-/home/nurul-gc/PycharmProjects/ImaGC/dist/ImaGC* -> ImaGC -> /usr/share/imagc
-/home/nurul-gc/PycharmProjects/ImaGC/dist/img -> img -> /usr/share/imagc
+/home/nurul-gc/PycharmProjects/ImagEditor/dist/ImagEditor* -> ImagEditor -> /usr/share/imagc
+/home/nurul-gc/PycharmProjects/ImagEditor/dist/img -> img -> /usr/share/imagc
 <</FILES>>
 <<SCRIPTS>>
 <<PREINST>>
@@ -23,13 +23,13 @@ Description: image editor
 1
 #! /bin/bash -e
 
-ln -fs "/usr/share/imagc/ImaGC" "/usr/bin/ImaGC"
+ln -fs "/usr/share/imagc/ImagEditor" "/usr/bin/ImagEditor"
 <</POSTINST>>
 <<PRERM>>
 1
 #! /bin/bash -e
 
-rm -f "/usr/bin/ImaGC"
+rm -f "/usr/bin/ImagEditor"
 <</PRERM>>
 <<POSTRM>>
 0
@@ -41,11 +41,11 @@ imagc (0.4-052021) sid; urgency=low
 
   * v0.1
     - When everything started...
-  * v0.2 -> https://github.com/ArtesGC/ImaGC/releases/tag/v0.2
+  * v0.2 -> https://github.com/ArtesGC/ImagEditor/releases/tag/v0.2
     - Released to public and provided as open-source...
-  * v0.3 -> https://github.com/ArtesGC/ImaGC/releases/tag/v0.3
+  * v0.3 -> https://github.com/ArtesGC/ImagEditor/releases/tag/v0.3
     - Reestrutured the layout and added the English version...
-  * v0.4 -> https://github.com/ArtesGC/ImaGC/releases/tag/v0.4
+  * v0.4 -> https://github.com/ArtesGC/ImagEditor/releases/tag/v0.4
     - new function (resize manually images)
     - bugs fixed
     - layout improved
@@ -80,9 +80,9 @@ DEALINGS IN THE SOFTWARE.
 <</COPYRIGHT>>
 <<MENU>>
 1
-Name=ImaGC
+Name=ImagEditor
 Version=1.0
-Exec=/usr/share/imagc/ImaGC
+Exec=/usr/share/imagc/ImagEditor
 Comment=A simple way to add logos to your images or convert to ico.
 Icon=/usr/share/imagc/img/imagc-icon.png
 Type=Application
@@ -91,10 +91,10 @@ StartupNotify=true
 Encoding=UTF-8
 Categories=Graphics;
 Comment[PT]=Um modo simples de adicionar logotipos as suas imagens ou converte-las para ico.
-GenericName=ImaGC - image editor
-GenericName[PT]=ImaGC - editor de imagens
+GenericName=ImagEditor - image editor
+GenericName[PT]=ImagEditor - editor de imagens
 Path=/usr/share/imagc/
-StartupWMClass=ImaGC
+StartupWMClass=ImagEditor
 <</MENU>>
 <<BUILD>>
 1

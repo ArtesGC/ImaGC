@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=ImaGC
+Name=ImagEditor
 Version=1.0
-Exec=/usr/share/imagc/ImaGC
+Exec=/usr/share/imagc/ImagEditor
 Comment=A simple way to add logos to your images or convert to ico.
 Icon=/usr/share/imagc/img/imagc-icon.png
 Path=/usr/share/imagc/
@@ -11,6 +11,6 @@ StartupNotify=true
 Encoding=UTF-8
 Categories=Graphics;
 Comment[pt]=Um modo simples de adicionar logotipos as suas imagens ou converte-las para ico.
-GenericName=ImaGC - image editor
-GenericName[pt]=ImaGC - editor de imagens
-StartupWMClass=ImaGC
+GenericName=ImagEditor - image editor
+GenericName[pt]=ImagEditor - editor de imagens
+StartupWMClass=ImagEditor
