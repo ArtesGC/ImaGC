@@ -1,4 +1,4 @@
-# CHANGELOG - ImaGC
+# CHANGELOG - ImagEditor
 
 - v0.1
     - When everything started...
