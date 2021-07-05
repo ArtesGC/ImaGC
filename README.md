@@ -2,10 +2,10 @@
 
 <img alt="imagc-icon" src="img/imagc.png" width=400 height=400>
   
-# ImaGC
+# ImagEditor
   
-[![Download ImaGC](https://img.shields.io/sourceforge/dt/imagc.svg)](https://sourceforge.net/projects/imagc/files/latest/download) \
-[![Download ImaGC](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/imagc/files/latest/download) 
+[![Download ImagEditor](https://img.shields.io/sourceforge/dt/imagc.svg)](https://sourceforge.net/projects/imagc/files/latest/download) \
+[![Download ImagEditor](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/imagc/files/latest/download) 
   
 </div>
 
@@ -15,7 +15,7 @@
 Simplest Image Editor that ever existed,
 but also full of functions..
 
-The ImaGC allows the user:
+The ImagEditor allows the user:
 - add logos to images;
 - automatically resizes the image if necessary;
 - convert a selected image to an icon (.ico);
@@ -41,7 +41,7 @@ The ImaGC allows the user:
 
 **For better experience and confirmation of the program power \
 I made it available in the folders: \
-`./ImaGC-ico`, `./ImaGC-logo`, `./ImaGC-pdf` and `./ImaGC-gif` \
+`./ImagEditor-ico`, `./ImagEditor-logo`, `./ImagEditor-pdf` and `./ImagEditor-gif` \
 some exemplary images converted into (.ico, .gif, .pdf) and with a logo added…**
 
 
