@@ -2,7 +2,7 @@ import os
 import webbrowser
 from sys import exit
 from PyQt5.Qt import *
-from imageditor import ImaGC
+from imageditor import ImagEditor
 
 theme = open('themes/imagc.qss').read().strip()
 
@@ -12,7 +12,7 @@ class PT:
     def __init__(self):
         self.ferramentas = QWidget()
         self.ferramentas.setFixedSize(QSize(800, 500))
-        self.ferramentas.setWindowTitle("ImaGC")
+        self.ferramentas.setWindowTitle("ImagEditor")
         self.ferramentas.setWindowIcon(QIcon("img/imagc-icon.png"))
         self.ferramentas.setStyleSheet(theme)
 
@@ -99,7 +99,7 @@ class PT:
         QMessageBox.information(self.ferramentas, "Instruções", """
 Olaa caro usuário!
 
-É com muito prazer e orgulho que apresento te o ImaGC..
+É com muito prazer e orgulho que apresento te o ImagEditor..
 Um programa simples e cheio de funcionalidades!
 Das quais a sua principal função é de editar imagens,
 adicionando logotipos ou convertendo para (.ico)..
@@ -113,7 +113,7 @@ Muito Obrigado pelo apoio!
 
     def _sobre(self):
         QMessageBox.information(self.ferramentas, "Sobre", """
-Nome: ImaGC
+Nome: ImagEditor
 Versão: 0.5-072021
 Programador & Designer: Nurul-GC
 Empresa: ArtesGC Inc.""")
@@ -171,7 +171,7 @@ Empresa: ArtesGC Inc.""")
             if self.nomeLogo.text() != "":
                 QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                 dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-                ImaGC(_dir_salvar=dirSalvar, _nome_logotipo=self.nomeLogo.text(), _nome_imagem=self.nomeImagemAL.text()).addLogo()
+                ImagEditor(_dir_salvar=dirSalvar, _nome_logotipo=self.nomeLogo.text(), _nome_imagem=self.nomeImagemAL.text()).addLogo()
                 QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
             else:
                 QMessageBox.critical(self.ferramentas, "Erro", f"Selecione o logotipo antes de continuar e tente novamente..")
@@ -183,7 +183,7 @@ Empresa: ArtesGC Inc.""")
                 self.dirImagem.setText(nomeDirectorio)
                 QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                 dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-                ImaGC(_dir_salvar=dirSalvar).addLogo(_nome_logotipo=self.nomeLogo.text(), _dir_imagem=self.dirImagem.text())
+                ImagEditor(_dir_salvar=dirSalvar).addLogo(_nome_logotipo=self.nomeLogo.text(), _dir_imagens=self.dirImagem.text())
                 QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
             else:
                 QMessageBox.critical(self.ferramentas, "Erro", f"Selecione o logotipo antes de continuar e tente novamente..")
@@ -207,8 +207,8 @@ Empresa: ArtesGC Inc.""")
 
                 infoImage = QLabel(f"""<h3><i>Detalhes</i></h3>
 <b>Nome & Localização</b>: {self.nomeLogo.text()}<br>
-<b>Dimensão (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeLogo.text())} px<br>
-<b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeLogo.text())}""")
+<b>Dimensão (original)</b>: {ImagEditor().dimensaoImagem(_filename=self.nomeLogo.text())} px<br>
+<b>Tamanho</b>: {ImagEditor().tamanhoImagem(self.nomeLogo.text())}""")
                 layoutJanelaLogo.addWidget(infoImage)
 
                 _fechar = lambda: janelaLogo.destroy(True)
@@ -238,8 +238,8 @@ Empresa: ArtesGC Inc.""")
 
                 infoImage = QLabel(f"""<h3><i>Detalhes</i></h3>
 <b>Nome & Localização</b>: {self.nomeImagemAL.text()}<br>
-<b>Dimensão (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemAL.text())} px<br>
-<b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeImagemAL.text())}""")
+<b>Dimensão (original)</b>: {ImagEditor().dimensaoImagem(_filename=self.nomeImagemAL.text())} px<br>
+<b>Tamanho</b>: {ImagEditor().tamanhoImagem(self.nomeImagemAL.text())}""")
                 layoutJanelaImagem.addWidget(infoImage)
 
                 _fechar = lambda: janelaImagem.destroy(True)
@@ -326,8 +326,8 @@ Empresa: ArtesGC Inc.""")
 
         def previsualizarImg():
             self.nomeImagensCG = nomeImagensCG.currentItem().text()
-            self.dimensaoImagensCG = ImaGC().dimensaoImagem(self.nomeImagensCG)
-            self.tamanhoImagensCG = ImaGC().tamanhoImagem(self.nomeImagensCG)
+            self.dimensaoImagensCG = ImagEditor().dimensaoImagem(self.nomeImagensCG)
+            self.tamanhoImagensCG = ImagEditor().tamanhoImagem(self.nomeImagensCG)
             imagem = QPixmap(self.nomeImagensCG)
             imagemLabel.setPixmap(imagem.scaled(QSize(150, 150)))
             imagemDetail.setText(f"""
@@ -344,7 +344,7 @@ Empresa: ArtesGC Inc.""")
                 try:
                     QMessageBox.warning(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                     dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-                    ImaGC(_dir_salvar=dirSalvar).convertendoGif(_images=self.nomeFicheiros)
+                    ImagEditor(_dir_salvar=dirSalvar).convertendoGif(_images=self.nomeFicheiros)
                     QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
                 except Exception as erro:
                     QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
@@ -413,7 +413,7 @@ Empresa: ArtesGC Inc.""")
                 try:
                     QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                     dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-                    ImaGC(_dir_salvar=dirSalvar).convertendoIcone(_size=int(tamanhos.currentText()), _nome_imagem=self.nomeImagemCI.text())
+                    ImagEditor(_dir_salvar=dirSalvar).convertendoIcone(_size=int(tamanhos.currentText()), _nome_imagem=self.nomeImagemCI.text())
                     QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
                 except Exception as erro:
                     QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
@@ -436,8 +436,8 @@ Empresa: ArtesGC Inc.""")
 
                 infoImage = QLabel(f"""<h3><i>Detalhes</i></h3>
 <b>Nome & Localização</b>: {self.nomeImagemCI.text()}<br>
-<b>Dimensão (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemCI.text())} px<br>
-<b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeImagemCI.text())}""")
+<b>Dimensão (original)</b>: {ImagEditor().dimensaoImagem(_filename=self.nomeImagemCI.text())} px<br>
+<b>Tamanho</b>: {ImagEditor().tamanhoImagem(self.nomeImagemCI.text())}""")
                 layoutJanelaImagem.addWidget(infoImage)
 
                 _fechar = lambda: janelaImagem.destroy(True)
@@ -511,8 +511,8 @@ Empresa: ArtesGC Inc.""")
 
         def previsualizarImg():
             self.nomeImagensCP = nomeImagensCP.currentItem().text()
-            self.dimensaoImagensCP = ImaGC().dimensaoImagem(self.nomeImagensCP)
-            self.tamanhoImagensCP = ImaGC().tamanhoImagem(self.nomeImagensCP)
+            self.dimensaoImagensCP = ImagEditor().dimensaoImagem(self.nomeImagensCP)
+            self.tamanhoImagensCP = ImagEditor().tamanhoImagem(self.nomeImagensCP)
             imagem = QPixmap(self.nomeImagensCP)
             imagemLabel.setPixmap(imagem.scaled(QSize(150, 150)))
             imagemDetail.setText(f"""
@@ -528,7 +528,7 @@ Empresa: ArtesGC Inc.""")
                 try:
                     QMessageBox.warning(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                     dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-                    ImaGC(_dir_salvar=dirSalvar).convertendoPdf(_images=self.nomeFicheiros)
+                    ImagEditor(_dir_salvar=dirSalvar).convertendoPdf(_images=self.nomeFicheiros)
                     QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
                 except Exception as erro:
                     QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
@@ -596,7 +596,7 @@ Empresa: ArtesGC Inc.""")
                 try:
                     QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                     dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione onde salvar o arquivo")
-                    ImaGC(_dir_salvar=dirSalvar).redimensionarImagem(_resizer=int(divisor.currentText()) / 100, _nome_imagem=self.nomeImagemRI.text())
+                    ImagEditor(_dir_salvar=dirSalvar).redimensionarImagem(_resizer=int(divisor.currentText()) / 100, _nome_imagem=self.nomeImagemRI.text())
                     QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
                 except Exception as erro:
                     QMessageBox.critical(self.ferramentas, "Erro", f"{erro}..")
@@ -619,8 +619,8 @@ Empresa: ArtesGC Inc.""")
 
                 infoImage = QLabel(f"""<h3><i>Detalhes</i></h3>
 <b>Nome & Localização</b>: {self.nomeImagemRI.text()}<br>
-<b>Dimensão (original)</b>: {ImaGC().dimensaoImagem(_filename=self.nomeImagemRI.text())} px<br>
-<b>Tamanho</b>: {ImaGC().tamanhoImagem(self.nomeImagemRI.text())}""")
+<b>Dimensão (original)</b>: {ImagEditor().dimensaoImagem(_filename=self.nomeImagemRI.text())} px<br>
+<b>Tamanho</b>: {ImagEditor().tamanhoImagem(self.nomeImagemRI.text())}""")
                 layoutJanelaImagem.addWidget(infoImage)
 
                 _fechar = lambda: janelaImagem.destroy(True)
