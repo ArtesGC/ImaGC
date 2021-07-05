@@ -21,7 +21,7 @@ class ImaGC:
     def __init__(self):
         self.gc = QApplication(argv)
         self.janela = QWidget()
-        self.janela.setWindowTitle("ImagEditor")
+        self.janela.setWindowTitle("ImaGC")
         self.janela.setWindowIcon(QIcon("img/imagc-icon.png"))
         self.janela.setPalette(QPalette(QColor('orange')))
         self.janela.setStyleSheet(theme)
