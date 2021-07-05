@@ -30,7 +30,7 @@ logging.basicConfig(filename=f"./Debug/{datetime.date(datetime.today())}-imagc.l
 logging.info(f"{'*' * 25} NEW DEBUG {'*' * 25}")
 
 
-class ImaGC:
+class ImagEditor:
     def __init__(self, _dir_salvar: str = None):
         self.pdf = FPDF()
         self.dir_salvar = _dir_salvar
@@ -55,10 +55,10 @@ class ImaGC:
 
             for filename in os.listdir(_dir_imagens):
                 try:
-                    if (not filename.endswith("png")) \
-                            or (not filename.endswith("jpg")) or (not filename.endswith("jpeg")) \
-                            or (filename == LOGO_FILENAME) or os.path.isdir(filename):
-                        continue
+                    if not filename.endswith(".png") and not filename.endswith(".jpg") and not filename.endswith(".jpeg"):
+                        raise TypeError("Formato de imagem não suportado..")
+                    elif filename in LOGO_FILENAME:
+                        raise NameError("Nome do ficheiro semelhante ao do logotipo..")
 
                     im = Image.open(f"{_dir_imagens}/{filename}")
                     width, height = im.size
@@ -166,18 +166,17 @@ class ImaGC:
         :return: novo documento (.pdf) contendo a imagem(ns) selecionada(s),
          salva no directorio selecionado pelo utilizador"""
         if _images:
-            try:
-                for image in _images:
-                    if not image.endswith('.jpg'):
-                        logging.warning("Operação Incompleta, ficheiro não suportado!")
-                        continue
-                    width, height = self.dimensaoImagem(_filename=image)
+            for image in _images:
+                width, height = self.dimensaoImagem(_filename=image)
+                try:
+                    if not image.endswith(".png") and not image.endswith(".jpg") and not image.endswith(".jpeg"):
+                        raise TypeError("Formato de ficheiro não suportado..")
                     self.pdf.add_page('P')
-                    self.pdf.image(image, x=0, y=0, w=1080, h=1920)
-                self.pdf.output(f'{self.dir_salvar}/imagc.pdf', 'F')
-                logging.debug(f"Criando o arquivo '{self.dir_salvar}/imagc.pdf'.. CONCLUIDO!")
-            except Exception as erro:
-                logging.critical(f"{erro}..")
+                    self.pdf.image(image, x=0, y=0, w=int(width/2.8), h=int(height/2.8))
+                    self.pdf.output(f'{self.dir_salvar}/imagc.pdf', 'F')
+                    logging.debug(f"Criando o arquivo '{self.dir_salvar}/imagc.pdf'.. CONCLUIDO!")
+                except Exception as erro:
+                    logging.critical(f"{erro}..")
         else:
             logging.warning("Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
 
