@@ -11,14 +11,14 @@ theme = open('themes/imagc.qss').read().strip()
 class EN:
     def __init__(self):
         self.ferramentas = QWidget()
-        self.ferramentas.setFixedSize(QSize(800, 500))
-        self.ferramentas.setWindowTitle("ImagEditor")
+        self.ferramentas.setFixedSize(QSize(1000, 500))
+        self.ferramentas.setWindowTitle("ImaGC")
         self.ferramentas.setWindowIcon(QIcon("img/imagc-icon.png"))
         self.ferramentas.setStyleSheet(theme)
 
         # ******* background-image *******
         setBgImage = QImage("img/bg.jpg")
-        sizeBgImage = setBgImage.scaled(QSize(800, 500))  # resize Image to widget's size
+        sizeBgImage = setBgImage.scaled(QSize(1000, 500))  # resize Image to widget's size
         palette = QPalette()
         palette.setBrush(QPalette.Window, QBrush(sizeBgImage))
         self.ferramentas.setPalette(palette)
@@ -99,22 +99,27 @@ class EN:
         QMessageBox.information(self.ferramentas, "Instructions", """
 Hello dear user!
 
-It's with great pleasure and pride that I present the ImagEditor to you.
-A simple and full of features program!
-Of which its main function is to edit images.
-Adding logos or converting to (.ico)..
+It's with great pleasure and pride that I present the ImaGC to you
+A simple and full of features program
+Of which its main function is to edit images!
 
-- TO ADD THE LOGO THE IMAGE MUST HAVE THE BACKGROUND TRANSPARENT OR A TRANSPARENT MASK!
+- TO ADD THE LOGO, IT MUST HAVE A TRANSPARENT BACKGROUND OR A TRANSPARENT MASK;
 - FOR THE CONVERSION TO (.ico) THE PROGRAM EDIT THE BINARY DATA OF THE IMAGE
-AND REDEFINES ITS DIMENSIONS!
+AND REDEFINES ITS DIMENSIONS;
+- FOR THE CONVERSION OF (.gif) THE PROGRAM COPIES THE DATA FROM THE IMAGES
+AND CREATES AN ALTERNATE CYCLE BETWEEN THEM WITH DURATION OF 1 SECOND PER FRAME;
+- FOR THE CONVERSION OF (.pdf) THE PROGRAM ALSO COPIES THE IMAGE(S)
+AND CREATES A PDF FILE WITH AUTOMATICALLY RESIZED IMAGES;
+- FOR IMAGE RESIZING, THE PROGRAM OPTIMIZES THE ORIGINAL SIZE OF IMAGES
+AND RESIZE ACCORDING TO THE DIMENSION THAT THE USER WISHES TO REDUCE OR INCREASE;
 
 Thank you very much for your support!
-© 2019-2021 Nurul Carvalho
+© 2021 Nurul GC
 ™ ArtesGC Inc""")
 
     def _sobre(self):
         QMessageBox.information(self.ferramentas, "About", """
-Name: ImagEditor
+Name: ImaGC-imageditor
 Version: 0.5-072021
 Programmer & Designer: Nurul-GC
 Company: ArtesGC Inc.""")
@@ -126,12 +131,13 @@ Company: ArtesGC Inc.""")
                 registo.setText(log_file.read())
 
         janelaDebug = QDialog(self.ferramentas)
-        janelaDebug.setFixedSize(QSize(500, 500))
+        janelaDebug.setFixedSize(QSize(700, 500))
         janelaDebug.setWindowTitle("Log errors")
         layoutJanelaDebug = QFormLayout()
 
         layoutRegisto = QHBoxLayout()
         listaRegisto = QListWidget()
+        listaRegisto.setSortingEnabled(True)
         listaRegisto.setAlternatingRowColors(True)
         listaRegisto.itemClicked.connect(leituraLog)
         layoutRegisto.addWidget(listaRegisto)
@@ -330,6 +336,8 @@ Company: ArtesGC Inc.""")
             self.tamanhoImagensCG = ImagEditor().tamanhoImagem(self.nomeImagensCG)
             imagem = QPixmap(self.nomeImagensCG)
             imagemLabel.setPixmap(imagem.scaled(QSize(150, 150)))
+            imagemLabel.setToolTip("This is not the original dimension of the image "
+                                   "has just been adapted for a preview!")
             imagemDetail.setText(f"""
 <b>Nome</b>: {self.nomeImagensCG}<br>
 <b>Tamanho</b>: {self.tamanhoImagensCG}<br>
@@ -515,6 +523,8 @@ Company: ArtesGC Inc.""")
             self.tamanhoImagensCP = ImagEditor().tamanhoImagem(self.nomeImagensCP)
             imagem = QPixmap(self.nomeImagensCP)
             imagemLabel.setPixmap(imagem.scaled(QSize(150, 150)))
+            imagemLabel.setToolTip("This is not the original dimension of the image "
+                                   "has just been adapted for a preview!")
             imagemDetail.setText(f"""
 <b>Name</b>: {self.nomeImagensCP}<br>
 <b>Size</b>: {self.tamanhoImagensCP}<br>
