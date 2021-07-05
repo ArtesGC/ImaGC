@@ -166,17 +166,21 @@ class ImagEditor:
         :return: novo documento (.pdf) contendo a imagem(ns) selecionada(s),
          salva no directorio selecionado pelo utilizador"""
         if _images:
-            for image in _images:
-                width, height = self.dimensaoImagem(_filename=image)
-                try:
+            try:
+                for image in _images:
+                    width, height = self.dimensaoImagem(_filename=image)
                     if not image.endswith(".png") and not image.endswith(".jpg") and not image.endswith(".jpeg"):
                         raise TypeError("Formato de ficheiro não suportado..")
-                    self.pdf.add_page('P')
-                    self.pdf.image(image, x=0, y=0, w=int(width/2.8), h=int(height/2.8))
-                    self.pdf.output(f'{self.dir_salvar}/imagc.pdf', 'F')
-                    logging.debug(f"Criando o arquivo '{self.dir_salvar}/imagc.pdf'.. CONCLUIDO!")
-                except Exception as erro:
-                    logging.critical(f"{erro}..")
+                    elif width > height:
+                        self.pdf.add_page('L')
+                        self.pdf.image(image, x=0, y=0, w=int(1122/3.75), h=int(793/3.75))
+                    elif width < height:
+                        self.pdf.add_page('P')
+                        self.pdf.image(image, x=0, y=0, w=int(793/3.75), h=int(1122/3.75))
+                self.pdf.output(f'{self.dir_salvar}/imagc.pdf', 'F')
+                logging.debug(f"Criando o arquivo '{self.dir_salvar}/imagc.pdf'.. CONCLUIDO!")
+            except Exception as erro:
+                logging.critical(f"{erro}..")
         else:
             logging.warning("Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
 
