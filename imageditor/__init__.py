@@ -57,7 +57,7 @@ class ImagEditor:
                 try:
                     if not filename.endswith(".png") and not filename.endswith(".jpg") and not filename.endswith(".jpeg"):
                         raise TypeError("Formato de imagem não suportado..")
-                    elif filename in LOGO_FILENAME:
+                    if filename in LOGO_FILENAME:
                         raise NameError("Nome do ficheiro semelhante ao do logotipo..")
 
                     im = Image.open(f"{_dir_imagens}/{filename}")
@@ -171,7 +171,7 @@ class ImagEditor:
                     width, height = self.dimensaoImagem(_filename=image)
                     if not image.endswith(".png") and not image.endswith(".jpg") and not image.endswith(".jpeg"):
                         raise TypeError("Formato de ficheiro não suportado..")
-                    elif width > height:
+                    if width > height:
                         self.pdf.add_page('L')
                         self.pdf.image(image, x=0, y=0, w=int(1122/3.75), h=int(793/3.75))
                     elif width < height:
