@@ -30,8 +30,10 @@ I made it available in the folders: \
 `./ImaGC-ico`, `./ImaGC-logo`, `./ImaGC-pdf` and `./ImaGC-gif` \
 some exemplary images converted into (.ico, .gif, .pdf) and with a logo added…**
 
-***Enjoy!***
+***[Click here to demonstrations..](https://artesgc.github.io/imagc) \
+Enjoy!***
 
+  
 </div>
 
 &copy; 2020-2021 [Nurul Carvalho](mailto:nuruldecarvalho@gmail.com) \
