@@ -1,21 +1,21 @@
-# Demonstration
+***Demonstration***
 
-`Initial window`
+`Initial window` \
 ![intro](demo/intro-init.png)
 
-`Add Logo window`
+`Add Logo window` \
 ![add-logo](demo/addLogo.png)
 
-`Convert to gif`
+`Convert to gif` \
 ![convert-gif](demo/convertGif.png)
 
-`Convert to ico`
+`Convert to ico` \
 ![convert-ico](demo/convertIco.png)
 
-`Convert to pdf`
+`Convert to pdf` \
 ![convert-pdf](demo/convertPdf.png)
 
-`Resize image`
+`Resize image` \
 ![resize-image](demo/resizeImage.png)
 
 ---
