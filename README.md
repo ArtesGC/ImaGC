@@ -23,8 +23,6 @@ but also full of functions..
 
 ---
 
-<div align="center">
-
 **For better experience and confirmation of the program power \
 I made it available in the folders: \
 `./ImaGC-ico`, `./ImaGC-logo`, `./ImaGC-pdf` and `./ImaGC-gif` \
@@ -32,9 +30,6 @@ some exemplary images converted into (.ico, .gif, .pdf) and with a logo added…
 
 ***[Click here to demonstrations..](https://artesgc.github.io/ImaGC) \
 Enjoy!***
-
-  
-</div>
 
 &copy; 2020-2021 [Nurul Carvalho](mailto:nuruldecarvalho@gmail.com) \
 &trade; [ArtesGC](https://artesgc.home.blog)
