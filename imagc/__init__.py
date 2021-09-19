@@ -7,10 +7,13 @@
 #  Foco Fé Força Paciência                      *
 #  Allah no Comando.                            *
 # ***********************************************
+
 from random import randint
 from sys import argv
 from time import sleep
-from PyQt5.Qt import *
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import *
+from PyQt6.QtCore import *
 from imagc.en import EN
 from imagc.pt import PT
 
@@ -20,16 +23,21 @@ theme = open('themes/imagc.qss').read().strip()
 class ImaGC:
     def __init__(self):
         self.gc = QApplication(argv)
+
+        # application font
+        QFontDatabase.addApplicationFont("fonts/lifesavers.ttf")
+
         self.janela = QWidget()
         self.janela.setWindowTitle("ImaGC")
-        self.janela.setWindowIcon(QIcon("img/imagc-icon.png"))
+        self.janela.setWindowIcon(QIcon("icons/favicon-192x192.png"))
         self.janela.setPalette(QPalette(QColor('orange')))
+        self.janela.setFixedSize(QSize(400, 500))
         self.janela.setStyleSheet(theme)
 
         layout = QVBoxLayout()
 
         label = QLabel()
-        label.setPixmap(QPixmap("img/imagc.png").scaled(QSize(400, 400)))
+        label.setPixmap(QPixmap("icons/imagc.png").scaled(QSize(400, 400)))
         layout.addWidget(label)
 
         listaIdiomas = ['Set the language - Defina o idioma', 'English', 'Português']
@@ -38,7 +46,7 @@ class ImaGC:
         layout.addWidget(self.idiomas)
 
         self.barraIniciar = QProgressBar()
-        self.barraIniciar.setOrientation(Qt.Horizontal)
+        self.barraIniciar.setOrientation(Qt.Orientation.Horizontal)
         layout.addWidget(self.barraIniciar)
 
         botaoIniciar = QPushButton('In..')
@@ -72,4 +80,4 @@ class ImaGC:
 if __name__ == '__main__':
     gcApp = ImaGC()
     gcApp.janela.show()
-    gcApp.gc.exec_()
+    gcApp.gc.exec()
