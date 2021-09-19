@@ -1,5 +1,7 @@
 QWidget, QDialog{
-    font-family: times;
+    font-family: "Life Savers";
+    font-weight: bold;
+    font-size: 10;
 }
 QLineEdit{
     border-width: 1px;
@@ -8,7 +10,7 @@ QLineEdit{
     border-radius: 3px;
     padding: 3px;
     color: black;
-    background-color: orange;
+    background-color: "orange";
 }
 QTextEdit{
     border-width: 1px;
@@ -18,7 +20,7 @@ QTextEdit{
     border-radius: 3px;
     padding: 3px;
     color: black;
-    background-color: orange;
+    background-color: "orange";
 }
 QListWidget{
     border-width: 1px;
@@ -26,7 +28,7 @@ QListWidget{
     border-color: black;
     border-radius: 3px;
     color: black;
-    background-color: orange;
+    background-color: "orange";
 }
 QPushButton{
     border-width: 1px;
@@ -40,7 +42,7 @@ QPushButton:hover{
     border-width: 1px;
     border-style: solid;
     border-color: black;
-    background-color: orange;
+    background-color: "orange";
     color: black;
 }
 QComboBox{
@@ -49,8 +51,9 @@ QComboBox{
     border-color: black;
     border-radius: 3px;
     color: black;
-    width: auto;
-    background-color: orange;
+    width: "auto";
+    text-align: center;
+    background-color: "orange";
 }
 QComboBox:hover{
     border-width: 1px;
@@ -69,6 +72,6 @@ QProgressBar{
     padding: 2px;
 }
 QProgressBar::chunk {
-    background-color: orange;
+    background-color: "orange";
     border-radius: 5px;
 }
