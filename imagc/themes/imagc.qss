@@ -1,4 +1,4 @@
-QWidget, QDialog{
+QWidget, QDialog, QFrame{
     font-family: "Life Savers";
     font-weight: bold;
     font-size: 10;
