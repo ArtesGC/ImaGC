@@ -4,7 +4,7 @@ from sys import exit
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import *
 from PyQt6.QtCore import *
-from imageditor import ImagEditor
+from imageditor import ImagEditor, dimensaoImagem, tamanhoImagem
 
 theme = open('themes/imagc.qss').read().strip()
 
@@ -254,8 +254,8 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
 
                 infoImage = QLabel(f"""<h3><i>Details</i></h3>
 <b>Name</b>: {nomeLogo.text().split('/')[-1]}<br>
-<b>Scale (original)</b>: {ImagEditor().dimensaoImagem(_filename=nomeLogo.text())}pxs<br>
-<b>Size</b>: {ImagEditor().tamanhoImagem(nomeLogo.text())}""")
+<b>Scale (original)</b>: {dimensaoImagem(_filename=nomeLogo.text())}pxs<br>
+<b>Size</b>: {tamanhoImagem(nomeLogo.text())}""")
                 layoutJanelaLogo.addWidget(infoImage)
 
                 _fechar = lambda: janelaLogo.close()
@@ -285,8 +285,8 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
 
                 infoImage = QLabel(f"""<h3><i>Details</i></h3>
 <b>Name</b>: {nomeImagemAL.text().split('/')[-1]}<br>
-<b>Scale (original)</b>: {ImagEditor().dimensaoImagem(_filename=nomeImagemAL.text())}pxs<br>
-<b>Size</b>: {ImagEditor().tamanhoImagem(nomeImagemAL.text())}""")
+<b>Scale (original)</b>: {dimensaoImagem(_filename=nomeImagemAL.text())}pxs<br>
+<b>Size</b>: {tamanhoImagem(nomeImagemAL.text())}""")
                 layoutJanelaImagem.addWidget(infoImage)
 
                 _fechar = lambda: janelaImagem.close()
@@ -365,8 +365,8 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
                 nomeImagensCG.addItems(self.nomeFicheiros)
 
         def previsualizar_img():
-            dimensaoImagensCG = ImagEditor().dimensaoImagem(nomeImagensCG.currentItem().text())
-            tamanhoImagensCG = ImagEditor().tamanhoImagem(nomeImagensCG.currentItem().text())
+            dimensaoImagensCG = dimensaoImagem(nomeImagensCG.currentItem().text())
+            tamanhoImagensCG = tamanhoImagem(nomeImagensCG.currentItem().text())
             imagem = QPixmap(nomeImagensCG.currentItem().text())
             imagem_label.setPixmap(imagem.scaled(QSize(150, 150)))
             imagem_label.setToolTip("This is not the original dimension of the image "
@@ -442,8 +442,8 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
             previsualizar_img()
 
         def previsualizar_img():
-            dimensaoImagensCI = ImagEditor().dimensaoImagem(nomeImagemCI.text())
-            tamanhoImagensCI = ImagEditor().tamanhoImagem(nomeImagemCI.text())
+            dimensaoImagensCI = dimensaoImagem(nomeImagemCI.text())
+            tamanhoImagensCI = tamanhoImagem(nomeImagemCI.text())
             imagem = QPixmap(nomeImagemCI.text())
             imagem_label.setPixmap(imagem.scaled(QSize(150, 150)))
             imagem_label.setToolTip("This is not the original dimension of the image "
@@ -529,8 +529,8 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
                 nomeImagensCP.addItems(self.nomeFicheiros)
 
         def previsualizarImg():
-            dimensaoImagensCP = ImagEditor().dimensaoImagem(nomeImagensCP.currentItem().text())
-            tamanhoImagensCP = ImagEditor().tamanhoImagem(nomeImagensCP.currentItem().text())
+            dimensaoImagensCP = dimensaoImagem(nomeImagensCP.currentItem().text())
+            tamanhoImagensCP = tamanhoImagem(nomeImagensCP.currentItem().text())
             imagem = QPixmap(nomeImagensCP.currentItem().text())
             imagemLabel.setPixmap(imagem.scaled(QSize(150, 150)))
             imagemLabel.setToolTip("This is not the original dimension of the image "
@@ -605,8 +605,8 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
             previsualizarImg()
 
         def previsualizarImg():
-            dimensaoImagemRI = ImagEditor().dimensaoImagem(nomeImagemRI.text())
-            tamanhoImagemRI = ImagEditor().tamanhoImagem(nomeImagemRI.text())
+            dimensaoImagemRI = dimensaoImagem(nomeImagemRI.text())
+            tamanhoImagemRI = tamanhoImagem(nomeImagemRI.text())
             imagem = QPixmap(nomeImagemRI.text())
             imagemLabel.setPixmap(imagem.scaled(QSize(150, 150)))
             imagemLabel.setToolTip("This is not the original dimension of the image "
