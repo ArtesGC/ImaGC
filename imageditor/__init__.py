@@ -17,20 +17,43 @@ import imageio
 from PIL import Image
 from fpdf import FPDF
 
-__author__ = "Nurul Carvalho"
-__email__ = "nuruldecarvalho@gmail.com"
-__github_profile__ = "https://github.com/Nurul-GC"
-__version__ = "0.5-072021"
-__copyright__ = "© 2021 Nurul-GC"
-__trademark__ = "ArtesGC Inc"
-__trade_website_ = "https://artesgc.home.blog"
+__AUTHOR__ = "Nurul Carvalho"
+__EMAIL__ = "nuruldecarvalho@gmail.com"
+__GITHUB_PROFILE__ = "https://github.com/Nurul-GC"
+__VERSION__ = "0.6-092021"
+__COPYRIGHT__ = "© 2021 Nurul-GC"
+__TRADEMARK__ = "ArtesGC Inc"
+__TRADE_WEBSITE_ = "https://artesgc.home.blog"
 
 os.makedirs("./Debug", exist_ok=True)
-logging.basicConfig(filename=f"./Debug/{datetime.date(datetime.today())}-imagc.log", level=logging.DEBUG, format='\n %(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename=f"./Debug/{datetime.date(datetime.today())}-imagc.log",
+                    level=logging.DEBUG, format='\n %(asctime)s - %(levelname)s - %(message)s')
 logging.info(f"{'*' * 25} NEW DEBUG {'*' * 25}")
 
 
+def dimensaoImagem(_filename: str):
+    """identifica as dimensões da imagem
+
+    :param _filename: nome e localização da imagem
+    :return: uma tupla contendo a largura e a altura da imagem"""
+    imagem = Image.open(_filename)
+    return imagem.size
+
+
+def tamanhoImagem(_filename: str):
+    """calcula a quantidade de bytes da imagem
+
+    :param _filename: nome e localização da imagem
+    :return: o tamanho que a imagem ocupa no disco"""
+    num = os.path.getsize(_filename)
+    for x in ['bytes', 'KB', 'MB']:
+        if num < 1024.0:
+            return f"{num:3.1f}{x}"
+        num /= 1024.0
+
+
 class ImagEditor:
+    """ImaGC backend class"""
     def __init__(self, _dir_salvar: str = None):
         self.pdf = FPDF()
         self.dir_salvar = _dir_salvar
@@ -117,8 +140,7 @@ class ImagEditor:
 
         :param _nome_imagem: nome e localização da imagem
         :param _size: dimensão do icone
-        :return: um novo ficheiro (.ico),
-         salvo no directorio selecionado pelo utilizador"""
+        :return: um novo ficheiro (.ico), salvo no directorio selecionado pelo utilizador"""
         nome = ""
         if _nome_imagem:
             try:
@@ -168,7 +190,7 @@ class ImagEditor:
         if _images:
             try:
                 for image in _images:
-                    width, height = self.dimensaoImagem(_filename=image)
+                    width, height = dimensaoImagem(_filename=image)
                     if not image.endswith(".png") and not image.endswith(".jpg") and not image.endswith(".jpeg"):
                         raise TypeError("Formato de ficheiro não suportado..")
                     if width > height:
@@ -184,14 +206,6 @@ class ImagEditor:
         else:
             logging.warning("Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
 
-    def dimensaoImagem(self, _filename: str):
-        """identifica as dimensões da imagem
-
-        :param _filename: nome e localização da imagem
-        :return: uma tupla contendo a largura e a altura da imagem"""
-        imagem = Image.open(_filename)
-        return imagem.size
-
     def redimensionarImagem(self, _resizer: float, _nome_imagem: str):
         """função redimensionadora
 
@@ -202,9 +216,9 @@ class ImagEditor:
         if _nome_imagem:
             try:
                 resize_img = Image.open(_nome_imagem)
-                width, heigth = self.dimensaoImagem(_nome_imagem)
+                width, heigth = dimensaoImagem(_nome_imagem)
                 SIZES = [(int(width/_resizer), int(heigth/_resizer))]
-                for size in SIZES[0]:
+                for _ in SIZES[0]:
                     nome = f"{self.dir_salvar}/imagc-{_nome_imagem.split('/')[-1]}"
                 resize_img.save(nome, sizes=SIZES)
                 logging.debug(f"Redimensionando a imagem '{nome}'.. CONCLUIDO!")
@@ -212,14 +226,3 @@ class ImagEditor:
                 logging.critical(f"{erro}..")
         else:
             logging.warning("Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
-
-    def tamanhoImagem(self, _filename: str):
-        """calcula a quantidade de bytes da imagem
-
-        :param _filename: nome e localização da imagem
-        :return: o tamanho que a imagem ocupa no disco"""
-        num = os.path.getsize(_filename)
-        for x in ['bytes', 'KB', 'MB']:
-            if num < 1024.0:
-                return "%3.1f %s" % (num, x)
-            num /= 1024.0
