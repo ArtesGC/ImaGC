@@ -11,13 +11,13 @@
 from random import randint
 from sys import argv
 from time import sleep
-from PyQt6.QtWidgets import *
-from PyQt6.QtGui import *
+
 from PyQt6.QtCore import *
+from PyQt6.QtGui import *
+from PyQt6.QtWidgets import *
+
 from imagc.en import EN
 from imagc.pt import PT
-
-theme = open('themes/imagc.qss').read().strip()
 
 
 class ImaGC:
@@ -27,7 +27,7 @@ class ImaGC:
         # application font
         QFontDatabase.addApplicationFont("fonts/lifesavers.ttf")
 
-        self.janela = QWidget()
+        self.janela = QDialog()
         self.janela.setWindowTitle("ImaGC")
         self.janela.setWindowIcon(QIcon("icons/favicon-192x192.png"))
         self.janela.setPalette(QPalette(QColor('orange')))
@@ -78,6 +78,7 @@ class ImaGC:
 
 
 if __name__ == '__main__':
+    theme = open('themes/imagc.qss').read().strip()
     gcApp = ImaGC()
     gcApp.janela.show()
     gcApp.gc.exec()
