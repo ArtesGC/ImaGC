@@ -25,13 +25,13 @@ Description: image editor
 1
 #! /bin/bash -e
 
-ln -fs "/usr/bin/share/imagc/ImaGC" "/usr/bin/ImaGC"
+ln -fs "/usr/bin/share/imagc/imagc" "/usr/bin/imagc"
 <</POSTINST>>
 <<PRERM>>
 1
 #! /bin/bash -e
 
-rm -f "/usr/bin/ImaGC"
+rm -f "/usr/bin/imagc"
 <</PRERM>>
 <<POSTRM>>
 0
@@ -132,9 +132,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 1
 Name=ImaGC
 Version=1.0
-Exec=/usr/share/imagc/ImaGC
+Exec=/usr/share/imagc/imagc
 Comment=A simple way to personalize your images.
-Icon=/usr/share/imagc/img/imagc-icon.png
+Icon=/usr/share/imagc/icons/favicon-192x192.png
 Type=Application
 Terminal=false
 StartupNotify=true
@@ -144,7 +144,7 @@ Comment[PT]=Um modo simples de personalizar as suas imagens.
 GenericName=ImaGC - image editor
 GenericName[PT]=ImaGC - editor de imagens
 Path=/usr/share/imagc/
-StartupWMClass=ImaGC
+StartupWMClass=imagc
 <</MENU>>
 <<BUILD>>
 1
