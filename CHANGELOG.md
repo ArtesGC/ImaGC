@@ -18,3 +18,10 @@
   - now your able to look what is going on background by log file
   - layout much improved
   - many bugs fixed
+
+- [v0.6](https://github.com/ArtesGC/ImaGC/releases/tag/v0.6)
+  - refactored the source code
+  - changed the framework (**PyQt5** to **PyQt6**)
+  - optimized the layout and icons
+  - added a new font
+  - updated the theme
