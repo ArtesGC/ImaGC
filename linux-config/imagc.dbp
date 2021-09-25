@@ -1,7 +1,7 @@
 [DEBREATE-0.7.13]
 <<CTRL>>
 Package: imagc
-Version: 0.6-082021
+Version: 0.6-092021
 Maintainer: ArtesGC <nuruldecarvalho@gmail.com>
 Section: graphics
 Architecture: amd64
