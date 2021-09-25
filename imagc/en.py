@@ -220,7 +220,7 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
                                                           _nome_imagem=nomeImagemAL.text())
                 QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
             else:
-                QMessageBox.critical(self.ferramentas, "Error", f"Select the logo before to proceed and try again..")
+                QMessageBox.critical(self.ferramentas, "Error", "Select the logo before to proceed and try again..")
                 procurar_logo()
 
         def procurar_directorio():
@@ -233,7 +233,7 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
                                                           _dir_imagens=dirImagem.text())
                 QMessageBox.information(self.ferramentas, "Conclude", "Successful operation..")
             else:
-                QMessageBox.critical(self.ferramentas, "Error", f"Select the logo before to proceed and try again..")
+                QMessageBox.critical(self.ferramentas, "Error", "Select the logo before to proceed and try again..")
                 procurar_logo()
 
         def visualizar_logo():
@@ -360,7 +360,7 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
                                                                                filter="Image Files (*.png *.jpg *.jpeg)")
             if len(self.nomeFicheiros) < 2:
                 QMessageBox.critical(self.ferramentas, "Error",
-                                     f"Select the images before to proceed and try again..")
+                                     "Select the images before to proceed and try again..")
             else:
                 nomeImagensCG.addItems(self.nomeFicheiros)
 
@@ -379,7 +379,7 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
 
         def converter_imagens():
             if self.nomeFicheiros is None:
-                QMessageBox.critical(self.ferramentas, "Error", f"Select the images before to proceed and try again..")
+                QMessageBox.critical(self.ferramentas, "Error", "Select the images before to proceed and try again..")
                 procurar_imagens()
             else:
                 try:
@@ -405,7 +405,7 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
         imagem_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         imagem_label.setStyleSheet("background-color: white; padding: 2px;")
         imagem_layout.addWidget(imagem_label)
-        imagem_detail = QLabel(f"""
+        imagem_detail = QLabel("""
 <b>Name</b>: None<br>
 <b>Size</b>: None<br>
 <b>Scale (original)</b>: None""")
@@ -455,8 +455,8 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
 
         def converter():
             if nomeImagemCI.text() == "" or nomeImagemCI.text().isspace():
-                QMessageBox.critical(self.ferramentas, "Error", f"Select the image before to proceed and try again..")
-                self.procurarImagem()
+                QMessageBox.critical(self.ferramentas, "Error", "Select the image before to proceed and try again..")
+                procurarImagem()
             else:
                 try:
                     QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
@@ -482,7 +482,7 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
         imagem_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         imagem_label.setStyleSheet("background-color: white; padding: 2px;")
         imagem_layout.addWidget(imagem_label)
-        imagem_detail = QLabel(f"""
+        imagem_detail = QLabel("""
 <b>Name</b>: None<br>
 <b>Size</b>: None<br>
 <b>Scale (original)</b>: None""")
@@ -524,7 +524,7 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
                                                                                filter="Image Files (*.png *.jpg *.jpeg)")
             if len(self.nomeFicheiros) < 1:
                 QMessageBox.critical(self.ferramentas, "Error",
-                                     f"Select the images before to proceed and try again..")
+                                     "Select the images before to proceed and try again..")
             else:
                 nomeImagensCP.addItems(self.nomeFicheiros)
 
@@ -542,7 +542,7 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
 
         def converterImagens():
             if self.nomeFicheiros is None:
-                QMessageBox.critical(self.ferramentas, "Error", f"Select the images before to proceed and try again..")
+                QMessageBox.critical(self.ferramentas, "Error", "Select the images before to proceed and try again..")
                 procurarImagens()
             else:
                 try:
@@ -568,7 +568,7 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
         imagemLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
         imagemLabel.setStyleSheet('background-color: white; padding: 2px;')
         imagemLayout.addWidget(imagemLabel)
-        imagemDetail = QLabel(f"""
+        imagemDetail = QLabel("""
 <b>Name</b>: None<br>
 <b>Size</b>: None<br>
 <b>Scale (original)</b>: None""")
@@ -618,8 +618,8 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
 
         def redimensionar():
             if nomeImagemRI.text() == "" or nomeImagemRI.text().isspace():
-                QMessageBox.critical(self.ferramentas, "Error", f"Select the image before to proceed and try again..")
-                self.procurarImagem()
+                QMessageBox.critical(self.ferramentas, "Error", "Select the image before to proceed and try again..")
+                procurarImagem()
             else:
                 try:
                     QMessageBox.information(self.ferramentas, 'Warning', 'Select where to save the file..')
@@ -645,7 +645,7 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
         imagemLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
         imagemLabel.setStyleSheet('background-color: white; padding: 2px;')
         imagemLayout.addWidget(imagemLabel)
-        imagemDetail = QLabel(f"""
+        imagemDetail = QLabel("""
 <b>Name</b>: None<br>
 <b>Size</b>: None<br>
 <b>Scale (original)</b>: None""")
