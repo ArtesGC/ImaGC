@@ -213,18 +213,16 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
                 QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                 dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas,
                                                              caption="Selecione onde salvar o arquivo")
-                ImagEditor(_dir_salvar=dirSalvar, _nome_logotipo=nomeLogo.text(),
-                           _nome_imagem=nomeImagemAL.text()).addLogo()
+                ImagEditor(_dir_salvar=dirSalvar).addLogo(_nome_logotipo=nomeLogo.text(), _nome_imagem=nomeImagemAL.text())
                 QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
             else:
-                QMessageBox.critical(self.ferramentas, "Erro",
-                                     f"Selecione o logotipo antes de continuar e tente novamente..")
+                QMessageBox.critical(self.ferramentas, "Erro", "Selecione o logotipo antes de continuar e tente novamente..")
                 procurar_logo()
 
         def procurar_directorio():
             if nomeLogo.text() != "":
                 nomeDirectorio = QFileDialog.getExistingDirectory(self.ferramentas, caption="Selecione a Imagem")
-                self.dirImagem.setText(nomeDirectorio)
+                dirImagem.setText(nomeDirectorio)
                 QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                 dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas,
                                                              caption="Selecione onde salvar o arquivo")
@@ -232,8 +230,7 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
                                                           _dir_imagens=dirImagem.text())
                 QMessageBox.information(self.ferramentas, "Concluido", "Operação bem Sucedida..")
             else:
-                QMessageBox.critical(self.ferramentas, "Erro",
-                                     f"Selecione o logotipo antes de continuar e tente novamente..")
+                QMessageBox.critical(self.ferramentas, "Erro", "Selecione o logotipo antes de continuar e tente novamente..")
                 procurar_logo()
 
         def visualizar_logo():
@@ -363,7 +360,7 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
                                                                                filter="Image Files (*.png *.jpg *.jpeg)")
             if len(self.nomeFicheiros) < 2:
                 QMessageBox.critical(self.ferramentas, "Erro",
-                                     f"Selecione as imagens antes de continuar e tente novamente..")
+                                     "Selecione as imagens antes de continuar e tente novamente..")
             else:
                 nomeImagensCG.addItems(self.nomeFicheiros)
 
@@ -383,7 +380,7 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
         def converter_imagens():
             if self.nomeFicheiros is None:
                 QMessageBox.critical(self.ferramentas, "Erro",
-                                     f"Selecione as imagens antes de continuar e tente novamente..")
+                                     "Selecione as imagens antes de continuar e tente novamente..")
                 procurar_imagens()
             else:
                 try:
@@ -410,7 +407,7 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
         imagem_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         imagem_label.setStyleSheet('background-color: white; padding: 2px;')
         imagem_layout.addWidget(imagem_label)
-        imagem_detail = QLabel(f"""
+        imagem_detail = QLabel("""
 <b>Nome</b>: None<br>
 <b>Tamanho</b>: None<br>
 <b>Dimensões (original)</b>: None""")
@@ -461,8 +458,8 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
         def converter():
             if nomeImagemCI.text() == "" or nomeImagemCI.text().isspace():
                 QMessageBox.critical(self.ferramentas, "Erro",
-                                     f"Selecione a imagem antes de continuar e tente novamente..")
-                self.procurarImagem()
+                                     "Selecione a imagem antes de continuar e tente novamente..")
+                procurarImagem()
             else:
                 try:
                     QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
@@ -488,7 +485,7 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
         imagem_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         imagem_label.setStyleSheet("background-color: white; padding: 2px;")
         imagem_layout.addWidget(imagem_label)
-        imagem_detail = QLabel(f"""
+        imagem_detail = QLabel("""
 <b>Nome</b>: None<br>
 <b>Tamanho</b>: None<br>
 <b>Dimensões (original)</b>: None""")
@@ -530,7 +527,7 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
                                                                                filter="Image Files (*.png *.jpg *.jpeg)")
             if len(self.nomeFicheiros) < 1:
                 QMessageBox.critical(self.ferramentas, "Erro",
-                                     f"Selecione 'as imagens' antes de continuar e tente novamente..")
+                                     "Selecione 'as imagens' antes de continuar e tente novamente..")
             else:
                 nomeImagensCP.addItems(self.nomeFicheiros)
 
@@ -549,7 +546,7 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
         def converterImagens():
             if self.nomeFicheiros is None:
                 QMessageBox.critical(self.ferramentas, "Erro",
-                                     f"Selecione as imagens antes de continuar e tente novamente..")
+                                     "Selecione as imagens antes de continuar e tente novamente..")
                 procurarImagens()
             else:
                 try:
@@ -575,7 +572,7 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
         imagemLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
         imagemLabel.setStyleSheet('background-color: white; padding: 2px;')
         imagemLayout.addWidget(imagemLabel)
-        imagemDetail = QLabel(f"""
+        imagemDetail = QLabel("""
 <b>Nome</b>: None<br>
 <b>Tamanho</b>: None<br>
 <b>Dimensões (original)</b>: None""")
@@ -608,7 +605,7 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
         def procurarImagem():
             nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(self.ferramentas, caption="Selecione a Imagem",
                                                                         filter="Image Files (*.png *.jpg *.jpeg)")
-            self.nomeImagemRI.setText(nomeFicheiro)
+            nomeImagemRI.setText(nomeFicheiro)
             previsualizarImg()
 
         def previsualizarImg():
@@ -626,8 +623,8 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
         def redimensionar():
             if nomeImagemRI.text() == "" or nomeImagemRI.text().isspace():
                 QMessageBox.critical(self.ferramentas, "Erro",
-                                     f"Selecione a imagem antes de continuar e tente novamente..")
-                self.procurarImagem()
+                                     "Selecione a imagem antes de continuar e tente novamente..")
+                procurarImagem()
             else:
                 try:
                     QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
@@ -653,7 +650,7 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
         imagemLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
         imagemLabel.setStyleSheet('background-color: white; padding: 2px;')
         imagemLayout.addWidget(imagemLabel)
-        imagemDetail = QLabel(f"""
+        imagemDetail = QLabel("""
 <b>Nome</b>: None<br>
 <b>Tamanho</b>: None<br>
 <b>Dimensões (original)</b>: None""")
