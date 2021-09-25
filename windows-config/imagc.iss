@@ -33,8 +33,8 @@ DefaultUserInfoName={#MyAppName}
 DefaultUserInfoOrg={#MyAppPublisher}
 DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
-;PrivilegesRequired=lowest
-PrivilegesRequiredOverridesAllowed=dialog
+PrivilegesRequired=lowest
+; PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=..\imagc\dist
 OutputBaseFilename={#MyAppName}_{#MyAppVersion}-092021_amd64
 SetupIconFile=..\imagc\icon\imagc-256x256.ico
