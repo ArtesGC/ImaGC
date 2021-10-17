@@ -11,11 +11,11 @@ Description: image editor
 <</CTRL>>
 <<FILES>>
 1
-/mnt/37a72730-af1d-47ba-93bd-a15579b491f9/dev-gc/PycharmProjects/ImaGC/imagc/dist/imagc* -> imagc -> /usr/bin/share/imagc
-/mnt/37a72730-af1d-47ba-93bd-a15579b491f9/dev-gc/PycharmProjects/ImaGC/imagc/icons -> icons -> /usr/bin/share/imagc
-/mnt/37a72730-af1d-47ba-93bd-a15579b491f9/dev-gc/PycharmProjects/ImaGC/imagc/themes -> themes -> /usr/bin/share/imagc
-/mnt/37a72730-af1d-47ba-93bd-a15579b491f9/dev-gc/PycharmProjects/ImaGC/imagc/fonts -> fonts -> /usr/bin/share/imagc
-/mnt/37a72730-af1d-47ba-93bd-a15579b491f9/dev-gc/PycharmProjects/ImaGC/LICENSE -> LICENSE -> /usr/bin/share/imagc
+/media/nurul-gc/LEXAR-PROJT/PycharmProjects/ImaGC/imagc/dist/imagc* -> imagc -> /usr/bin/share/imagc
+/media/nurul-gc/LEXAR-PROJT/PycharmProjects/ImaGC/imagc/icons -> icons -> /usr/bin/share/imagc
+/media/nurul-gc/LEXAR-PROJT/PycharmProjects/ImaGC/imagc/themes -> themes -> /usr/bin/share/imagc
+/media/nurul-gc/LEXAR-PROJT/PycharmProjects/ImaGC/imagc/fonts -> fonts -> /usr/bin/share/imagc
+/media/nurul-gc/LEXAR-PROJT/PycharmProjects/ImaGC/imagc/LICENSE -> LICENSE -> /usr/bin/share/imagc
 <</FILES>>
 <<SCRIPTS>>
 <<PREINST>>
