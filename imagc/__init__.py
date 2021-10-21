@@ -7,7 +7,8 @@
 #  Foco Fé Força Paciência                      *
 #  Allah no Comando.                            *
 # ***********************************************
-
+import os
+from configparser import ConfigParser
 from random import randint
 from sys import argv
 from time import sleep
@@ -27,58 +28,36 @@ class ImaGC:
         # application font
         QFontDatabase.addApplicationFont("fonts/lifesavers.ttf")
 
-        self.janela = QDialog()
-        self.janela.setWindowTitle("ImaGC")
-        self.janela.setWindowIcon(QIcon("icons/favicon-192x192.png"))
-        self.janela.setPalette(QPalette(QColor('orange')))
-        self.janela.setFixedSize(QSize(400, 500))
-        self.janela.setStyleSheet(theme)
-
-        layout = QVBoxLayout()
-
-        label = QLabel()
-        label.setPixmap(QPixmap("icons/imagc.png").scaled(QSize(400, 400)))
-        layout.addWidget(label)
-
-        listaIdiomas = ['Set the language - Defina o idioma', 'English', 'Português']
-        self.idiomas = QComboBox()
-        self.idiomas.addItems(listaIdiomas)
-        layout.addWidget(self.idiomas)
-
-        self.barraIniciar = QProgressBar()
-        self.barraIniciar.setOrientation(Qt.Orientation.Horizontal)
-        layout.addWidget(self.barraIniciar)
-
-        botaoIniciar = QPushButton('In..')
-        botaoIniciar.clicked.connect(self.iniciar)
-        layout.addWidget(botaoIniciar)
-
-        self.janela.setLayout(layout)
+        img = QPixmap("icons/imagc.png").scaled(QSize(400, 400))
+        self.align = int(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignAbsolute)
+        self.janela = QSplashScreen(img)
+        self.janela.show()
+        self.iniciar()
 
     def iniciar(self):
         n = 0
-        if self.idiomas.currentText() == 'English':
-            while n < 101:
-                self.barraIniciar.setValue(n)
-                sleep(0.2)
-                n += randint(1, 5)
-            self.janela.destroy()
+        inifile = ConfigParser()
+        while n < 101:
+            self.janela.showMessage(f"Loading... {n}%", self.align, Qt.GlobalColor.yellow)
+            sleep(0.5)
+            n += randint(1, 10)
+        if os.path.exists('imagc.ini'):
+            inifile.read('imagc.ini')
+            if inifile['MAIN']['lang'] == 'English':
+                app = EN()
+                app.ferramentas.show()
+            elif inifile['MAIN']['lang'] == 'Portugues':
+                app = PT()
+                app.ferramentas.show()
+            else:
+                QMessageBox.critical(QWidget, 'Error', "- Am sorry, the language set in your [imagc.ini] file is unsupported!\n"
+                                                       "- Lamento, o idioma definido no seu ficheiro [imagc.ini] não é suportado!")
+        else:
             app = EN()
             app.ferramentas.show()
-        elif self.idiomas.currentText() == 'Português':
-            while n < 101:
-                self.barraIniciar.setValue(n)
-                sleep(0.2)
-                n += randint(1, 5)
-            self.janela.destroy()
-            app = PT()
-            app.ferramentas.show()
-        else:
-            QMessageBox.information(self.janela, "Info", "- Please select a language!\n- Por favor selecione um idioma!")
 
 
 if __name__ == '__main__':
     theme = open('themes/imagc.qss').read().strip()
     gcApp = ImaGC()
-    gcApp.janela.show()
     gcApp.gc.exec()
