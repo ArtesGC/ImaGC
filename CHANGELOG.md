@@ -25,3 +25,8 @@
   - optimized the layout and icons
   - added a new font
   - updated the theme
+
+- [v0.7](https://github.com/ArtesGC/ImaGC/releases/tag/v0.7)
+  - refactored the source code
+  - added a splash screen to the initiation
+  - other minor bugs solved
