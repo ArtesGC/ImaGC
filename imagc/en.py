@@ -1,5 +1,6 @@
 import os
 import webbrowser
+from configparser import ConfigParser
 from sys import exit
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import *
@@ -35,21 +36,27 @@ class EN:
         # ******* menu *******
         menu = QMenuBar()
         layout_principal.setMenuBar(menu)
-        instr = menu.addAction("Instructions")
+
+        hlp = menu.addMenu("Help")
+        conf = hlp.addAction("Configurations")
+        conf.triggered.connect(self._conf)
+        hlp.addSeparator()
+
+        instr = hlp.addAction("Instructions")
         instr.triggered.connect(self._instr)
-        menu.addSeparator()
+        hlp.addSeparator()
 
-        debug = menu.addAction("Log errors")
+        debug = hlp.addAction("Log errors")
         debug.triggered.connect(self._debug)
-        menu.addSeparator()
-
-        sobre = menu.addAction("About")
-        sobre.triggered.connect(self._sobre)
-        menu.addSeparator()
+        hlp.addSeparator()
 
         _sair = lambda: exit(0)
-        sair = menu.addAction("Quit")
+        sair = hlp.addAction("Quit")
         sair.triggered.connect(_sair)
+
+        menu.addSeparator()
+        sobre = menu.addAction("About")
+        sobre.triggered.connect(self._sobre)
 
         # ******* list-options *******
         self.listaJanelas = QListWidget(self.ferramentas)
@@ -103,6 +110,42 @@ class EN:
         self.listaJanelas.currentRowChanged.connect(self.alterar_janela)
 
     # ******* menu-functions *******
+    def _conf(self):
+        def alterar():
+            try:
+                config = ConfigParser()
+                if escolha_idioma.currentText() == 'Portugues':
+                    config['MAIN'] = {'lang': escolha_idioma.currentText()}
+                elif escolha_idioma.currentText() == 'English':
+                    config['MAIN'] = {'lang': escolha_idioma.currentText()}
+                with open('imagc.ini', 'w') as INIFILE:
+                    config.write(INIFILE)
+                QMessageBox.information(self.ferramentas, 'Successsful', 'The language set will be loaded after restart the program!')
+                janela.close()
+            except Exception as erro:
+                QMessageBox.warning(self.ferramentas, 'Warning', f'While processing your request the following error was found:\n- {erro}')
+
+        janela = QDialog(self.ferramentas)
+        janela.setWindowTitle('ImaGC')
+        janela.setFixedSize(QSize(300, 150))
+        janela.setWindowIcon(QIcon('icons/favicon-192x192.png'))
+        layout = QVBoxLayout()
+
+        labelInfo = QLabel('<h3>Choose the language:</h3>')
+        layout.addWidget(labelInfo)
+
+        idiomas = ['Portugues', 'English']
+        escolha_idioma = QComboBox()
+        escolha_idioma.addItems(idiomas)
+        layout.addWidget(escolha_idioma)
+
+        btnSalvar = QPushButton('Save')
+        btnSalvar.clicked.connect(alterar)
+        layout.addWidget(btnSalvar)
+
+        janela.setLayout(layout)
+        janela.show()
+
     def _instr(self):
         janela = QDialog(self.ferramentas)
         janela.setWindowTitle("Instructions")
@@ -148,7 +191,7 @@ Thank you very much for your support!
 
         sobre_label = QLabel("""
 Name: <b>ImaGC</b><br>
-Version: <b>0.6-092021</b><br>
+Version: <b>0.7-102021</b><br>
 Programmer & Designer: <b>Nurul-GC</b><br>
 Company: <b>&trade;ArtesGC Inc.</b>""")
         sobre_label.setStyleSheet("background-color: orange;"
