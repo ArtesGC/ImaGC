@@ -34,18 +34,27 @@ class PT:
         # ******* menu *******
         menu = QMenuBar()
         layout_principal.setMenuBar(menu)
-        instr = menu.addAction("Instruções")
+
+        hlp = menu.addMenu("Ajuda")
+        conf = hlp.addAction("Configurações")
+        conf.triggered.connect(self._conf)
+        hlp.addSeparator()
+
+        instr = hlp.addAction("Instruções")
         instr.triggered.connect(self._instr)
+        hlp.addSeparator()
 
-        debug = menu.addAction("Registo de erros")
+        debug = hlp.addAction("Registo erros")
         debug.triggered.connect(self._debug)
-
-        sobre = menu.addAction("Sobre")
-        sobre.triggered.connect(self._sobre)
+        hlp.addSeparator()
 
         _sair = lambda: exit(0)
-        sair = menu.addAction("Sair")
+        sair = hlp.addAction("Sair")
         sair.triggered.connect(_sair)
+
+        menu.addSeparator()
+        sobre = menu.addAction("Sobre")
+        sobre.triggered.connect(self._sobre)
 
         # ******* list-options *******
         self.listaJanelas = QListWidget(self.ferramentas)
@@ -99,6 +108,42 @@ class PT:
         self.listaJanelas.currentRowChanged.connect(self.alterar_janela)
 
     # ******* menu-functions *******
+    def _conf(self):
+        def alterar():
+            try:
+                config = ConfigParser()
+                if escolha_idioma.currentText() == 'Portugues':
+                    config['MAIN'] = {'lang': escolha_idioma.currentText()}
+                elif escolha_idioma.currentText() == 'English':
+                    config['MAIN'] = {'lang': escolha_idioma.currentText()}
+                with open('imagc.ini', 'w') as INIFILE:
+                    config.write(INIFILE)
+                QMessageBox.information(self.ferramentas, 'Sucessso', 'O idioma definido será carregado após o reinício do programa!')
+                janela.close()
+            except Exception as erro:
+                QMessageBox.warning(self.ferramentas, 'Aviso', f'Enquanto processava o seu pedido, o seguinte erro foi encontrado:\n- {erro}')
+
+        janela = QDialog(self.ferramentas)
+        janela.setWindowTitle('ImaGC')
+        janela.setFixedSize(QSize(300, 150))
+        janela.setWindowIcon(QIcon('icons/favicon-192x192.png'))
+        layout = QVBoxLayout()
+
+        labelInfo = QLabel('<h3>Escolha o idioma:</h3>')
+        layout.addWidget(labelInfo)
+
+        idiomas = ['Portugues', 'English']
+        escolha_idioma = QComboBox()
+        escolha_idioma.addItems(idiomas)
+        layout.addWidget(escolha_idioma)
+
+        btnSalvar = QPushButton('Salvar')
+        btnSalvar.clicked.connect(alterar)
+        layout.addWidget(btnSalvar)
+
+        janela.setLayout(layout)
+        janela.show()
+
     def _instr(self):
         janela = QDialog(self.ferramentas)
         janela.setWindowTitle("Instruções")
@@ -144,7 +189,7 @@ Muito Obrigado pelo apoio!
 
         sobre_label = QLabel("""
 Nome: <b>ImaGC</b><br>
-Versão: <b>0.6-092021</b><br>
+Versão: <b>0.7-102021</b><br>
 Programador & Designer: <b>Nurul-GC</b><br>
 Empresa: <b>&trade;ArtesGC Inc.</b>""")
         sobre_label.setStyleSheet("background-color: orange;"
