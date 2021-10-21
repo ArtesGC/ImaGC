@@ -263,3 +263,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+!/imagc/imagc.ini
+!/imagc/imagc
