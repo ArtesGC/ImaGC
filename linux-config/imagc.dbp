@@ -15,7 +15,7 @@ Description: image editor
 /home/nurul-gc/Projects/PycharmProjects/ImaGC/imagc/icons -> icons -> /usr/bin/share/imagc
 /home/nurul-gc/Projects/PycharmProjects/ImaGC/imagc/themes -> themes -> /usr/bin/share/imagc
 /home/nurul-gc/Projects/PycharmProjects/ImaGC/imagc/fonts -> fonts -> /usr/bin/share/imagc
-/home/nurul-gc/Projects/PycharmProjects/ImaGC/imagc/LICENSE -> LICENSE -> /usr/bin/share/imagc
+/home/nurul-gc/Projects/PycharmProjects/ImaGC/LICENSE -> LICENSE -> /usr/bin/share/imagc
 <</FILES>>
 <<SCRIPTS>>
 <<PREINST>>
