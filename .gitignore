@@ -263,5 +263,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-!/imagc/imagc.ini
-!/imagc/imagc
+### User Template
+
+.idea
+/imagc/imagc.ini
+/imagc/imagc*
