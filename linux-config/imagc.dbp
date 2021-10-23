@@ -25,13 +25,25 @@ Description: image editor
 1
 #! /bin/bash -e
 
-ln -fs "/usr/share/imagc/imagc" "/usr/bin/imagc"
+ln -s "/usr/share/imagc/imagc" "/usr/bin/imagc"
+ln -s "/usr/share/imagc/fonts/*" "/usr/bin/fonts/"
+ln -s "/usr/share/imagc/themes/*" "/usr/bin/themes/"
+ln -s "/usr/share/imagc/icons/*" "/usr/bin/icons/"
 <</POSTINST>>
 <<PRERM>>
 1
 #! /bin/bash -e
 
 rm -f "/usr/bin/imagc"
+
+rm -f "/usr/bin/fonts/*"
+rmdir "/usr/bin/fonts/"
+
+rm -f "/usr/bin/themes/*"
+rmdir "/usr/bin/themes/"
+
+rm -f "/usr/bin/icons/*"
+rmdir "/usr/bin/icons/"
 <</PRERM>>
 <<POSTRM>>
 0
