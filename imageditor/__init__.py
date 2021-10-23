@@ -25,7 +25,7 @@ __COPYRIGHT__ = "© 2021 Nurul-GC"
 __TRADEMARK__ = "ArtesGC Inc"
 __TRADE_WEBSITE_ = "https://artesgc.home.blog"
 
-os.makedirs("./Debug", exist_ok=True)
+os.makedirs(".debug", exist_ok=True)
 logging.basicConfig(filename=f".debug/{date.today()}-imagc.log",
                     level=logging.DEBUG, format='\n %(asctime)s - %(levelname)s - %(message)s')
 logging.info(f"{'*' * 25} NEW DEBUG {'*' * 25}")
