@@ -38,10 +38,11 @@ class ImaGC:
     def iniciar(self):
         n = 0
         inifile = ConfigParser()
-        while n < 101:
-            self.janela.showMessage(f"Loading ... {n}%", self.align, Qt.GlobalColor.yellow)
-            sleep(0.5)
-            n += randint(1, 10)
+        load = ''
+        while len(load) < 120:
+            self.janela.showMessage(f"{load}", self.align, Qt.GlobalColor.yellow)
+            sleep(0.2)
+            load += '|'*randint(1, 10)
         if os.path.exists('imagc.ini'):
             inifile.read('imagc.ini')
             if inifile['MAIN']['lang'] == 'English':
@@ -54,7 +55,7 @@ class ImaGC:
                 QMessageBox.critical(QWidget, 'Error', "- Am sorry, the language set in your [imagc.ini] file is unsupported!\n"
                                                        "- Lamento, o idioma definido no seu ficheiro [imagc.ini] não é suportado!")
         else:
-            app = PT()
+            app = EN()
             app.ferramentas.show()
 
 
