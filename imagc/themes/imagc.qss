@@ -1,7 +1,7 @@
 QWidget, QDialog, QFrame{
     font-family: "Life Savers";
     font-weight: bold;
-    font-size: 10;
+    font-size: 13;
 }
 QLineEdit{
     border-width: 1px;
