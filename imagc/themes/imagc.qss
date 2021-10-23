@@ -62,16 +62,3 @@ QComboBox:hover{
     background-color: white;
     color: black;
 }
-QProgressBar{
-    text-align: center;
-    color: black;
-    border-width: 1px;
-    border-style: solid;
-    border-color: black;
-    border-radius: 5px;
-    padding: 2px;
-}
-QProgressBar::chunk {
-    background-color: "orange";
-    border-radius: 5px;
-}
