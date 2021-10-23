@@ -31,6 +31,7 @@ class ImaGC:
         img = QPixmap("icons/imagc.png").scaled(QSize(400, 400))
         self.align = int(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignAbsolute)
         self.janela = QSplashScreen(img)
+        self.janela.setStyleSheet(theme)
         self.janela.show()
         self.iniciar()
 
@@ -38,7 +39,7 @@ class ImaGC:
         n = 0
         inifile = ConfigParser()
         while n < 101:
-            self.janela.showMessage(f"Loading... {n}%", self.align, Qt.GlobalColor.yellow)
+            self.janela.showMessage(f"Loading ... {n}%", self.align, Qt.GlobalColor.yellow)
             sleep(0.5)
             n += randint(1, 10)
         if os.path.exists('imagc.ini'):
@@ -53,7 +54,7 @@ class ImaGC:
                 QMessageBox.critical(QWidget, 'Error', "- Am sorry, the language set in your [imagc.ini] file is unsupported!\n"
                                                        "- Lamento, o idioma definido no seu ficheiro [imagc.ini] não é suportado!")
         else:
-            app = EN()
+            app = PT()
             app.ferramentas.show()
 
 
