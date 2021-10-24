@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "imagc"
-#define MyAppVersion "0.6"
+#define MyAppVersion "0.7"
 #define MyAppPublisher "ArtesGC, Inc."
 #define MyAppURL "http://artesgc.home.blog/"
 #define MyAppExeName "imagc.exe"
@@ -36,8 +36,8 @@ DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 ; PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=..\imagc\dist
-OutputBaseFilename={#MyAppName}_{#MyAppVersion}-092021_amd64
-SetupIconFile=..\imagc\icons\imagc-256x256.ico
+OutputBaseFilename={#MyAppName}_{#MyAppVersion}-102021_amd64
+SetupIconFile=..\imagc\ima-icons\imagc-256x256.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -51,9 +51,9 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "..\imagc\dist\imagc.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\imagc\icons\*"; DestDir: "{app}\icons"; Flags: ignoreversion recursesubdirs
-Source: "..\imagc\themes\*"; DestDir: "{app}\themes"; Flags: ignoreversion recursesubdirs
-Source: "..\imagc\fonts\*"; DestDir: "{app}\fonts"; Flags: ignoreversion recursesubdirs
+Source: "..\imagc\ima-icons\*"; DestDir: "{app}\ima-icons"; Flags: ignoreversion recursesubdirs
+Source: "..\imagc\ima-themes\*"; DestDir: "{app}\ima-themes"; Flags: ignoreversion recursesubdirs
+Source: "..\imagc\ima-fonts\*"; DestDir: "{app}\ima-fonts"; Flags: ignoreversion recursesubdirs
 Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
