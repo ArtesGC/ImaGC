@@ -12,6 +12,7 @@
 import logging
 import os
 from datetime import date
+from subprocess import getoutput
 from typing import List
 import imageio
 import PIL
@@ -25,8 +26,12 @@ __COPYRIGHT__ = "© 2021 Nurul-GC"
 __TRADEMARK__ = "ArtesGC Inc"
 __TRADE_WEBSITE_ = "https://artesgc.home.blog"
 
-os.makedirs(".debug", exist_ok=True)
-logging.basicConfig(filename=f".debug/{date.today()}-imagc.log",
+if os.name == 'posix':
+    home = getoutput('echo $HOME')
+    os.makedirs(os.path.join(home, f".ima-debug"), exist_ok=True)
+else:
+    os.makedirs(f".ima-debug", exist_ok=True)
+logging.basicConfig(filename=f".ima-debug/{date.today()}-imagc.log",
                     level=logging.DEBUG, format='\n %(asctime)s - %(levelname)s - %(message)s')
 logging.info(f"{'*' * 25} NEW DEBUG {'*' * 25}")
 
