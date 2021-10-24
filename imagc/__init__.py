@@ -26,9 +26,9 @@ class ImaGC:
         self.gc = QApplication(argv)
 
         # application font
-        QFontDatabase.addApplicationFont("fonts/lifesavers.ttf")
+        QFontDatabase.addApplicationFont("ima-fonts/lifesavers.ttf")
 
-        img = QPixmap("icons/imagc.png").scaled(QSize(400, 400))
+        img = QPixmap("ima-icons/imagc.png").scaled(QSize(400, 400))
         self.align = int(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignAbsolute)
         self.janela = QSplashScreen(img)
         self.janela.setStyleSheet(theme)
@@ -60,6 +60,6 @@ class ImaGC:
 
 
 if __name__ == '__main__':
-    theme = open('themes/imagc.qss').read().strip()
+    theme = open('ima-themes/imagc.qss').read().strip()
     gcApp = ImaGC()
     gcApp.gc.exec()
