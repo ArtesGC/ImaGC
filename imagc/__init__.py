@@ -35,6 +35,12 @@ class ImaGC:
         self.janela.show()
         self.iniciar()
 
+    def debugpath(self) -> str:
+        if os.name == 'posix':
+            home = getoutput('echo $HOME')
+            return os.path.join(home, '.ima-debug')
+        return '.ima-debug'
+
     def iniciar(self):
         n = 0
         inifile = ConfigParser()
@@ -43,8 +49,8 @@ class ImaGC:
             self.janela.showMessage(f"{load}", self.align, Qt.GlobalColor.yellow)
             sleep(0.5)
             load += '|'*randint(1, 10)
-        if os.path.exists('imagc.ini'):
-            inifile.read('imagc.ini')
+        if os.path.exists(f'{self.debugpath()}/imagc.ini'):
+            inifile.read(f'{self.debugpath()}/imagc.ini')
             if inifile['MAIN']['lang'] == 'English':
                 app = EN()
                 app.ferramentas.show()
