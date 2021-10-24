@@ -12,9 +12,9 @@ Description: image editor
 <<FILES>>
 1
 /home/nurul-gc/Projects/PycharmProjects/ImaGC/imagc/dist/imagc* -> imagc -> /usr/share/imagc
-/home/nurul-gc/Projects/PycharmProjects/ImaGC/imagc/icons -> icons -> /usr/share/imagc
-/home/nurul-gc/Projects/PycharmProjects/ImaGC/imagc/themes -> themes -> /usr/share/imagc
-/home/nurul-gc/Projects/PycharmProjects/ImaGC/imagc/fonts -> fonts -> /usr/share/imagc
+/home/nurul-gc/Projects/PycharmProjects/ImaGC/imagc/ima-icons -> ima-icons -> /usr/share/imagc
+/home/nurul-gc/Projects/PycharmProjects/ImaGC/imagc/ima-themes -> ima-themes -> /usr/share/imagc
+/home/nurul-gc/Projects/PycharmProjects/ImaGC/imagc/ima-fonts -> ima-fonts -> /usr/share/imagc
 /home/nurul-gc/Projects/PycharmProjects/ImaGC/LICENSE -> LICENSE -> /usr/share/imagc
 <</FILES>>
 <<SCRIPTS>>
