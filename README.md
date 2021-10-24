@@ -1,6 +1,6 @@
 <div align="center">
 
-![imagc-icon](imagc/icons/favicon-192x192.png)
+![imagc-icon](imagc/ima-icons/favicon-192x192.png)
 
 [![Download ImaGC](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/imagc/files/latest/download)
 
