@@ -116,7 +116,7 @@ class PT:
                     config['MAIN'] = {'lang': escolha_idioma.currentText()}
                 elif escolha_idioma.currentText() == 'English':
                     config['MAIN'] = {'lang': escolha_idioma.currentText()}
-                with open('imagc.ini', 'w') as INIFILE:
+                with open(f'{self.debugpath()}/imagc.ini', 'w') as INIFILE:
                     config.write(INIFILE)
                 QMessageBox.information(self.ferramentas, 'Sucessso', 'O idioma definido será carregado após o reinício do programa!')
                 janela.close()
@@ -225,7 +225,8 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
         lista_registo.setAlternatingRowColors(True)
         lista_registo.itemClicked.connect(leitura_log)
         for log in os.listdir(self.debugpath()):
-            lista_registo.addItem(log)
+            if log.endswith('.log'):
+                lista_registo.addItem(log)
         layout_registo.addWidget(lista_registo)
 
         registo = QTextEdit()
@@ -294,7 +295,7 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
                                     "Por favor selecione a imagem antes de prosseguir..")
             else:
                 janelaLogo = QDialog(self.ferramentas)
-                janelaLogo.setWindowTitle("Visualizar Logotipo")
+                janelaLogo.setWindowTitle("ImaGC - Visualizar Logotipo")
                 janelaLogo.setPalette(QPalette(QColor("orange")))
 
                 layoutJanelaLogo = QVBoxLayout()
@@ -326,7 +327,7 @@ Empresa: <b>&trade;ArtesGC Inc.</b>""")
             else:
                 janelaImagem = QDialog(self.ferramentas)
                 janelaImagem.setWindowIcon(QIcon(f"{os.path.abspath(__file__)}/ima-icons/imagc.png"))
-                janelaImagem.setWindowTitle("Visualizar Imagem")
+                janelaImagem.setWindowTitle("ImaGC - Visualizar Imagem")
                 janelaImagem.setPalette(QPalette(QColor("orange")))
 
                 layoutJanelaImagem = QVBoxLayout()
