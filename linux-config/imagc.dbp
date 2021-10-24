@@ -162,18 +162,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 1
 Name=ImaGC
 Version=1.0
+Path=/usr/share/imagc/
 Exec=/usr/share/imagc/imagc
-Comment=A simple way to personalize your images.
-Icon=/usr/share/imagc/icons/favicon-192x192.png
+Icon=/usr/share/imagc/ima-icons/favicon-192x192.png
+Comment=A simple way to customize your images.
+Comment[PT]=Um modo simples de personalizar as suas imagens.
 Type=Application
 Terminal=false
 StartupNotify=true
 Encoding=UTF-8
 Categories=Graphics;
-Comment[PT]=Um modo simples de personalizar as suas imagens.
 GenericName=ImaGC - image editor
 GenericName[PT]=ImaGC - editor de imagens
-Path=/usr/share/imagc/
 StartupWMClass=imagc
 <</MENU>>
 <<BUILD>>
