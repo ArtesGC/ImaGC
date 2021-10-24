@@ -29,10 +29,12 @@ __TRADE_WEBSITE_ = "https://artesgc.home.blog"
 if os.name == 'posix':
     home = getoutput('echo $HOME')
     os.makedirs(os.path.join(home, f".ima-debug"), exist_ok=True)
+    logging.basicConfig(filename=f"{home}/.ima-debug/{date.today()}-imagc.log",
+                        level=logging.DEBUG, format='\n %(asctime)s - %(levelname)s - %(message)s')
 else:
     os.makedirs(f".ima-debug", exist_ok=True)
-logging.basicConfig(filename=f".ima-debug/{date.today()}-imagc.log",
-                    level=logging.DEBUG, format='\n %(asctime)s - %(levelname)s - %(message)s')
+    logging.basicConfig(filename=f".ima-debug/{date.today()}-imagc.log",
+                        level=logging.DEBUG, format='\n %(asctime)s - %(levelname)s - %(message)s')
 logging.info(f"{'*' * 25} NEW DEBUG {'*' * 25}")
 
 
@@ -59,6 +61,7 @@ def tamanho_imagem(_filename: str):
 
 class ImagEditor:
     """ImaGC backend class"""
+
     def __init__(self, _dir_salvar: str = None):
         self.pdf = FPDF()
         self.dir_salvar = _dir_salvar
@@ -203,10 +206,10 @@ class ImagEditor:
                         raise TypeError("Formato de ficheiro não suportado..")
                     if width > height:
                         self.pdf.add_page('L')
-                        self.pdf.image(image, x=0, y=0, w=int(1122/3.75), h=int(793/3.75))
+                        self.pdf.image(image, x=0, y=0, w=int(1122 / 3.75), h=int(793 / 3.75))
                     elif width < height:
                         self.pdf.add_page('P')
-                        self.pdf.image(image, x=0, y=0, w=int(793/3.75), h=int(1122/3.75))
+                        self.pdf.image(image, x=0, y=0, w=int(793 / 3.75), h=int(1122 / 3.75))
                 self.pdf.output(f'{self.dir_salvar}/imagc.pdf', 'F')
                 logging.debug(f"Criando o arquivo '{self.dir_salvar}/imagc.pdf'.. CONCLUIDO!")
             except Exception as erro:
