@@ -1,6 +1,7 @@
 import os
 import webbrowser
 from configparser import ConfigParser
+from subprocess import getoutput
 from sys import exit
 from time import time
 
@@ -10,7 +11,7 @@ from PyQt6.QtWidgets import *
 
 from imagc.imageditor import ImagEditor, dimensao_imagem, tamanho_imagem
 
-theme = open('themes/imagc.qss').read().strip()
+theme = open(f'{os.path.abspath(os.curdir)}/ima-themes/imagc.qss').read().strip()
 
 
 class EN:
@@ -22,11 +23,11 @@ class EN:
         self.ferramentas = QDialog()
         self.ferramentas.setFixedSize(QSize(800, 550))
         self.ferramentas.setWindowTitle("ImaGC")
-        self.ferramentas.setWindowIcon(QIcon("icons/favicon-192x192.png"))
+        self.ferramentas.setWindowIcon(QIcon(f"{os.path.abspath(os.curdir)}/ima-icons/favicon-192x192.png"))
         self.ferramentas.setStyleSheet(theme)
 
         # ******* background-image *******
-        bg_image = QImage("icons/bg.jpg")
+        bg_image = QImage(f"{os.path.abspath(os.curdir)}/ima-icons/bg.jpg")
         set_bg_image = bg_image.scaled(QSize(800, 550))  # resize Image to widget's size
         palette = QPalette()
         palette.setBrush(palette.ColorGroup.All, palette.ColorRole.Window, QBrush(set_bg_image))
@@ -125,7 +126,6 @@ class EN:
         janela = QDialog(self.ferramentas)
         janela.setWindowTitle('ImaGC - Language')
         janela.setFixedSize(QSize(300, 150))
-        janela.setWindowIcon(QIcon('icons/favicon-192x192.png'))
         layout = QVBoxLayout()
 
         labelInfo = QLabel('<h3>Choose the language:</h3>')
@@ -201,10 +201,16 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
         janela.setLayout(layout)
         janela.show()
 
+    def debugpath(self) -> str:
+        if os.name == 'posix':
+            home = getoutput('echo $HOME')
+            return os.path.join(home, '.ima-debug')
+        return '.ima-debug'
+
     def _debug(self):
         def leitura_log():
             registo.clear()
-            with open(f'.debug/{lista_registo.currentItem().text()}', 'r') as log_file:
+            with open(f'{self.debugpath()}/{lista_registo.currentItem().text()}', 'r') as log_file:
                 registo.setText(log_file.read())
 
         janela_debug = QDialog(self.ferramentas)
@@ -218,7 +224,7 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
         lista_registo.setSortingEnabled(True)
         lista_registo.setAlternatingRowColors(True)
         lista_registo.itemClicked.connect(leitura_log)
-        for log in os.listdir('.debug'):
+        for log in os.listdir(self.debugpath()):
             lista_registo.addItem(log)
         layout_registo.addWidget(lista_registo)
 
@@ -294,7 +300,7 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
                 labelLogo = QLabel()
                 labelLogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 labelLogo.setToolTip("Logo presentation!")
-                labelLogo.setPixmap(QPixmap(f"{nomeLogo.text()}").scaled(QSize(400, 400)))
+                labelLogo.setPixmap(QPixmap(f"{nomeLogo.text()}").scaled(QSize(250, 250)))
                 layoutJanelaLogo.addWidget(labelLogo)
 
                 infoImage = QLabel(f"""<h3><i>Details</i></h3>
@@ -325,7 +331,7 @@ Company: <b>&trade;ArtesGC Inc.</b>""")
                 labelImagem = QLabel()
                 labelImagem.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 labelImagem.setToolTip("Image presentation!")
-                labelImagem.setPixmap(QPixmap(f"{nomeImagemAL.text()}").scaled(QSize(400, 400)))
+                labelImagem.setPixmap(QPixmap(f"{nomeImagemAL.text()}").scaled(QSize(250, 250)))
                 layoutJanelaImagem.addWidget(labelImagem)
 
                 infoImage = QLabel(f"""<h3><i>Details</i></h3>
