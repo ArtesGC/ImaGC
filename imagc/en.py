@@ -9,7 +9,7 @@ from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 
-from imagc.imageditor import ImagEditor, dimensao_imagem, tamanho_imagem
+from imagc.ie import ImagEditor, dimensao_imagem, tamanho_imagem
 
 theme = open(f'{os.path.abspath(os.curdir)}/ima-themes/imagc.qss').read().strip()
 
