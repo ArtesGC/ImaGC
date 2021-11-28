@@ -271,3 +271,8 @@ $RECYCLE.BIN/
 imagc/imagc.ini
 imagc/imagc*
 .debug/
+### User Template
+
+imagc/imagc.ini
+imagc/imagc*
+.debug/
