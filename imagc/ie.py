@@ -9,33 +9,19 @@
  - MODULO RESPONSAVEL PELA EDIÇÃO DAS IMAGENS
 """
 
+# ******************************************************************************
+#  (c) 2020-2021 Nurul-GC.                                                     *
+# ******************************************************************************
+
 import logging
 import os
 from datetime import date
 from subprocess import getoutput
 from typing import List
+
 import imageio
 import PIL
 from fpdf import FPDF
-
-__AUTHOR__ = "Nurul Carvalho"
-__EMAIL__ = "nuruldecarvalho@gmail.com"
-__GITHUB_PROFILE__ = "https://github.com/Nurul-GC"
-__VERSION__ = "0.7-102021"
-__COPYRIGHT__ = "© 2021 Nurul-GC"
-__TRADEMARK__ = "ArtesGC Inc"
-__TRADE_WEBSITE_ = "https://artesgc.home.blog"
-
-if os.name == 'posix':
-    home = getoutput('echo $HOME')
-    os.makedirs(os.path.join(home, f".ima-debug"), exist_ok=True)
-    logging.basicConfig(filename=f"{home}/.ima-debug/{date.today()}-imagc.log",
-                        level=logging.DEBUG, format='\n %(asctime)s - %(levelname)s - %(message)s')
-else:
-    os.makedirs(f".ima-debug", exist_ok=True)
-    logging.basicConfig(filename=f".ima-debug/{date.today()}-imagc.log",
-                        level=logging.DEBUG, format='\n %(asctime)s - %(levelname)s - %(message)s')
-logging.info(f"{'*' * 25} NEW DEBUG {'*' * 25}")
 
 
 def dimensao_imagem(_filename: str):
@@ -57,6 +43,13 @@ def tamanho_imagem(_filename: str):
         if num < 1024.0:
             return f"{num:3.1f}{x}"
         num /= 1024.0
+
+
+def debugpath() -> str:
+    if os.name == 'posix':
+        home = getoutput('echo $HOME')
+        return os.path.join(home, '.ima-debug')
+    return '.ima-debug'
 
 
 class ImagEditor:
@@ -88,18 +81,18 @@ class ImagEditor:
                 try:
                     if not filename.endswith(".png") and not filename.endswith(".jpg") and not filename.endswith(".jpeg"):
                         raise TypeError("Formato de imagem não suportado..")
-                    if filename in LOGO_FILENAME:
+                    elif filename in LOGO_FILENAME:
                         raise NameError("Nome do ficheiro semelhante ao do logotipo..")
+                    else:
+                        im = PIL.Image.open(f"{_dir_imagens}/{filename}")
+                        width, height = im.size
 
-                    im = PIL.Image.open(f"{_dir_imagens}/{filename}")
-                    width, height = im.size
-
-                    im.paste(logoIm, (width - logoWidth, height - logoHeight), logoIm)
-                    im.save(os.path.join(f'{self.dir_salvar}', f"imagc-{filename}"))
-                    logging.debug(f"Adicionando logotipo a imagem '{filename}'... CONCLUIDO!")
+                        im.paste(logoIm, (width - logoWidth, height - logoHeight), logoIm)
+                        im.save(os.path.join(f'{self.dir_salvar}', f"imagc-{filename}"))
+                        logging.debug(f"Adicionando logotipo a imagem '{filename}'... CONCLUIDO!")
                 except Exception as erro:
                     logging.critical(f"{erro}..")
-                    raise Exception(erro)
+                    continue
         elif _nome_imagem and _nome_logotipo:
             SQUARE_FIT_SIZE = 100
             LOGO_FILENAME = _nome_logotipo
@@ -114,11 +107,12 @@ class ImagEditor:
             filename = _nome_imagem
             im = PIL.Image.open(filename)
             width, height = im.size
+            imagem = os.path.join(f"{self.dir_salvar}/", f"imagc-{filename.split('/')[-1]}")
 
             try:
                 im.paste(logoIm, (width - logoWidth, height - logoHeight), logoIm)
-                im.save(os.path.join(f"{self.dir_salvar}/", f"imagc-{filename.split('/')[-1]}"))
-                logging.debug(f"Adicionando logo a imagem '{filename}'... CONCLUIDO!")
+                im.save(imagem)
+                logging.debug(f"Adicionando logo a imagem '{imagem}'... CONCLUIDO!")
             except Exception as erro:
                 logging.critical(f"{erro}..")
                 raise Exception(erro)
@@ -133,15 +127,18 @@ class ImagEditor:
          salva no directorio selecionado pelo utilizador"""
         dados_imagem = []
         if _images:
-            try:
-                for image in _images:
-                    imgData = imageio.imread(image)
-                    dados_imagem.append(imgData)
-                imageio.mimsave(f"{self.dir_salvar}/imagc.gif", dados_imagem, duration=1.0)
-                logging.debug(f"Criando o arquivo '{self.dir_salvar}/imagc.gif'.. CONCLUIDO!")
-            except Exception as erro:
-                logging.critical(f"- {erro}..")
-                raise Exception(erro)
+            for image in _images:
+                if image.endswith('.gif'):
+                    try:
+                        imgData = imageio.imread(image)
+                        dados_imagem.append(imgData)
+                        imageio.mimsave(self.dir_salvar, dados_imagem, duration=1.0)
+                        logging.debug(f"Criando o arquivo '{self.dir_salvar}'.. CONCLUIDO!")
+                    except Exception as erro:
+                        logging.critical(f"- {erro}..")
+                        continue
+                else:
+                    raise NameError('Invalid Name for file, should end with ".gif"...')
         else:
             logging.warning("Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
 
@@ -158,30 +155,26 @@ class ImagEditor:
                 img_to_icon = PIL.Image.open(_nome_imagem)
                 if _size == 16:
                     size = SIZES[0]
-                    for sz in size:
-                        for s in sz:
-                            nome = f"{self.dir_salvar}/imagc-{s}x{s}.ico"
+                    for sz in size[0]:
+                        nome = f"{self.dir_salvar}/imagc-{sz}x{sz}.ico"
                     img_to_icon.save(nome, sizes=size)
                     logging.debug(f"Criando o icone '{nome}'.. CONCLUIDO!")
                 elif _size == 32:
                     size = SIZES[1]
-                    for sz in size:
-                        for s in sz:
-                            nome = f"{self.dir_salvar}/imagc-{s}x{s}.ico"
+                    for sz in size[1]:
+                        nome = f"{self.dir_salvar}/imagc-{sz}x{sz}.ico"
                     img_to_icon.save(nome, sizes=size)
                     logging.debug(f"Criando o icone '{nome}'.. CONCLUIDO!")
                 elif _size == 64:
                     size = SIZES[2]
-                    for sz in size:
-                        for s in sz:
-                            nome = f"{self.dir_salvar}/imagc-{s}x{s}.ico"
+                    for sz in size[2]:
+                        nome = f"{self.dir_salvar}/imagc-{sz}x{sz}.ico"
                     img_to_icon.save(nome, sizes=size)
                     logging.debug(f"Criando o icone '{nome}'.. CONCLUIDO!")
                 elif _size == 256:
                     size = SIZES[3]
-                    for sz in size:
-                        for s in sz:
-                            nome = f"{self.dir_salvar}/imagc-{s}x{s}.ico"
+                    for sz in size[3]:
+                        nome = f"{self.dir_salvar}/imagc-{sz}x{sz}.ico"
                     img_to_icon.save(nome, sizes=size)
                     logging.debug(f"Criando o icone '{nome}'.. CONCLUIDO!")
                 else:
@@ -199,21 +192,30 @@ class ImagEditor:
         :return: novo documento (.pdf) contendo a imagem(ns) selecionada(s),
          salva no directorio selecionado pelo utilizador"""
         if _images:
-            try:
-                for image in _images:
-                    width, height = dimensao_imagem(_filename=image)
-                    if not image.endswith(".png") and not image.endswith(".jpg") and not image.endswith(".jpeg"):
-                        raise TypeError("Formato de ficheiro não suportado..")
-                    if width > height:
-                        self.pdf.add_page('L')
-                        self.pdf.image(image, x=0, y=0, w=int(1122 / 3.75), h=int(793 / 3.75))
-                    elif width < height:
-                        self.pdf.add_page('P')
-                        self.pdf.image(image, x=0, y=0, w=int(793 / 3.75), h=int(1122 / 3.75))
-                self.pdf.output(f'{self.dir_salvar}/imagc.pdf', 'F')
-                logging.debug(f"Criando o arquivo '{self.dir_salvar}/imagc.pdf'.. CONCLUIDO!")
-            except Exception as erro:
-                logging.critical(f"{erro}..")
-                raise Exception(erro)
+            for image in _images:
+                if image.endswith('.pdf'):
+                    try:
+                        width, height = dimensao_imagem(_filename=image)
+                        if not image.endswith(".png") and not image.endswith(".jpg") and not image.endswith(".jpeg"):
+                            raise TypeError("Formato de ficheiro não suportado..")
+                        else:
+                            if width > height:
+                                self.pdf.add_page('L')
+                                self.pdf.image(image, x=0, y=0, w=int(1122 / 3.75), h=int(793 / 3.75))
+                            elif width < height:
+                                self.pdf.add_page('P')
+                                self.pdf.image(image, x=0, y=0, w=int(793 / 3.75), h=int(1122 / 3.75))
+                            self.pdf.output(self.dir_salvar, 'F')
+                            logging.debug(f"Criando o arquivo '{self.dir_salvar}'.. CONCLUIDO!")
+                    except Exception as erro:
+                        logging.critical(f"{erro}..")
+                        continue
+                else:
+                    raise NameError('Invalid Name for file, should end with ".pdf"...')
         else:
             logging.warning("Operação Incompleta, identifique o nome e localização dos ficheiros antes de iniciar..\n")
+
+
+logging.basicConfig(filename=f"{debugpath()}/{date.today()}-imagc.log",
+                    level=logging.DEBUG, format='\n %(asctime)s - %(levelname)s - %(message)s')
+logging.info(f"{'*' * 25} NEW DEBUG {'*' * 25}")
