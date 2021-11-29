@@ -3,8 +3,8 @@
 block_cipher = None
 
 
-a = Analysis(['__init__.py'],
-             pathex=['./'],
+a = Analysis(['./imagc/__init__.py'],
+             pathex=['./imagc/'],
              binaries=[],
              datas=[],
              hiddenimports=[],
