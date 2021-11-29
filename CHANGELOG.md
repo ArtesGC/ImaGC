@@ -30,3 +30,9 @@
   - refactored the source code
   - added a splash screen to the initiation
   - other minor bugs solved
+  
+- [v0.8](https://github.com/ArtesGC/ImaGC/releases/tag/v0.8)
+  - refactored the code and layout
+  - optimized the images
+  - updated the demos
+  - other minor bugs solved
