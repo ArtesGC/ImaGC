@@ -135,6 +135,7 @@ class ImagEditor:
                 for image in _images:
                     imgData = imageio.imread(image)
                     dados_imagem.append(imgData)
+
                 imageio.mimsave(self.dir_salvar, dados_imagem, duration=1.0)
                 logging.debug(f"Creating the file '{self.dir_salvar}'.. SUCCESSFULL!")
             except Exception as erro:
