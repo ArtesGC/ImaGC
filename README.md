@@ -31,6 +31,7 @@ but also full of functions...
 ***⚠️ OBS: logos should have a transparent mask!***
 
 *[Click here for demonstrations..](https://github.com/ArtesGC/ImaGC/tree/v0.8/demos)* \
+*[And here for the white paper..](https://artesgc.github.io/ImaGC)* \
 Enjoy!
 
 ---
