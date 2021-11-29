@@ -23,18 +23,17 @@ but also full of functions...
   - convert one or more images into a Portable Document Format (.pdf)
 
 - I made available some exemplary images converted into (.ico, .gif, .pdf) and with a logo added, inside the folders:
-  - `./ImaGC-ico`
-  - `./ImaGC-logo`
-  - `./ImaGC-pdf`
-  - `./ImaGC-gif` 
+  - `./demos/ImaGC-ico`
+  - `./demos/ImaGC-logo`
+  - `./demos/ImaGC-pdf`
+  - `./demos/ImaGC-gif` 
 
-***OBS: logos should have a transparent mask!***
+***⚠️ OBS: logos should have a transparent mask!***
 
-***[Click here for demonstrations..](https://artesgc.github.io/ImaGC)***
-
+*[Click here for demonstrations..](https://github.com/ArtesGC/ImaGC/tree/v0.8/demos)* \
 Enjoy!
 
 ---
 
 &copy; 2020 – 2021 [Nurul Carvalho](mailto:nuruldecarvalho@gmail.com) \
-&trade; [ArtesGC](https://artesgc.home.blog)
+&trade;[ArtesGC](https://artesgc.home.blog)
