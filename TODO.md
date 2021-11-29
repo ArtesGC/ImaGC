@@ -5,4 +5,4 @@
 ---
 
 &copy; 2020-2021 Nurul-GC \
-&trade; ArtesGC-DevSoft
+&trade;ArtesGC-DevSoft
