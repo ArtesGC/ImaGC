@@ -44,7 +44,7 @@ class ImaGC:
         # application font
         QFontDatabase.addApplicationFont("./ima-fonts/lifesavers.ttf")
 
-        img = QPixmap("./ima-icons/imagc.png").scaled(QSize(500, 500))
+        img = QPixmap("./ima-icons/favicon-512x512.png").scaled(QSize(500, 500))
         self.align = int(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignAbsolute)
         self.janela = QSplashScreen(img)
         self.janela.setStyleSheet(theme)
@@ -55,9 +55,9 @@ class ImaGC:
         inifile = ConfigParser()
         load = ''
         while len(load) < 100:
-            self.janela.showMessage(f"{load}", self.align, Qt.GlobalColor.yellow)
+            self.janela.showMessage(f"{load}", self.align, Qt.GlobalColor.black)
             sleep(0.5)
-            load += '|'*randint(1, 10)
+            load += '|'*randint(5, 10)
         if os.path.exists(f'{debugpath()}/imagc.ini'):
             inifile.read(f'{debugpath()}/imagc.ini')
             if inifile['MAIN']['lang'] == 'English':
