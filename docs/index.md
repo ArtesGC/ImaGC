@@ -43,7 +43,13 @@ but also full of functions and features...
   - added a splash screen to the initiation
   - other minor bugs solved
 
-[Click here to previews...](/preview)
+- [v0.8](https://github.com/ArtesGC/ImaGC/releases/tag/v0.8)
+  - refactored the code and layout
+  - optimized the images
+  - updated the demos
+  - other minor bugs solved
+
+[Click here to previews...](./preview.md)
 
 ---
 
