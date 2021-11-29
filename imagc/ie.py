@@ -133,19 +133,10 @@ class ImagEditor:
         if self.dir_salvar.endswith('.gif'):
             try:
                 for image in _images:
-                    shutil.copyfile(image, tempdir())
-                    for imagem in os.listdir(tempdir()):
-                        img = PIL.Image.open(imagem)
-                        img.save(imagem, sizes=[(500, 500)])
-
-                        imgData = imageio.imread(imagem)
-                        dados_imagem.append(imgData)
+                    imgData = imageio.imread(image)
+                    dados_imagem.append(imgData)
                 imageio.mimsave(self.dir_salvar, dados_imagem, duration=1.0)
                 logging.debug(f"Creating the file '{self.dir_salvar}'.. SUCCESSFULL!")
-
-                for file in os.listdir(tempdir()):
-                    os.remove(file)
-                os.removedirs(tempdir())
             except Exception as erro:
                 logging.critical(f"- {erro}..")
         else:
