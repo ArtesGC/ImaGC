@@ -2,9 +2,9 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "imagc"
-#define MyAppVersion "0.7"
+#define MyAppVersion "0.8"
 #define MyAppPublisher "ArtesGC, Inc."
-#define MyAppURL "http://artesgc.home.blog/"
+#define MyAppURL "https://artesgc.github.io/ImaGC"
 #define MyAppExeName "imagc.exe"
 
 [Setup]
@@ -35,8 +35,8 @@ DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 PrivilegesRequired=lowest
 ; PrivilegesRequiredOverridesAllowed=dialog
-OutputDir=..\imagc\dist
-OutputBaseFilename={#MyAppName}_{#MyAppVersion}-102021_amd64
+OutputDir=..\dist
+OutputBaseFilename={#MyAppName}_{#MyAppVersion}-112021_amd64
 SetupIconFile=..\imagc\ima-icons\favicon-256x256.ico
 Compression=lzma
 SolidCompression=yes
@@ -50,7 +50,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl";
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "..\imagc\dist\imagc.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\dist\imagc.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\imagc\ima-icons\*"; DestDir: "{app}\ima-icons"; Flags: ignoreversion recursesubdirs
 Source: "..\imagc\ima-themes\*"; DestDir: "{app}\ima-themes"; Flags: ignoreversion recursesubdirs
 Source: "..\imagc\ima-fonts\*"; DestDir: "{app}\ima-fonts"; Flags: ignoreversion recursesubdirs
