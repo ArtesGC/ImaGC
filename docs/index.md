@@ -1,11 +1,11 @@
 # Intro - ImaGC
 
 > Simplest Image Editor that ever existed,
-but also full of functions...
+but also full of functions and features...
 
 - The ImaGC allows the user:
   - add logos to images;
-  - automatically and manually resizes the image if necessary;
+  - automatically resizes the image if necessary;
   - convert a selected image into an Icon (.ico);
   - convert a range of selected images into a Graphics Interchange Format (.gif)
   - convert one or more images into a Portable Document Format (.pdf)
@@ -43,7 +43,9 @@ but also full of functions...
   - added a splash screen to the initiation
   - other minor bugs solved
 
+[Click here to previews...](/preview)
+
 ---
 
 &copy; 2020-2021 Nurul GC \
-&trade; ArtesGC (DevSoft)
+&trade;ArtesGC (DevSoft)
