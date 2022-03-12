@@ -25,7 +25,7 @@ import PIL
 from fpdf import FPDF
 
 
-def dimensao_imagem(_filename: str):
+def dimensao_imagem(_filename: str) -> tuple:
     """identifica as dimensões da imagem
 
     :param _filename: nome e localização da imagem
@@ -34,7 +34,7 @@ def dimensao_imagem(_filename: str):
     return imagem.size
 
 
-def tamanho_imagem(_filename: str):
+def tamanho_imagem(_filename: str) -> str:
     """calcula a quantidade de bytes da imagem
 
     :param _filename: nome e localização da imagem
