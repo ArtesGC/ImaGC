@@ -57,7 +57,7 @@ class PT:
         debug.triggered.connect(self._debug)
         hlp.addSeparator()
 
-        _sair = lambda:exit(0)
+        _sair = lambda: exit(0)
         sair = hlp.addAction("Sair")
         sair.triggered.connect(_sair)
 
@@ -101,7 +101,7 @@ class PT:
         layout_principal.addLayout(hbox)
 
         # ******* label-copyright *******
-        browser = lambda:webbrowser.open('https://artesgc.home.blog')
+        browser = lambda: webbrowser.open('https://artesgc.home.blog')
         labelCopyright = QLabel("<hr><a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
         labelCopyright.setAlignment(Qt.AlignmentFlag.AlignRight)
         labelCopyright.setToolTip('Acesso a pagina oficial da ArtesGC!')
@@ -117,9 +117,9 @@ class PT:
             try:
                 config = ConfigParser()
                 if escolha_idioma.currentText() == 'Portugues':
-                    config['MAIN'] = {'lang':escolha_idioma.currentText()}
+                    config['MAIN'] = {'lang': escolha_idioma.currentText()}
                 elif escolha_idioma.currentText() == 'English':
-                    config['MAIN'] = {'lang':escolha_idioma.currentText()}
+                    config['MAIN'] = {'lang': escolha_idioma.currentText()}
                 with open(f'{debugpath()}/imagc.ini', 'w') as INIFILE:
                     config.write(INIFILE)
                 QMessageBox.information(self.ferramentas, 'Sucessso', 'O idioma definido será carregado após o reinício do programa!')
@@ -149,8 +149,8 @@ class PT:
 
     def _instr(self):
         QMessageBox.information(
-            self.ferramentas, "ImaGC - Instruções",
-            """<h1>Olaa caro usuário!</h1><hr>
+                self.ferramentas, "ImaGC - Instruções",
+                """<h1>Olaa caro usuário!</h1><hr>
 
 É com muito prazer e orgulho que apresento te o ImaGC<br>
 Um programa simples e cheio de funcionalidades Das quais a sua principal função é de personalizar imagens!
@@ -174,8 +174,8 @@ Muito Obrigado pelo apoio!<br>
 
     def _sobre(self):
         QMessageBox.information(
-            self.ferramentas, "ImaGC - Sobre",
-            """<ul>
+                self.ferramentas, "ImaGC - Sobre",
+                """<ul>
 <li>Nome: <b>ImaGC</b></li>
 <li>Versão: <b>0.8-112021</b></li>
 <li>Programador & Designer: <b>Nurul-GC</b></li>
@@ -211,7 +211,7 @@ Muito Obrigado pelo apoio!<br>
         layout_registo.addWidget(registo)
         layout_janela_debug.addRow(layout_registo)
 
-        _fechar = lambda:janela_debug.close()
+        _fechar = lambda: janela_debug.close()
         botao_fechar = QPushButton("Fechar")
         botao_fechar.setDefault(True)
         botao_fechar.clicked.connect(_fechar)
@@ -224,15 +224,15 @@ Muito Obrigado pelo apoio!<br>
     def adicionar_logo(self):
         def procurar_imagem():
             nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(
-                self.ferramentas, caption="Selecione a Imagem",
-                filter="Image Files (*.png *.jpg *.jpeg)"
+                    self.ferramentas, caption="Selecione a Imagem",
+                    filter="Image Files (*.png *.jpg *.jpeg)"
             )
             nomeImagemAL.setText(nomeFicheiro)
 
         def procurar_logo():
             nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(
-                self.ferramentas, caption="Selecione o Logotipo",
-                filter="Image Files (*.png *.jpg *.jpeg)"
+                    self.ferramentas, caption="Selecione o Logotipo",
+                    filter="Image Files (*.png *.jpg *.jpeg)"
             )
             nomeLogo.setText(nomeFicheiro)
 
@@ -241,8 +241,10 @@ Muito Obrigado pelo apoio!<br>
                 try:
                     inicio = time()
                     QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
-                    dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas,
-                                                                 caption="Selecione onde salvar o arquivo")
+                    dirSalvar = QFileDialog.getExistingDirectory(
+                        self.ferramentas,
+                        caption="Selecione onde salvar o arquivo"
+                        )
                     ImagEditor(_dir_salvar=dirSalvar).add_logo(_nome_logotipo=nomeLogo.text(), _nome_imagem=nomeImagemAL.text())
                     QMessageBox.information(self.ferramentas, "Sucedido", f"Operação Concluida em {time() - inicio}s..")
                 except Exception as erro:
@@ -259,12 +261,12 @@ Muito Obrigado pelo apoio!<br>
                     dirImagem.setText(nomeDirectorio)
                     QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione onde salvar o arquivo..')
                     dirSalvar = QFileDialog.getExistingDirectory(
-                        self.ferramentas,
-                        caption="Selecione onde salvar o arquivo"
+                            self.ferramentas,
+                            caption="Selecione onde salvar o arquivo"
                     )
                     ImagEditor(_dir_salvar=dirSalvar).add_logo(
-                        _nome_logotipo=nomeLogo.text(),
-                        _dir_imagens=dirImagem.text()
+                            _nome_logotipo=nomeLogo.text(),
+                            _dir_imagens=dirImagem.text()
                     )
                     QMessageBox.information(self.ferramentas, "Sucedido", f"Operação Concluida em {time() - inicio}s..")
                 except Exception as erro:
@@ -276,8 +278,8 @@ Muito Obrigado pelo apoio!<br>
         def visualizar_logo():
             if nomeLogo.text() == "" or nomeLogo.text().isspace():
                 QMessageBox.warning(
-                    self.ferramentas, "Falha ao apresentar a imagem",
-                    "Por favor selecione a imagem antes de prosseguir.."
+                        self.ferramentas, "Falha ao apresentar a imagem",
+                        "Por favor selecione a imagem antes de prosseguir.."
                 )
             else:
                 janelaLogo = QDialog(self.ferramentas)
@@ -292,14 +294,14 @@ Muito Obrigado pelo apoio!<br>
                 layoutJanelaLogo.addWidget(labelLogo)
 
                 infoImage = QLabel(
-                    f"""<h3><i>Detalhes</i></h3>
+                        f"""<h3><i>Detalhes</i></h3>
 <b>Nome</b>: {nomeLogo.text().split('/')[-1]}<br>
-<b>Dimensões (original)</b>: {dimensao_imagem(_filename=nomeLogo.text())} px<br>
+<b>Dimensões (original)</b>: {dimensao_imagem(_filename=nomeLogo.text())}pxs<br>
 <b>Tamanho</b>: {tamanho_imagem(nomeLogo.text())}"""
                 )
                 layoutJanelaLogo.addWidget(infoImage)
 
-                _fechar = lambda:janelaLogo.close()
+                _fechar = lambda: janelaLogo.close()
                 botaoFechar = QPushButton("Fechar")
                 botaoFechar.setDefault(True)
                 botaoFechar.clicked.connect(_fechar)
@@ -311,8 +313,8 @@ Muito Obrigado pelo apoio!<br>
         def visualizar_imagem():
             if nomeImagemAL.text() == "" or nomeImagemAL.text().isspace():
                 QMessageBox.warning(
-                    self.ferramentas, "Falha ao apresentar a imagem",
-                    "Por favor selecione a imagem antes de prosseguir.."
+                        self.ferramentas, "Falha ao apresentar a imagem",
+                        "Por favor selecione a imagem antes de prosseguir.."
                 )
             else:
                 janelaImagem = QDialog(self.ferramentas)
@@ -328,14 +330,14 @@ Muito Obrigado pelo apoio!<br>
                 layoutJanelaImagem.addWidget(labelImagem)
 
                 infoImage = QLabel(
-                    f"""<h3><i>Detalhes</i></h3>
+                        f"""<h3><i>Detalhes</i></h3>
 <b>Nome</b>: {nomeImagemAL.text().split('/')[-1]}<br>
-<b>Dimensões (original)</b>: {dimensao_imagem(_filename=nomeImagemAL.text())} px<br>
+<b>Dimensões (original)</b>: {dimensao_imagem(_filename=nomeImagemAL.text())}pxs<br>
 <b>Tamanho</b>: {tamanho_imagem(nomeImagemAL.text())}"""
                 )
                 layoutJanelaImagem.addWidget(infoImage)
 
-                _fechar = lambda:janelaImagem.close()
+                _fechar = lambda: janelaImagem.close()
                 botaoFechar = QPushButton("Fechar")
                 botaoFechar.setDefault(True)
                 botaoFechar.clicked.connect(_fechar)
@@ -404,14 +406,14 @@ Muito Obrigado pelo apoio!<br>
         def procurar_imagens():
             nomeImagensCG.clear()
             self.nomeFicheiros, filtroFicheiros = QFileDialog.getOpenFileNames(
-                self.ferramentas,
-                caption="Selecione a Imagem",
-                filter="Image Files (*.png *.jpg *.jpeg)"
+                    self.ferramentas,
+                    caption="Selecione a Imagem",
+                    filter="Image Files (*.png *.jpg *.jpeg)"
             )
             if len(self.nomeFicheiros) < 2:
                 QMessageBox.critical(
-                    self.ferramentas, "Erro",
-                    "Selecione as imagens antes de continuar e tente novamente.."
+                        self.ferramentas, "Erro",
+                        "Selecione as imagens antes de continuar e tente novamente.."
                 )
             else:
                 nomeImagensCG.addItems(self.nomeFicheiros)
@@ -422,22 +424,21 @@ Muito Obrigado pelo apoio!<br>
             imagem = QPixmap(nomeImagensCG.currentItem().text())
             imagem_label.setPixmap(imagem.scaled(QSize(150, 150)))
             imagem_label.setToolTip(
-                "Está não é a dimensão original da imagem "
-                "apenas foi adaptada para uma pré-visualização!"
+                    "Está não é a dimensão original da imagem "
+                    "apenas foi adaptada para uma pré-visualização!"
             )
             imagem_detail.setText(
-                f"""
+                    f"""
 <b>Nome</b>: {nomeImagensCG.currentItem().text().split('/')[-1]}<br>
 <b>Tamanho</b>: {tamanhoImagensCG}<br>
-<b>Dimensões (original)</b>: {dimensaoImagensCG}
-"""
+<b>Dimensões (original)</b>: {dimensaoImagensCG}pxs"""
             )
 
         def converter():
             if self.nomeFicheiros is None:
                 QMessageBox.critical(
-                    self.ferramentas, "Erro",
-                    "Selecione as imagens antes de continuar e tente novamente.."
+                        self.ferramentas, "Erro",
+                        "Selecione as imagens antes de continuar e tente novamente.."
                 )
                 procurar_imagens()
             else:
@@ -445,9 +446,9 @@ Muito Obrigado pelo apoio!<br>
                     inicio = time()
                     QMessageBox.warning(self.ferramentas, 'Aviso', 'Selecione aonde salvar e o nome do arquivo..')
                     dirSalvar = QFileDialog.getSaveFileName(
-                        self.ferramentas,
-                        filter='GIF (*.gif)', initialFilter='GIF (*.gif)',
-                        caption='Selecione aonde salvar e o nome do arquivo..'
+                            self.ferramentas,
+                            filter='GIF (*.gif)', initialFilter='GIF (*.gif)',
+                            caption='Selecione aonde salvar e o nome do arquivo..'
                     )[0]
                     ImagEditor(_dir_salvar=dirSalvar).convertendo_gif(_images=self.nomeFicheiros)
                     QMessageBox.information(self.ferramentas, "Sucedido", f"Operação Concluida em {time() - inicio}s..")
@@ -469,7 +470,7 @@ Muito Obrigado pelo apoio!<br>
         imagem_label.setStyleSheet('background-color: white; padding: 2px;')
         imagem_layout.addWidget(imagem_label)
         imagem_detail = QLabel(
-            """
+                """
 <b>Nome</b>: None<br>
 <b>Tamanho</b>: None<br>
 <b>Dimensões (original)</b>: None"""
@@ -499,8 +500,8 @@ Muito Obrigado pelo apoio!<br>
     def converter_ico(self):
         def procurar_imagem():
             nomeFicheiro, filtroFicheiros = QFileDialog.getOpenFileName(
-                self.ferramentas, caption="Selecione a Imagem",
-                filter="Image Files (*.png *.jpg *.jpeg)"
+                    self.ferramentas, caption="Selecione a Imagem",
+                    filter="Image Files (*.png *.jpg *.jpeg)"
             )
             nomeImagemCI.setText(nomeFicheiro)
             previsualizar_img()
@@ -511,11 +512,11 @@ Muito Obrigado pelo apoio!<br>
             imagem = QPixmap(nomeImagemCI.text())
             imagem_label.setPixmap(imagem.scaled(QSize(150, 150)))
             imagem_label.setToolTip(
-                "Esta não é a dimensão original da imagem "
-                "apenas foi adaptada para previsualização!"
+                    "Esta não é a dimensão original da imagem "
+                    "apenas foi adaptada para previsualização!"
             )
             imagem_detail.setText(
-                f"""
+                    f"""
 <b>Nome</b>: {nomeImagemCI.text().split('/')[-1]}<br>
 <b>Tamanho</b>: {tamanhoImagensCI}<br>
 <b>Dimensões (original)</b>: {dimensaoImagensCI}pxs"""
@@ -524,18 +525,22 @@ Muito Obrigado pelo apoio!<br>
         def converter():
             if nomeImagemCI.text() == "" or nomeImagemCI.text().isspace():
                 QMessageBox.critical(
-                    self.ferramentas, "Erro",
-                    "Selecione a imagem antes de continuar e tente novamente.."
+                        self.ferramentas, "Erro",
+                        "Selecione a imagem antes de continuar e tente novamente.."
                 )
                 procurar_imagem()
             else:
                 try:
                     inicio = time()
                     QMessageBox.information(self.ferramentas, 'Aviso', 'Selecione aonde salvar o arquivo..')
-                    dirSalvar = QFileDialog.getExistingDirectory(self.ferramentas,
-                                                                 caption="Selecione aonde salvar o arquivo")
-                    ImagEditor(_dir_salvar=dirSalvar).convertendo_icone(_size=int(tamanhos.currentText()),
-                                                                        _nome_imagem=nomeImagemCI.text())
+                    dirSalvar = QFileDialog.getExistingDirectory(
+                        self.ferramentas,
+                        caption="Selecione aonde salvar o arquivo"
+                        )
+                    ImagEditor(_dir_salvar=dirSalvar).convertendo_icone(
+                        _size=int(tamanhos.currentText()),
+                        _nome_imagem=nomeImagemCI.text()
+                        )
                     QMessageBox.information(self.ferramentas, "Sucedido", f"Operação Concluida em {time() - inicio}s..")
                 except Exception as erro:
                     QMessageBox.critical(self.ferramentas, "Erro", f"Durante o processamento do pedido ocorreu o seguinte erro:\n-{erro}")
@@ -555,7 +560,7 @@ Muito Obrigado pelo apoio!<br>
         imagem_label.setStyleSheet("background-color: white; padding: 2px;")
         imagem_layout.addWidget(imagem_label)
         imagem_detail = QLabel(
-            """
+                """
 <b>Nome</b>: None<br>
 <b>Tamanho</b>: None<br>
 <b>Dimensões (original)</b>: None"""
@@ -590,14 +595,14 @@ Muito Obrigado pelo apoio!<br>
         def procurar_imagens():
             nomeImagensCP.clear()
             self.nomeFicheiros, filtroFicheiros = QFileDialog.getOpenFileNames(
-                self.ferramentas,
-                caption="Selecione a Imagem",
-                filter="Image Files (*.png *.jpg *.jpeg)"
+                    self.ferramentas,
+                    caption="Selecione a Imagem",
+                    filter="Image Files (*.png *.jpg *.jpeg)"
             )
             if len(self.nomeFicheiros) < 1:
                 QMessageBox.critical(
-                    self.ferramentas, "Erro",
-                    "Selecione 'as imagens' antes de continuar e tente novamente.."
+                        self.ferramentas, "Erro",
+                        "Selecione 'as imagens' antes de continuar e tente novamente.."
                 )
             else:
                 nomeImagensCP.addItems(self.nomeFicheiros)
@@ -608,21 +613,21 @@ Muito Obrigado pelo apoio!<br>
             imagem = QPixmap(nomeImagensCP.currentItem().text())
             imagemLabel.setPixmap(imagem.scaled(QSize(150, 150)))
             imagemLabel.setToolTip(
-                "Esta não é a dimensão original da imagem "
-                "apenas foi adaptada para uma previsualização!"
+                    "Esta não é a dimensão original da imagem "
+                    "apenas foi adaptada para uma previsualização!"
             )
             imagemDetail.setText(
-                f"""
+                    f"""
 <b>Nome</b>: {nomeImagensCP.currentItem().text().split('/')[-1]}<br>
 <b>Tamanho</b>: {tamanhoImagensCP}<br>
-<b>Dimensões (original)</b>: {dimensaoImagensCP}"""
+<b>Dimensões (original)</b>: {dimensaoImagensCP}pxs"""
             )
 
         def converter():
             if self.nomeFicheiros is None:
                 QMessageBox.critical(
-                    self.ferramentas, "Erro",
-                    "Selecione as imagens antes de continuar e tente novamente.."
+                        self.ferramentas, "Erro",
+                        "Selecione as imagens antes de continuar e tente novamente.."
                 )
                 procurar_imagens()
             else:
@@ -630,9 +635,9 @@ Muito Obrigado pelo apoio!<br>
                     inicio = time()
                     QMessageBox.warning(self.ferramentas, 'Aviso', 'Selecione aonde salvar e o nome do arquivo..')
                     dirSalvar = QFileDialog.getSaveFileName(
-                        self.ferramentas,
-                        filter='PDF (*.pdf)', initialFilter='PDF (*.pdf)',
-                        caption="Selecione aonde salvar e o nome do arquivo.."
+                            self.ferramentas,
+                            filter='PDF (*.pdf)', initialFilter='PDF (*.pdf)',
+                            caption="Selecione aonde salvar e o nome do arquivo.."
                     )[0]
                     ImagEditor(_dir_salvar=dirSalvar).convertendo_pdf(_images=self.nomeFicheiros)
                     QMessageBox.information(self.ferramentas, "Sucedido", f"Operação Concluida em {time() - inicio}s..")
@@ -654,7 +659,7 @@ Muito Obrigado pelo apoio!<br>
         imagemLabel.setStyleSheet('background-color: white; padding: 2px;')
         imagemLayout.addWidget(imagemLabel)
         imagemDetail = QLabel(
-            """
+                """
 <b>Nome</b>: None<br>
 <b>Tamanho</b>: None<br>
 <b>Dimensões (original)</b>: None"""
