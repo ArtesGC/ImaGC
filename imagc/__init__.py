@@ -45,35 +45,41 @@ class ImaGC:
         QFontDatabase.addApplicationFont("./ima-fonts/lifesavers.ttf")
 
         img = QPixmap("./ima-icons/favicon-512x512.png").scaled(QSize(500, 500))
-        self.align = int(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignAbsolute)
+        self.align = int(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignAbsolute)
         self.janela = QSplashScreen(img)
         self.janela.setStyleSheet(theme)
         self.janela.show()
         self.iniciar()
 
     def iniciar(self):
-        inifile = ConfigParser()
-        load = ''
-        while len(load) < 100:
-            self.janela.showMessage(f"{load}", self.align, Qt.GlobalColor.black)
-            sleep(0.5)
-            load += '|'*randint(5, 10)
+        load = 0
         if os.path.exists(f'{debugpath()}/imagc.ini'):
-            inifile.read(f'{debugpath()}/imagc.ini')
             if inifile['MAIN']['lang'] == 'English':
-                app = EN()
+                while load < 100:
+                    self.janela.showMessage(f"Loading Modules: {load}%", self.align, Qt.GlobalColor.black)
+                    sleep(0.5)
+                    load += randint(5, 10)
                 self.janela.close()
+                app = EN()
                 app.ferramentas.show()
             elif inifile['MAIN']['lang'] == 'Portugues':
-                app = PT()
+                while load < 100:
+                    self.janela.showMessage(f"Carregando Modulos: {load}%", self.align, Qt.GlobalColor.black)
+                    sleep(0.5)
+                    load += randint(5, 10)
                 self.janela.close()
+                app = PT()
                 app.ferramentas.show()
             else:
                 self.lang()
                 self.janela.close()
         else:
-            app = EN()
+            while load < 100:
+                self.janela.showMessage(f"Loading Modules: {load}%", self.align, Qt.GlobalColor.black)
+                sleep(0.5)
+                load += randint(5, 10)
             self.janela.close()
+            app = EN()
             app.ferramentas.show()
 
     def lang(self):
@@ -81,27 +87,33 @@ class ImaGC:
             try:
                 config = ConfigParser()
                 if escolha_idioma.currentText() == 'Portugues':
-                    config['MAIN'] = {'lang':escolha_idioma.currentText()}
+                    config['MAIN'] = {'lang': escolha_idioma.currentText()}
                 elif escolha_idioma.currentText() == 'English':
-                    config['MAIN'] = {'lang':escolha_idioma.currentText()}
+                    config['MAIN'] = {'lang': escolha_idioma.currentText()}
                 with open(f'{debugpath()}/imagc.ini', 'w') as INIFILE:
                     config.write(INIFILE)
-                QMessageBox.information(self.janela, 'Sucessso', '- The language set will be loaded after restart the program!\n'
-                                                                 '- O idioma definido será carregado após o reinício do programa!')
+                QMessageBox.information(
+                    self.janela, "Bem Sucedido - Successful", """- The language set will be loaded after restart the program!
+- O idioma definido será carregado após o reinício do programa!"""
+                )
                 janela.close()
                 exit(0)
             except Exception as erro:
-                QMessageBox.warning(self.janela, 'Aviso', f'[!] - While processing your request the following error was found!\n'
-                                                          f'[!] - Enquanto processava o seu pedido, o seguinte erro foi encontrado!\n\n'
-                                                          f'- {erro}')
+                QMessageBox.warning(
+                    self.janela, "Aviso - Warning", f"""- While processing your request the following error was found!
+- Enquanto processava o seu pedido, o seguinte erro foi encontrado!\n
+- {erro}"""
+                )
 
         janela = QDialog(self.janela)
         janela.setWindowTitle('Error - Erro')
         janela.setFixedSize(QSize(500, 200))
         layout = QVBoxLayout()
 
-        labelInfo = QLabel('<h4>- Am sorry, the language set in your [imagc.ini] file is unsupported,<br>Set the right language!<br><br>'
-                           '- Lamento, o idioma definido no seu ficheiro [imagc.ini] não é suportado,<br>Selecione o idioma correto!<br></h4>')
+        labelInfo = QLabel(
+            '<h4>- Am sorry, the language set in your [imagc.ini] file is unsupported,<br>Set the right language!<br><br>'
+            '- Lamento, o idioma definido no seu ficheiro [imagc.ini] não é suportado,<br>Selecione o idioma correto!<br></h4>'
+        )
         layout.addWidget(labelInfo)
 
         idiomas = ['Portugues', 'English']
@@ -119,6 +131,8 @@ class ImaGC:
 
 if __name__ == '__main__':
     os.makedirs(debugpath(), exist_ok=True)
+    inifile = ConfigParser()
+    inifile.read(f'{debugpath()}/imagc.ini')
     theme = open("./ima-themes/imagc.qss").read().strip()
     gcApp = ImaGC()
     gcApp.gc.exec()
