@@ -1,10 +1,14 @@
 QWidget, QDialog, QFrame{
     font-family: "Life Savers";
     font-weight: bold;
-    font-size: 13;
+    font-size: 10;
 }
 QMessageBox{
     background-color: "orange";
+    color: #3a3a3a;
+}
+QSplashScreen{
+    color: #3a3a3a;
 }
 QLineEdit{
     border-width: 1px;
@@ -12,7 +16,7 @@ QLineEdit{
     border-color: black;
     border-radius: 3px;
     padding: 3px;
-    color: black;
+    color: #3a3a3a;
     background-color: "orange";
 }
 QTextEdit{
@@ -22,7 +26,7 @@ QTextEdit{
     font-size: 8pt;
     border-radius: 3px;
     padding: 3px;
-    color: black;
+    color: #3a3a3a;
     background-color: "orange";
 }
 QListWidget{
@@ -30,7 +34,7 @@ QListWidget{
     border-style: solid;
     border-color: black;
     border-radius: 3px;
-    color: black;
+    color: #3a3a3a;
     background-color: "orange";
 }
 QPushButton{
@@ -40,20 +44,21 @@ QPushButton{
     border-radius: 5px;
     padding: 5px;
     background-color: white;
+    color: black;
 }
 QPushButton:hover{
     border-width: 1px;
     border-style: solid;
     border-color: black;
     background-color: "orange";
-    color: black;
+    color: #3a3a3a;
 }
 QComboBox{
     border-width: 1px;
     border-style: solid;
     border-color: black;
     border-radius: 3px;
-    color: black;
+    color: #3a3a3a;
     width: "auto";
     text-align: center;
     background-color: "orange";
