@@ -3,13 +3,6 @@ QWidget, QDialog, QFrame{
     font-weight: bold;
     font-size: 10;
 }
-QMessageBox{
-    background-color: "orange";
-    color: #3a3a3a;
-}
-QSplashScreen{
-    color: #3a3a3a;
-}
 QLineEdit{
     border-width: 1px;
     border-style: solid;
