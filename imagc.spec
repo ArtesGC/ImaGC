@@ -30,4 +30,8 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=False, icon="./imagc/ima-icons/favicon-256x256.ico")
+          console=False,
+          icon="./imagc/ima-icons/favicon-256x256.ico",
+          disable_windowed_traceback=False,
+          target_arch=['x86_64-linux-gnu', 'Win-x86_64'],
+          codesign_identity='Nurul-GC',)
