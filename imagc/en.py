@@ -247,7 +247,7 @@ Thank you very much for your support!<br>
                         _nome_logotipo=nomeLogo.text(),
                         _nome_imagem=nomeImagemAL.text()
                     )
-                    QMessageBox.information(self.ferramentas, "Successful", f"Operation Concluded in {time() - inicio}s..")
+                    QMessageBox.information(self.ferramentas, "Successful", f"Operation Concluded in {int(time() - inicio)}s..")
                 except Exception as erro:
                     QMessageBox.critical(self.ferramentas, "Error", f"While processing the request the following error occured:\n-{erro}")
             else:
@@ -266,7 +266,7 @@ Thank you very much for your support!<br>
                         _nome_logotipo=nomeLogo.text(),
                         _dir_imagens=dirImagem.text()
                     )
-                    QMessageBox.information(self.ferramentas, "Successful", f"Operation Concluded in {time() - inicio}s..")
+                    QMessageBox.information(self.ferramentas, "Successful", f"Operation Concluded in {int(time() - inicio)}s..")
                 except Exception as erro:
                     QMessageBox.critical(self.ferramentas, "Error", f"While processing the request the following error occured:\n-{erro}")
             else:
@@ -443,7 +443,7 @@ Thank you very much for your support!<br>
                         caption='Select where to save and the name of the file..'
                     )[0]
                     ImagEditor(_dir_salvar=dirSalvar).convertendo_gif(_images=self.nomeFicheiros)
-                    QMessageBox.information(self.ferramentas, "Successful", f"Operation Concluded in {time() - inicio:.2}s..")
+                    QMessageBox.information(self.ferramentas, "Successful", f"Operation Concluded in {int(time() - inicio)}s..")
                 except Exception as erro:
                     QMessageBox.critical(self.ferramentas, "Error", f"While processing the request the following error occured:\n-{erro}")
 
@@ -530,7 +530,7 @@ Thank you very much for your support!<br>
                         _size=int(tamanhos.currentText()),
                         _nome_imagem=nomeImagemCI.text()
                     )
-                    QMessageBox.information(self.ferramentas, "Successful", f"Operation Concluded in {time() - inicio}s..")
+                    QMessageBox.information(self.ferramentas, "Successful", f"Operation Concluded in {int(time() - inicio)}s..")
                 except Exception as erro:
                     QMessageBox.critical(self.ferramentas, "Error", f"While processing the request the following error occured:\n-{erro}")
 
@@ -625,7 +625,7 @@ Thank you very much for your support!<br>
                         caption='Select where to save and the name of the file..'
                     )[0]
                     ImagEditor(_dir_salvar=dirSalvar).convertendo_pdf(_images=self.nomeFicheiros)
-                    QMessageBox.information(self.ferramentas, "Successful", f"Operation Concluded in {time() - inicio}s..")
+                    QMessageBox.information(self.ferramentas, "Successful", f"Operation Concluded in {int(time() - inicio)}s..")
                 except Exception as erro:
                     QMessageBox.critical(self.ferramentas, "Error", f"While processing the request the following error occured:\n-{erro}")
 
