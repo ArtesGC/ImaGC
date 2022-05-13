@@ -44,7 +44,7 @@ class ImaGC:
         # application font
         QFontDatabase.addApplicationFont("./ima-fonts/lifesavers.ttf")
 
-        img = QPixmap("./ima-icons/favicon-512x512.png").scaled(QSize(500, 500))
+        img = QPixmap("./ima-icons/favicon-512x512.png")
         self.align = int(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignAbsolute)
         self.janela = QSplashScreen(img)
         self.janela.setStyleSheet(theme)
