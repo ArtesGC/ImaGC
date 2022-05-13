@@ -94,7 +94,7 @@ class ImagEditor:
                         logging.debug(f"Adding logo to the '{filename}'... SUCCESSFULL!")
                 except Exception as erro:
                     logging.critical(f"- {erro}..")
-                    continue
+                    raise Exception(erro)
         elif _nome_imagem and _nome_logotipo:
             SQUARE_FIT_SIZE = 100
             LOGO_FILENAME = _nome_logotipo
@@ -125,17 +125,15 @@ class ImagEditor:
         :param _images: lista de imagens
         :return: nova imagem (.gif),
          salva no directorio selecionado pelo utilizador"""
-        dados_imagem = []
         if self.dir_salvar.endswith('.gif'):
             try:
-                for image in _images:
-                    imgData = imageio.imread(image)
-                    dados_imagem.append(imgData)
+                imgData = imageio.mimread(_images)
 
-                imageio.mimsave(self.dir_salvar, dados_imagem, duration=1.0)
-                logging.debug(f"Creating the file '{self.dir_salvar}'.. SUCCESSFULL!")
+                imageio.mimsave(self.dir_salvar, imgData, duration=1.0)
+                logging.debug(f"Created the file '{self.dir_salvar}'.. SUCCESSFULLY!")
             except Exception as erro:
                 logging.critical(f"- {erro}..")
+                raise Exception(erro)
         else:
             raise NameError('Invalid Name for file, should end with ".gif"...')
 
@@ -154,27 +152,27 @@ class ImagEditor:
                 for sz in size[0]:
                     nome = f"{self.dir_salvar}/imagc-{sz}x{sz}.ico"
                 img_to_icon.save(nome, sizes=size)
-                logging.debug(f"Creating the icon '{nome}'.. SUCCESSFULL!")
+                logging.debug(f"Created the icon '{nome}'.. SUCCESSFULLY!")
             elif _size == 32:
                 size = SIZES[1]
-                for sz in size[1]:
+                for sz in size[0]:
                     nome = f"{self.dir_salvar}/imagc-{sz}x{sz}.ico"
                 img_to_icon.save(nome, sizes=size)
-                logging.debug(f"Creating the icon '{nome}'.. SUCCESSFULL!")
+                logging.debug(f"Created the icon '{nome}'.. SUCCESSFULLY!")
             elif _size == 64:
                 size = SIZES[2]
-                for sz in size[2]:
+                for sz in size[0]:
                     nome = f"{self.dir_salvar}/imagc-{sz}x{sz}.ico"
                 img_to_icon.save(nome, sizes=size)
-                logging.debug(f"Creating the icon '{nome}'.. SUCCESSFULL!")
+                logging.debug(f"Created the icon '{nome}'.. SUCCESSFULLY!")
             elif _size == 256:
                 size = SIZES[3]
-                for sz in size[3]:
+                for sz in size[0]:
                     nome = f"{self.dir_salvar}/imagc-{sz}x{sz}.ico"
                 img_to_icon.save(nome, sizes=size)
-                logging.debug(f"Creating the icon '{nome}'.. SUCCESSFULL!")
+                logging.debug(f"Created the icon '{nome}'.. SUCCESSFULLY!")
             else:
-                pass
+                raise IndexError("Invalid size for the file, should had be set one of these [16, 32, 64, 256]!")
         except Exception as erro:
             logging.critical(f"- {erro}..")
             raise Exception(erro)
@@ -198,11 +196,11 @@ class ImagEditor:
                     else:
                         self.pdf.add_page('L')
                         self.pdf.image(image, x=0, y=0, w=int(1122 / 3.75), h=int(793 / 3.75))
-
                 self.pdf.output(self.dir_salvar, 'F')
-                logging.debug(f"Creating the file '{self.dir_salvar}'.. SUCCESSFULL!")
+                logging.debug(f"Created the file '{self.dir_salvar}'.. SUCCESSFULLY!")
             except Exception as erro:
                 logging.critical(f"{erro}..")
+                raise Exception(erro)
         else:
             raise NameError('Invalid Name for file, should end with ".pdf"...')
 
