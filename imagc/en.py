@@ -178,7 +178,7 @@ Thank you very much for your support!<br>
             """<h2>Information about the Program</h2><hr>
 <ul>
 <li>Name: <b>ImaGC</b></li>
-<li>Version: <b>0.9-042022</b></li>
+<li>Version: <b>1.0-052022</b></li>
 <li>Programmer & Designer: <b>Nurul-GC</b></li>
 <li>Company: <b>&trade;ArtesGC Inc.</b></li>
 </ul>"""
