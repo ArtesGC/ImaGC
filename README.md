@@ -3,10 +3,6 @@
 ![imagc-icon](imagc/ima-icons/favicon-192x192.png) \
 [![Download ImaGC](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/imagc/files/latest/download) \
 ![Download ImaGC](https://img.shields.io/sourceforge/dt/imagc.svg)
-
----
-
-# ImaGC
   
 </div>
 
