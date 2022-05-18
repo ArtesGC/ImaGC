@@ -9,16 +9,15 @@
  - MODULO RESPONSAVEL PELA EDIÇÃO DAS IMAGENS
 """
 
+from datetime import date
 import logging
 import os
-import shutil
-from datetime import date
 from subprocess import getoutput
 from typing import List
 
+from fpdf import FPDF
 import imageio
 import PIL
-from fpdf import FPDF
 
 
 def dimensao_imagem(_filename: str) -> tuple:
@@ -124,11 +123,10 @@ class ImagEditor:
 
         :param _images: lista de imagens
         :return: nova imagem (.gif),
-         salva no directorio selecionado pelo utilizador"""
+        salva no directorio selecionado pelo utilizador"""
         if self.dir_salvar.endswith('.gif'):
             try:
                 imgData = imageio.mimread(_images)
-
                 imageio.mimsave(self.dir_salvar, imgData, duration=1.0)
                 logging.debug(f"Created the file '{self.dir_salvar}'.. SUCCESSFULLY!")
             except Exception as erro:
@@ -182,7 +180,7 @@ class ImagEditor:
 
         :param _images: lista de imagens
         :return: novo documento (.pdf) contendo a imagem(ns) selecionada(s),
-         salva no directorio selecionado pelo utilizador"""
+        salva no directorio selecionado pelo utilizador"""
         if self.dir_salvar.endswith('.pdf'):
             try:
                 for image in _images:
