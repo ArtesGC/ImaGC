@@ -439,8 +439,7 @@ Thank you very much for your support!<br>
                     QMessageBox.warning(self.ferramentas, 'Warning', 'Select where to save and the name of the file..')
                     dirSalvar = QFileDialog.getSaveFileName(
                         self.ferramentas,
-                        filter='GIF (*.gif)', initialFilter='GIF (*.gif)',
-                        caption='Select where to save and the name of the file..'
+                        filter='GIF (*.gif)', caption='Select where to save and the name of the file..'
                     )[0]
                     ImagEditor(_dir_salvar=dirSalvar).convertendo_gif(_images=self.nomeFicheiros)
                     QMessageBox.information(self.ferramentas, "Successful", f"Operation Concluded in {int(time() - inicio)}s..")
@@ -499,20 +498,23 @@ Thank you very much for your support!<br>
             previsualizar_img()
 
         def previsualizar_img():
-            dimensaoImagensCI = dimensao_imagem(nomeImagemCI.text())
-            tamanhoImagensCI = tamanho_imagem(nomeImagemCI.text())
-            imagem = QPixmap(nomeImagemCI.text())
-            imagem_label.setPixmap(imagem.scaled(QSize(150, 150)))
-            imagem_label.setToolTip(
-                "This is not the original dimension of the image "
-                "has just been adapted for a preview!"
-            )
-            imagem_detail.setText(
-                f"""
-<b>Name</b>: {nomeImagemCI.text().split('/')[-1]}<br>
-<b>Size</b>: {tamanhoImagensCI}<br>
-<b>Scale (originals)</b>: {dimensaoImagensCI}pxs"""
-            )
+            if nomeImagemCI.text() == "" or nomeImagemCI.text().isspace():
+                QMessageBox.critical(self.ferramentas, "Error", "Select the image before to proceed and try again..")
+            else:
+                dimensaoImagensCI = dimensao_imagem(nomeImagemCI.text())
+                tamanhoImagensCI = tamanho_imagem(nomeImagemCI.text())
+                imagem = QPixmap(nomeImagemCI.text())
+                imagem_label.setPixmap(imagem.scaled(QSize(150, 150)))
+                imagem_label.setToolTip(
+                    "This is not the original dimension of the image "
+                    "has just been adapted for a preview!"
+                )
+                imagem_detail.setText(
+                    f"""
+    <b>Name</b>: {nomeImagemCI.text().split('/')[-1]}<br>
+    <b>Size</b>: {tamanhoImagensCI}<br>
+    <b>Scale (originals)</b>: {dimensaoImagensCI}pxs"""
+                )
 
         def converter():
             if nomeImagemCI.text() == "" or nomeImagemCI.text().isspace():
