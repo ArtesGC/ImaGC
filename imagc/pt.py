@@ -459,17 +459,17 @@ Muito Obrigado pelo apoio!<br>
         layout.addRow(intro_label)
         layout.addRow(QLabel("<hr>"))
 
-        imagem_layout = QHBoxLayout()
+        """ imagem_layout = QHBoxLayout()
         imagem_label = QLabel("Procure a imagem\npara puder\nprevisualiza-la..")
         imagem_label.setFixedSize(QSize(150, 150))
         imagem_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         imagem_label.setStyleSheet('background-color: white; padding: 2px;')
         imagem_layout.addWidget(imagem_label)
         imagem_detail = QLabel(
-            """
-<b>Nome</b>: None<br>
-<b>Tamanho</b>: None<br>
-<b>Dimensões (originais)</b>: None"""
+            '''
+        <b>Nome</b>: None<br>
+        <b>Tamanho</b>: None<br>
+        <b>Dimensões (originais)</b>: None'''
         )
         imagem_layout.addWidget(imagem_detail)
         layout.addRow(imagem_layout)
@@ -489,7 +489,18 @@ Muito Obrigado pelo apoio!<br>
         converter_btn = QPushButton("Converter Imagens")
         converter_btn.clicked.connect(converter)
         layout_btns.addWidget(converter_btn)
-        layout.addRow(layout_btns)
+        layout.addRow(layout_btns)"""
+
+        outofservicelbl = QLabel()
+        outofservicelbl.setPixmap(QPixmap("./ima-icons/outofservice-612x612.jpg").scaled(400, 400))
+        outofservicelbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addRow(outofservicelbl)
+        layout.addRow(
+            QLabel(
+                "<small>Perdão, encontramos um erro no nosso código fonte e estamos fazendo os possíveis para o resolver.<br>"
+                "- Caso queira contribuir e ajudar no desenvolvimento, acesse <a href='#'>https://github.com/ArtesGC/ImaGC</a>!</small>"
+            )
+        )
 
         self.janela2.setLayout(layout)
 
