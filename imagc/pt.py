@@ -436,10 +436,7 @@ Muito Obrigado pelo apoio!<br>
 
         def converter():
             if self.nomeFicheiros is None:
-                QMessageBox.critical(
-                    self.ferramentas, "Erro",
-                    "Selecione as imagens antes de continuar e tente novamente.."
-                )
+                QMessageBox.critical(self.ferramentas, "Erro", "Selecione as imagens antes de continuar e tente novamente..")
                 procurar_imagens()
             else:
                 try:
@@ -447,8 +444,7 @@ Muito Obrigado pelo apoio!<br>
                     QMessageBox.warning(self.ferramentas, 'Aviso', 'Selecione aonde salvar e o nome do arquivo..')
                     dirSalvar = QFileDialog.getSaveFileName(
                         self.ferramentas,
-                        filter='GIF (*.gif)', initialFilter='GIF (*.gif)',
-                        caption='Selecione aonde salvar e o nome do arquivo..'
+                        filter='GIF (*.gif)', caption='Selecione aonde salvar e o nome do arquivo..'
                     )[0]
                     ImagEditor(_dir_salvar=dirSalvar).convertendo_gif(_images=self.nomeFicheiros)
                     QMessageBox.information(self.ferramentas, "Sucedido", f"Operação Concluida em {int(time() - inicio)}s..")
@@ -507,20 +503,23 @@ Muito Obrigado pelo apoio!<br>
             previsualizar_img()
 
         def previsualizar_img():
-            dimensaoImagensCI = dimensao_imagem(nomeImagemCI.text())
-            tamanhoImagensCI = tamanho_imagem(nomeImagemCI.text())
-            imagem = QPixmap(nomeImagemCI.text())
-            imagem_label.setPixmap(imagem.scaled(QSize(150, 150)))
-            imagem_label.setToolTip(
-                "Esta não é a dimensão original da imagem "
-                "apenas foi adaptada para previsualização!"
-            )
-            imagem_detail.setText(
-                f"""
-<b>Nome</b>: {nomeImagemCI.text().split('/')[-1]}<br>
-<b>Tamanho</b>: {tamanhoImagensCI}<br>
-<b>Dimensões (originais)</b>: {dimensaoImagensCI}pxs"""
-            )
+            if nomeImagemCI.text() == "" or nomeImagemCI.text().isspace():
+                QMessageBox.critical(self.ferramentas, "Erro", "Selecione a imagem antes de continuar e tente novamente..")
+            else:
+                dimensaoImagensCI = dimensao_imagem(nomeImagemCI.text())
+                tamanhoImagensCI = tamanho_imagem(nomeImagemCI.text())
+                imagem = QPixmap(nomeImagemCI.text())
+                imagem_label.setPixmap(imagem.scaled(QSize(150, 150)))
+                imagem_label.setToolTip(
+                    "Esta não é a dimensão original da imagem "
+                    "apenas foi adaptada para previsualização!"
+                )
+                imagem_detail.setText(
+                    f"""
+    <b>Nome</b>: {nomeImagemCI.text().split('/')[-1]}<br>
+    <b>Tamanho</b>: {tamanhoImagensCI}<br>
+    <b>Dimensões (originais)</b>: {dimensaoImagensCI}pxs"""
+                )
 
         def converter():
             if nomeImagemCI.text() == "" or nomeImagemCI.text().isspace():
