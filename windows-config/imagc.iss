@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "imagc"
-#define MyAppVersion "0.8"
+#define MyAppVersion "1.0"
 #define MyAppPublisher "ArtesGC, Inc."
 #define MyAppURL "https://artesgc.github.io/ImaGC"
 #define MyAppExeName "imagc.exe"
@@ -19,7 +19,7 @@ AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 VersionInfoCompany={#MyAppPublisher}
-VersionInfoCopyright="(c) 2021 Nurul Carvalho"
+VersionInfoCopyright="(c) 2020-2022 Nurul Carvalho"
 VersionInfoDescription="An easy way to add logos to your images or convert to ico"
 VersionInfoOriginalFileName={#MyAppName}
 VersionInfoProductName={#MyAppName}
@@ -36,7 +36,7 @@ DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 ; PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=..\dist
-OutputBaseFilename={#MyAppName}_{#MyAppVersion}-112021_amd64
+OutputBaseFilename={#MyAppName}_{#MyAppVersion}-052022_amd64
 SetupIconFile=..\imagc\ima-icons\favicon-256x256.ico
 Compression=lzma
 SolidCompression=yes
